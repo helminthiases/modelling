@@ -4,7 +4,7 @@
 # Created on: 23/07/2022
 
 
-StudyData <- function (ISO2) {
+StudyData <- function(ISO2) {
 
   path <- file.path(getwd(), 'data', paste0(ISO2, '.csv'))
 
@@ -17,15 +17,14 @@ StudyData <- function (ISO2) {
               'p_density', 'elevation')
 
   colClasses <- c('identifier' = 'integer', 'iso2' = 'character', 'year' = 'integer',
-                     'hk_examined' = 'integer', 'hk_positive' = 'integer', 'asc_examined' = 'integer', 'asc_positive' = 'integer',
-                     'tt_examined' = 'integer', 'tt_positive' = 'integer')
+                  'hk_examined' = 'integer', 'hk_positive' = 'integer', 'asc_examined' = 'integer', 'asc_positive' = 'integer',
+                  'tt_examined' = 'integer', 'tt_positive' = 'integer')
 
-  frame <- data.table::fread(file = path,  header = TRUE, select = select, colClasses = colClasses,
+  frame <- data.table::fread(file = path, header = TRUE, select = select, colClasses = colClasses,
                              data.table = FALSE)
   str(frame)
 
   tidyr::pivot_longer()
-
 
 
 }
