@@ -27,7 +27,7 @@ StudyData <- function(ISO2) {
                              data.table = FALSE)
   str(frame)
 
-  
+
 
 
 }
