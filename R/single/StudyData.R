@@ -13,9 +13,9 @@ StudyData <- function(ISO2, infection) {
 
 
   # The infection of interest
-  abbreviations <- list('ascariasis' = c('asc_examined', 'asc_positive', 'asc_prevalence'),
-                        'hookworm' = c('hk_examined', 'hk_positive', 'hk_prevalence'),
-                        'trichuriasis' = c('tt_examined', 'tt_positive', 'tt_prevalence'))
+  abbreviations <- list('asc' = c('asc_examined', 'asc_positive', 'asc_prevalence'),
+                        'hk' = c('hk_examined', 'hk_positive', 'hk_prevalence'),
+                        'tt' = c('tt_examined', 'tt_positive', 'tt_prevalence'))
   measures <- abbreviations[infection]
 
 
@@ -33,7 +33,15 @@ StudyData <- function(ISO2, infection) {
                              data.table = FALSE)
 
 
-  # NaN
+  # removing the infection based prefixes from the names of the measurements fields
+  frame <- dplyr::rename_with(frame, ~ gsub(pattern = paste0(infection, '_'), replacement = '', .x),
+                              starts_with(paste0(infection, '_')))
+  dim(frame)
+
+
+  # if prevalence exists, then examinations > 0
+  frame <- frame[!is.nan(frame$prevalence), ]
+  dim(frame)
 
 
   # Hence
