@@ -23,5 +23,15 @@ frame %>%
   dplyr::group_by(year) %>%
   summarise(N = n())
 
+
+# exploration graphs
+years <- unlist(splits, use.names = FALSE)
+excerpt <- frame %>%
+  dplyr::filter(year %in% years)
+
+
+
+
+
 # Splitting
 T <- DataSplitTemporal(data = frame, splits = splits)
