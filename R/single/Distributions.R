@@ -5,7 +5,11 @@
 
 
 
-Densities <- function (excerpt) {
+#' Prevalence Distributions
+#'
+#' @param excerpt: The modelling data set w.r.t. the years of interest
+#'
+Distributions <- function (excerpt) {
 
   ggplot(data = excerpt, mapping = aes(x = prevalence)) +
     facet_wrap(~ year) +
