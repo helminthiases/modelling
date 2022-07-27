@@ -64,7 +64,8 @@ SewerGraphs <- function (excerpt) {
   instances$year <- as.factor(instances$year)
 
   ggplot(data = instances, mapping = aes(x = access_percentage, y = prevalence, colour = year)) +
-    geom_point(alpha = 0.35) +
+    geom_point(alpha = 0.25, na.rm = TRUE) +
+    scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~sewage) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
