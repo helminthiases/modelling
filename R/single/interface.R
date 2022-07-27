@@ -7,6 +7,7 @@
 # functions
 source(file = 'R/single/StudyData.R')
 source(file = 'R/single/DataSplitTemporal.R')
+source(file = 'R/single/InitialDiagnostics.R')
 
 
 # a data set
@@ -14,23 +15,6 @@ ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 splits <- list(training = 2009, testing = 2015)
-
-
-# This expression counts the # of records per year; TG → 1985: 1,
-# 2009: 1090, 2015: 1077
-frame %>%
-  dplyr::select(year) %>%
-  dplyr::group_by(year) %>%
-  summarise(N = n())
-
-
-# exploration graphs
-years <- unlist(splits, use.names = FALSE)
-excerpt <- frame %>%
-  dplyr::filter(year %in% years)
-
-
-
 
 
 # Splitting
