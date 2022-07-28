@@ -27,7 +27,14 @@ T <- DataSplitTemporal(data = instances, splits = splits)
 training <- T$training
 testing <- T$testing
 
-InitialDiagnostics(data = training)
 
+# Diagnostics
+problem <- training %>%
+  st_drop_geometry() %>%
+  dplyr::select(identifier) %>%
+  dplyr::group_by(identifier) %>%
+  summarise(N = n()) %>%
+  dplyr::filter(N > 1)
+problem$identifier
 
-
+InitialDiagnostics(data = training[!(training$identifier %in% problem$identifier), ])
