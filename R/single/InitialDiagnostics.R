@@ -4,9 +4,11 @@
 # Created on: 27/07/2022
 
 
+
 #' Initial Diagnostics: Inspecting Spatial Correlation
 #'
 #' @param data: a training data set
+#' @param terms: the fixed effects
 #'
 InitialDiagnostics <- function (data, terms) {
 
@@ -20,15 +22,13 @@ InitialDiagnostics <- function (data, terms) {
 
   data <- base::merge(x = data, y = indices, by = 'identifier', all.x = TRUE, sort = FALSE)
 
+
   # Hence
   if (length(unique(data$code)) == dim(data)[1]) {
     ID.coords <- NULL
   } else {
     ID.coords <- as.vector(data$code)
   }
-
-  # the independent varioables
-  # terms <- 'improved_sewer + unpiped_sewer + surface_sewer + piped_sewer + unimproved_sewer + log(p_density) + log(elevation)'
 
 
   # illustrating diagnostics
