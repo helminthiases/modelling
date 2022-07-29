@@ -58,7 +58,7 @@ SewerGraphs <- function (excerpt) {
   variables <- c('year', 'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer', 'prevalence')
 
   instances <- excerpt %>%
-    dplyr::select(variables) %>%
+    dplyr::select(dplyr::all_of(variables)) %>%
     gather(key = 'sewage', value = 'access_percentage', -c(year, prevalence))
 
   instances$year <- as.factor(instances$year)
