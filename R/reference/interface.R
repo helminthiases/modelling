@@ -5,7 +5,7 @@
 
 
 # functions
-source(file = 'R/single/StudyData.R')
+source(file = 'R/data/StudyData.R')
 source(file = 'R/reference/Time.R')
 source(file = 'R/reference/Graphs.R')
 source(file = 'R/reference/Distributions.R')
