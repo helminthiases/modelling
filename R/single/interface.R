@@ -30,7 +30,7 @@ testing <- T$testing
 
 
 # Diagnostics
-terms <- 'log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
+terms <- 'log(improved_sewer) + log(unimproved_sewer) + log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
 InitialDiagnostics(data = training, terms = terms)
 estimates <- InitialEstimates(data = training, terms = terms)
 
