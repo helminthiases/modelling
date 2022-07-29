@@ -29,4 +29,7 @@ testing <- T$testing
 
 
 # Diagnostics
-InitialDiagnostics(data = training[!(training$identifier %in% problem$identifier), ])
+terms <- 'improved_sewer + unpiped_sewer + surface_sewer + piped_sewer + unimproved_sewer + log(p_density) + log(elevation)'
+InitialDiagnostics(data = training, terms = terms)
+
+
