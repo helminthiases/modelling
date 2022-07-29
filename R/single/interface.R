@@ -8,8 +8,8 @@
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/DataSplitTemporal.R')
-source(file = 'R/single/InitialDiagnostics.R')
-source(file = 'R/single/InitialEstimates.R')
+source(file = 'R/diagnostics/InitialDiagnostics.R')
+source(file = 'R/diagnostics/InitialEstimates.R')
 
 
 # a data set
