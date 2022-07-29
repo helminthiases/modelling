@@ -8,8 +8,8 @@
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/DataSplitTemporal.R')
-source(file = 'R/diagnostics/InitialDiagnostics.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
+source(file = 'R/single/Prior.R')
 
 
 # a data set
@@ -29,29 +29,16 @@ training <- T$training
 testing <- T$testing
 
 
-# Diagnostics
-terms <- 'log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
-estimates <- InitialEstimates(data = training, terms = terms)
-
-
 # Aside
 expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(unpiped_sewer)', 'log(surface_sewer)',
-  'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
-
-for (i in seq_len(length.out = 3)) {
-
-  terms <- paste0(expr[i:length(expr)], collapse = ' + ')
-  estimates <- InitialEstimates(data = training, terms = terms)
-  E <- summary(estimates$model)
-
-  cat('\n', terms, '\n AIC: ', E$AICtab['AIC'], '\n')
-  E$coefficients
-  cat('\n\n')
-
-}
+          'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
+Prior(data = training, expr = expr, limit = 3)
 
 
+# Diagnostics
+terms <- 'log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
+initial <- InitialEstimates(data = training, terms = terms)
 
 
-
-
+# 1. Bayesian Model
+# BinomialLogisticBayes
