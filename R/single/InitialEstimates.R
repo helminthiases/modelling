@@ -45,9 +45,8 @@ InitialEstimates <- function (data, terms) {
   # GLMM
   model <- glmer(formula = as.formula(object = paste0('cbind(positive, examined - positive) ~ ', terms, ' + (1|identifier)')),
                  family = binomial(link = 'logit'),
-                 nAGQ = 18,
                  control = glmerControl(optimizer = c('nlminbwrap', 'nlminbwrap')),
-                 data = data)
+                 data = st_drop_geometry(data))
   estimates <- summary(object = model)
 
 
