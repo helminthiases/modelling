@@ -30,7 +30,28 @@ testing <- T$testing
 
 
 # Diagnostics
-terms <- 'log(improved_sewer) + log(unimproved_sewer) + log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
-InitialDiagnostics(data = training, terms = terms)
+terms <- 'log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
 estimates <- InitialEstimates(data = training, terms = terms)
+
+
+# Aside
+expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(unpiped_sewer)', 'log(surface_sewer)',
+  'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
+
+for (i in seq_len(length.out = 3)) {
+
+  terms <- paste0(expr[i:length(expr)], collapse = ' + ')
+  estimates <- InitialEstimates(data = training, terms = terms)
+  E <- summary(estimates$model)
+
+  cat('\n', terms, '\n AIC: ', E$AICtab['AIC'], '\n')
+  E$coefficients
+  cat('\n\n')
+
+}
+
+
+
+
+
 
