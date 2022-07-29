@@ -6,13 +6,11 @@ Predicting geohelminths infections prevalence
 
 ## Notes
 
-### Evidence of residual spatial correlation
+<br>
+
+### Evidence of residual spatial correlation?
 
 <img src="./warehouse/images/variogram.png" style="text-align: center; margin-left: 150px; height: 80%;">
-
-
-
-
 
 <br>
 <br>
