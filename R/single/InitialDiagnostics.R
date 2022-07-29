@@ -8,7 +8,7 @@
 #'
 #' @param data: a training data set
 #'
-InitialDiagnostics <- function (data) {
+InitialDiagnostics <- function (data, terms) {
 
 
   # Addressing spat.corr.diagnostic's peculiar identification code rules
@@ -20,9 +20,15 @@ InitialDiagnostics <- function (data) {
 
   data <- base::merge(x = data, y = indices, by = 'identifier', all.x = TRUE, sort = FALSE)
 
+  # Hence
+  if (length(unique(data$code)) == dim(data)[1]) {
+    ID.coords <- NULL
+  } else {
+    ID.coords <- as.vector(data$code)
+  }
 
   # the independent varioables
-  terms <- 'improved_sewer + unpiped_sewer + surface_sewer + piped_sewer + unimproved_sewer + log(p_density) + log(elevation)'
+  # terms <- 'improved_sewer + unpiped_sewer + surface_sewer + piped_sewer + unimproved_sewer + log(p_density) + log(elevation)'
 
 
   # illustrating diagnostics
@@ -34,6 +40,6 @@ InitialDiagnostics <- function (data) {
                        coords = ~I(x / 1000) + I(y / 1000),
                        likelihood = 'Binomial',
                        lse.variogram = TRUE,
-                       ID.coords = as.vector(data$code))
+                       ID.coords = ID.coords)
 
 }
