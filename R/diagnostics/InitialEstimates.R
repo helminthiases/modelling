@@ -32,6 +32,7 @@ InitialEstimates <- function (data, terms) {
 
 
   # Initial scale & variance parameter values
+  par(bty = 'n', fg = 'grey')
   parameters <- spat.corr.diagnostic(formula = as.formula(object = paste0('positive ~', terms)),
                                      units.m = ~examined,
                                      nAGQ = 18,
