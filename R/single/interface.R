@@ -9,6 +9,7 @@ source(file = 'R/single/StudyData.R')
 source(file = 'R/single/GeographicObject.R')
 source(file = 'R/single/DataSplitTemporal.R')
 source(file = 'R/single/InitialDiagnostics.R')
+source(file = 'R/single/InitialEstimates.R')
 
 
 # a data set
@@ -29,7 +30,7 @@ testing <- T$testing
 
 
 # Diagnostics
-terms <- 'improved_sewer + unpiped_sewer + surface_sewer + piped_sewer + unimproved_sewer + log(p_density) + log(elevation)'
+terms <- 'unpiped_sewer + surface_sewer + piped_sewer + log(p_density) + log(elevation)'
 InitialDiagnostics(data = training, terms = terms)
-
+estimates <- InitialEstimates(data = training, terms = terms)
 
