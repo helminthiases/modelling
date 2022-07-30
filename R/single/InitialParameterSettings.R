@@ -6,17 +6,17 @@
 
 #' Initial Parameter Settings
 #'
-#' @param excerpt: the reduced training data set
+#' @param data: a data set
 #' @param terms: the fixed effect terms
 #'
-InitialParameterSettings <- function (excerpt, terms) {
+InitialParameterSettings <- function (data, terms) {
 
   # Functions
   source(file = 'R/diagnostics/InitialEstimates.R')
 
 
   # Initial coefficient & variance/scale parameter values
-  initial <- InitialEstimates(data = excerpt, terms = terms)
+  initial <- InitialEstimates(data = data, terms = terms)
 
 
   # The control settings for the MCMC Algorithm
@@ -29,7 +29,7 @@ InitialParameterSettings <- function (excerpt, terms) {
     model <- binomial.logistic.MCML(formula = as.formula(paste0('positive ~ ', terms)),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
-                                    data = excerpt,
+                                    data = data,
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = 0.5,
