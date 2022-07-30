@@ -7,10 +7,16 @@
 
 #' Initial Diagnostics: Inspecting Spatial Correlation
 #'
-#' @param data: a training data set
-#' @param terms: the fixed effects
+#' @param data: A data set.
+#' @param terms: The fixed effects.
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
 #'
-InitialDiagnostics <- function (data, terms) {
+InitialDiagnostics <- function (data, terms, variables) {
+
+  data <- dplyr::rename(data, 'identifier' = variables$identifier,
+                'positives' = variables$positives, 'tests' = variables$tests)
 
 
   # Addressing spat.corr.diagnostic's peculiar identification code rules
@@ -33,8 +39,8 @@ InitialDiagnostics <- function (data, terms) {
 
   # illustrating diagnostics
   par(bty = 'n', fg = 'grey')
-  spat.corr.diagnostic(formula = as.formula(object = paste0('positive ~', terms)),
-                       units.m = ~examined,
+  spat.corr.diagnostic(formula = as.formula(object = paste0('positives ~ ', terms)),
+                       units.m = ~tests,
                        nAGQ = 18,
                        data = st_drop_geometry(data),
                        coords = ~I(x / 1000) + I(y / 1000),
