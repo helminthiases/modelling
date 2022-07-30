@@ -20,10 +20,11 @@ StudyData <- function(ISO2, infection) {
 
 
   # The fields of interest
-  select <- c('identifier', 'iso2', 'longitude', 'latitude', 'year',
-              'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
-              'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water',
-              'p_density', 'elevation', unlist(measures, use.names = FALSE))
+  core <- c('identifier', 'iso2', 'longitude', 'latitude', 'year',
+            'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
+            'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water',
+            'p_density', 'elevation')
+  select <- c(core, unlist(measures, use.names = FALSE))
   colClasses <- c('identifier' = 'integer', 'iso2' = 'character', 'year' = 'integer')
 
 
@@ -37,6 +38,13 @@ StudyData <- function(ISO2, infection) {
   frame <- dplyr::rename_with(frame, ~ gsub(pattern = paste0(infection, '_'), replacement = '', .x),
                               starts_with(paste0(infection, '_')))
   dim(frame)
+
+
+  # removing instances that have NaN core values
+  states <- frame %>%
+    dplyr::select(core) %>%
+    complete.cases()
+  frame <- frame[states, ]
 
 
   # if prevalence exists, then examinations > 0
