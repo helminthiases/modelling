@@ -33,7 +33,7 @@ rm(T)
 # Aside
 expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(unpiped_sewer)', 'log(surface_sewer)',
           'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
-Prior(data = training, expr = expr, limit = 3)
+InitialGLM(data = training, expr = expr, limit = 3)
 rm(expr)
 
 
