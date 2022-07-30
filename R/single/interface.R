@@ -8,8 +8,10 @@
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/DataSplitTemporal.R')
+source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/functions/InitialGLM.R')
+source(file = 'R/single/BinomialLogisticBayes.R')
 
 
 # a data set
@@ -30,17 +32,26 @@ testing <- T$testing
 rm(T)
 
 
-# Aside
-expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(unpiped_sewer)', 'log(surface_sewer)',
-          'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
-InitialGLM(data = training, expr = expr, limit = 3)
+# Reducing
+excerpt <- SpatialExcerpt(data = training, step = 4)
+
+
+# Plausible fixed effects terms
+expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(piped_sewer)', 'log(unpiped_sewer)',  'log(surface_sewer)',
+          'log(p_density)', 'log(elevation)')
+InitialGLM(data = excerpt, expr = expr, limit = 5)
+rm(expr)
+
+expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(surface_sewer)', 'log(piped_sewer)', 'log(unpiped_sewer)',
+          'log(p_density)', 'log(elevation)')
+InitialGLM(data = excerpt, expr = expr, limit = 5)
 rm(expr)
 
 
 # Diagnostics
-terms <- 'log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
-initial <- InitialEstimates(data = training, terms = terms)
+terms <- 'log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
+initial <- InitialEstimates(data = excerpt, terms = terms)
 
 
 # 1. Bayesian Model
-# BinomialLogisticBayes
+BinomialLogisticBayes(excerpt = excerpt, terms = terms)
