@@ -1,4 +1,4 @@
-# Title     : Prior.R
+# Title     : InitialGLM.R
 # Objective : Investigate probable explanatory variables via generalised
 #             mixed models
 # Created by: greyhypotheses
