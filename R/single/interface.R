@@ -27,12 +27,14 @@ splits <- list(training = 2009, testing = 2015)
 T <- DataSplitTemporal(data = instances, splits = splits)
 training <- T$training
 testing <- T$testing
+rm(T)
 
 
 # Aside
 expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(unpiped_sewer)', 'log(surface_sewer)',
           'log(piped_sewer)', 'log(p_density)', 'log(elevation)')
 Prior(data = training, expr = expr, limit = 3)
+rm(expr)
 
 
 # Diagnostics
