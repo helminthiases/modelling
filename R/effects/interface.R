@@ -34,13 +34,16 @@ rm(T)
 excerpt <- SpatialExcerpt(data = training, step = 4)
 
 
+# Key Variables
+variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
+
 
 # Plausible fixed effects
 expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(piped_sewer)', 'log(unpiped_sewer)',  'log(surface_sewer)',
           'log(p_density)', 'log(elevation)')
-InitialGLM(data = data, expr = expr, limit = 5)
+InitialGLM(data = data, expr = expr, variables = variables, limit = 5)
 
 
 expr <- c('log(improved_sewer)', 'log(unimproved_sewer)', 'log(surface_sewer)', 'log(piped_sewer)', 'log(unpiped_sewer)',
           'log(p_density)', 'log(elevation)')
-InitialGLM(data = data, expr = expr, limit = 5)
+InitialGLM(data = data, expr = expr, variables = variables, limit = 5)
