@@ -22,12 +22,12 @@ SpatialExcerpt <- function (data, step) {
 
   # preview
   map <- tmap::tm_shape(data) +
-    tm_layout(main.title = 'Distribution of Points', frame = FALSE) +
+    tm_layout(main.title = 'Distribution of\nPoints\n', frame = FALSE, main.title.size = 0.85, main.title.position = 'center') +
     tm_dots()
   print(map)
 
   map <- tmap::tm_shape(excerpt) +
-    tm_layout(main.title = 'Distribution of Excerpt', frame = FALSE) +
+    tm_layout(main.title = 'Distribution of\nExcerpt\n', frame = FALSE, main.title.size = 0.85, main.title.position = 'center') +
     tm_dots()
   print(map)
 
