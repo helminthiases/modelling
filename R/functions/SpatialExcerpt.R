@@ -49,6 +49,6 @@ SpatialExcerpt <- function (data, step) {
 
 
   # hence
-  return(list(excerpt = excerpt))
+  return(excerpt)
 
 }
