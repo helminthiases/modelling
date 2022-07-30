@@ -41,4 +41,4 @@ initial <- InitialEstimates(data = excerpt, terms = terms)
 
 
 # 1. Bayesian Model
-BinomialLogisticBayes(excerpt = excerpt, terms = terms)
+BinomialLogisticBayes(data = excerpt, terms = terms)
