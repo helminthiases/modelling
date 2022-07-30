@@ -9,7 +9,7 @@ source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/DataSplitTemporal.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/single/Prior.R')
+source(file = 'R/functions/Prior.R')
 
 
 # a data set
