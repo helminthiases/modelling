@@ -12,8 +12,8 @@ GeographicObject <- function (data) {
   # Convert the data frame to a geographic object whose CRS = 4326
   frame <- sf::st_as_sf(data, coords = c('longitude', 'latitude'), crs = 'EPSG:4326')
 
-  frame$longitude <- as.numeric(st_coordinates(frame)[, 1])
-  frame$latitude <- as.numeric(st_coordinates(frame)[, 2])
+  frame$longitude <- as.numeric(sf::st_coordinates(frame)[, 1])
+  frame$latitude <- as.numeric(sf::st_coordinates(frame)[, 2])
 
 
   # Transforming: from 4326 to 3857
