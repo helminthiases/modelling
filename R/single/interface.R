@@ -37,8 +37,9 @@ excerpt <- SpatialExcerpt(data = training, step = 4)
 
 # Diagnostics
 terms <- 'log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
-initial <- InitialEstimates(data = excerpt, terms = terms)
+variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
+initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 
 
 # 1. Bayesian Model
-BinomialLogisticBayes(data = excerpt, terms = terms)
+BinomialLogisticBayes(data = excerpt, terms = terms, variables = variables)
