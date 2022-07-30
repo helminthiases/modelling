@@ -12,7 +12,7 @@
 #' @param expr:
 #' @param limit:
 #'
-Prior <- function (data, expr, limit) {
+InitialGLM <- function (data, expr, limit) {
 
   source(file = 'R/diagnostics/InitialEstimates.R')
 
