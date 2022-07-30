@@ -37,12 +37,13 @@ InitialParameterSettings <- function (excerpt, terms) {
                                     method = 'nlminb')
     parameters <- coef(model)
   }
+  initial$settings <- parameters
 
 
   # Prior settings for the variance/scale parameters
   priors <- summary(model)$cov.pars
 
 
-  return(list(parameters = parameters, priors = priors))
+  return(list(initial = initial, priors = priors))
 
 }
