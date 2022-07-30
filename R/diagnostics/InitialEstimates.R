@@ -9,8 +9,14 @@
 #'
 #' @param data: a training data set
 #' @param terms: the fixed effects
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
 #'
-InitialEstimates <- function (data, terms) {
+InitialEstimates <- function (data, terms, variables) {
+
+  data <- dplyr::rename(data, 'identifier' = variables$identifier,
+                        'positives' = variables$positives, 'tests' = variables$tests)
 
 
   # Addressing spat.corr.diagnostic's peculiar identification code rules
@@ -33,8 +39,8 @@ InitialEstimates <- function (data, terms) {
 
   # Initial scale & variance parameter values
   par(bty = 'n', fg = 'grey')
-  parameters <- spat.corr.diagnostic(formula = as.formula(object = paste0('positive ~', terms)),
-                                     units.m = ~examined,
+  parameters <- spat.corr.diagnostic(formula = as.formula(object = paste0('positives ~', terms)),
+                                     units.m = ~tests,
                                      nAGQ = 18,
                                      data = st_drop_geometry(data),
                                      coords = ~I(x / 1000) + I(y / 1000),
@@ -44,7 +50,7 @@ InitialEstimates <- function (data, terms) {
 
 
   # GLMM
-  model <- glmer(formula = as.formula(object = paste0('cbind(positive, examined - positive) ~ ', terms, ' + (1|identifier)')),
+  model <- glmer(formula = as.formula(object = paste0('cbind(positives, tests - positives) ~ ', terms, ' + (1|identifier)')),
                  family = binomial(link = 'logit'),
                  control = glmerControl(optimizer = c('nlminbwrap', 'nlminbwrap')),
                  data = st_drop_geometry(data))
