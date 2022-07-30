@@ -22,8 +22,8 @@ Prior <- function (data, expr, limit) {
     estimates <- InitialEstimates(data = data, terms = terms)
     E <- summary(estimates$model)
 
-    cat('\n', terms, '\n AIC: ', E$AICtab['AIC'], '\n')
-    print(E$coefficients)
+    cat('\n\n')
+    print(E)
     cat('\n\n')
 
   }
