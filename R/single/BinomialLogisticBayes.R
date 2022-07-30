@@ -31,7 +31,7 @@ BinomialLogisticBayes <- function (excerpt, terms) {
   control.prior.settings <- control.prior(beta.mean = coefficients,
                                           beta.covar = diag(base::rep(x = 1, times = length(coefficients))),
                                           log.normal.sigma2 = as.vector(priors['log(sigma^2)', ]),
-                                          log.normal.phi = as.vector(priors['phi', ]),
+                                          log.normal.phi = as.vector(priors['log(phi)', ]),
                                           log.normal.nugget = as.vector(priors['log(tau^2)', ]))
 
 
@@ -48,12 +48,14 @@ BinomialLogisticBayes <- function (excerpt, terms) {
 
   # Modelling
   model <- binomial.logistic.Bayes(
-    formula = positive ~ log(unpiped_sewer) + log(surface_sewer) + log(piped_sewer) + log(p_density) + log(elevation),
+    formula = as.formula(paste0('positive ~ ', terms)),
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = excerpt,
     control.prior = control.prior.settings,
     control.mcmc = control.mcmc.settings,
     kappa = 0.5)
+
+  return(list(model = model, initial = initial))
 
 }
