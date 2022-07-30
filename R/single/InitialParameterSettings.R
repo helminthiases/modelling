@@ -6,17 +6,21 @@
 
 #' Initial Parameter Settings
 #'
-#' @param data: a data set
-#' @param terms: the fixed effect terms
+#' @param data: A data set
+#' @param terms: The fixed effect terms
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
 #'
-InitialParameterSettings <- function (data, terms) {
+InitialParameterSettings <- function (data, terms, variables) {
+
 
   # Functions
   source(file = 'R/diagnostics/InitialEstimates.R')
 
 
   # Initial coefficient & variance/scale parameter values
-  initial <- InitialEstimates(data = data, terms = terms)
+  initial <- InitialEstimates(data = data, terms = terms, variables = variables)
 
 
   # The control settings for the MCMC Algorithm
