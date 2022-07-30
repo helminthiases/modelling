@@ -8,15 +8,18 @@
 #' Geostatistical Binomial Logistic Model via Bayesian Estimation
 #'
 #' @param data: A data set
-#' @param terms: The fixed effect terms
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
 #'
-BinomialLogisticBayes <- function (data, terms, variables) {
+BinomialLogisticBayes <- function (data, variables) {
 
 
   source(file = 'R/single/InitialParameterSettings.R')
+
+
+  # Fixed effect terms
+  terms <- 'log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
 
 
   # Initial parameters, and priors, settings
@@ -55,8 +58,10 @@ BinomialLogisticBayes <- function (data, terms, variables) {
 
 
   # Modelling
+  # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
+  # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = as.formula(paste0('positive ~ ', terms)),
+    formula = positive ~ log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation),
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,
