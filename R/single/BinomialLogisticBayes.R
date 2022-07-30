@@ -5,14 +5,14 @@
 
 
 
-BinomialLogisticBayes <- function (excerpt, terms) {
+BinomialLogisticBayes <- function (data, terms) {
 
 
   source(file = 'R/single/InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings
-  T <- InitialParameterSettings(excerpt = excerpt, terms = terms)
+  T <- InitialParameterSettings(data = data, terms = terms)
   initial <- T$initial
   priors <- T$priors
 
@@ -51,7 +51,7 @@ BinomialLogisticBayes <- function (excerpt, terms) {
     formula = as.formula(paste0('positive ~ ', terms)),
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
-    data = excerpt,
+    data = data,
     control.prior = control.prior.settings,
     control.mcmc = control.mcmc.settings,
     kappa = 0.5)
