@@ -11,6 +11,7 @@ source(file = 'R/functions/DataSplitTemporal.R')
 source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/single/BinomialLogisticBayes.R')
+source(file = 'R/single/BinomialLogisticBayesEVL.R')
 
 
 # a data set
@@ -42,4 +43,11 @@ initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables
 
 
 # 1. Bayesian Model
-BinomialLogisticBayes(data = excerpt, terms = terms, variables = variables)
+objects <- BinomialLogisticBayes(data = excerpt, variables = variables)
+model <- objects$model
+
+T <- BinomialLogisticBayesEVL(model = model, excerpt = excerpt, testing = testing)
+valuations <- T$valuations
+predictions <- T$predictions
+
+
