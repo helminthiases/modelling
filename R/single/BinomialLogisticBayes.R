@@ -45,7 +45,7 @@ BinomialLogisticBayes <- function (data, variables, terms) {
 
   # Control settings for the MCMC algorithm used for Bayesian inference
   # base::rep(x = 0, times = length(coefficients))
-  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 5000, burnin = 2000, thin = 4,
+  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 8000, burnin = 2000, thin = 8,
                                               epsilon.S.lim = c(0.01, 0.05), L.S.lim = c(4, 16),
                                               start.beta = coefficients,
                                               start.sigma2 = initial$settings['sigma^2'],
