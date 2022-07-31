@@ -4,21 +4,35 @@
 # Created on: 31/07/2022
 
 
+#' Binomial Logistic MCML
+#'
+#' @param data: A data set
+#' @param terms: The fixed effects terms.
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
+#'
 BinomialLogisticMCML <- function (data, terms, variables) {
 
+
   source(file = 'R/single/InitialParameterSettings.R')
+
 
   # Initial parameters, and priors, settings
   T <- InitialParameterSettings(data = data, terms = terms, variables = variables)
   initial <- T$initial
 
+
   # The control settings for the MCMC Algorithm
   settings <- control.mcmc.MCML(n.sim = 10000, burnin = 2000, thin = 8)
 
-  # Initial model
-  cat('\nmodelling ...\n')
+
+  # Model
+  # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
+  # step is upcoming, use an explicitly written formula.
+  cat('\nModelling ... \n')
   parameters <- initial$settings
-  for (i in seq(from = 1, to = 3)) {
+  for (i in seq(from = 1, to = 5)) {
     model <- binomial.logistic.MCML(formula = positive ~ log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation),
                                     units.m = ~examinations,
                                     coords = ~I(x / 1000) + I(y / 1000),
@@ -29,6 +43,8 @@ BinomialLogisticMCML <- function (data, terms, variables) {
                                     start.cov.pars = c(parameters['phi'], parameters['tau^2']),
                                     method = 'nlminb')
     parameters <- coef(model)
+    cat(paste0('\n\nStep ', {{i}}))
+    cat(parameters)
   }
 
   return(list(model = model, initial = initial))
