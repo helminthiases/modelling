@@ -33,7 +33,7 @@ rm(T)
 
 
 # Reducing
-excerpt <- SpatialExcerpt(data = training, step = 4)
+excerpt <- SpatialExcerpt(data = training, step = 3)
 
 
 # Core variables
