@@ -1,5 +1,5 @@
 # Title     : EvaluationMetricsBLB.R
-# Objective : Evaluate Binomial Logistic Bayes
+# Objective : Evaluation Metrics Binomial Logistic Bayes
 # Created by: greyhypotheses
 # Created on: 30/07/2022
 
