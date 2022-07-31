@@ -12,6 +12,7 @@ source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/single/BinomialLogisticBayes.R')
 source(file = 'R/single/BinomialLogisticBayesEVL.R')
+source(file = 'R/single/BinomialLogisticMCML.R')
 source(file = 'R/functions/StandardisedResidual.R')
 source(file = 'R/functions/EmpiricalVariogram.R')
 
