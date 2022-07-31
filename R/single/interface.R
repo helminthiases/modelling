@@ -36,13 +36,16 @@ rm(T)
 excerpt <- SpatialExcerpt(data = training, step = 4)
 
 
+# Core variables
+variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
+
+
 # Diagnostics
 terms <- 'log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
-variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 
 
-# 1. Bayesian Model
+# A Model
 objects <- BinomialLogisticBayes(data = excerpt, variables = variables)
 model <- objects$model
 
@@ -50,4 +53,14 @@ T <- BinomialLogisticBayesEVL(model = model, excerpt = excerpt, testing = testin
 valuations <- T$valuations
 predictions <- T$predictions
 
+trainees <- data.frame(prevalence = excerpt$prevalence, prediction = valuations$prevalence$predictions)
+tests <- data.frame(prevalence = testing$prevalence, prediction = predictions$prevalence$predictions)
 
+ggplot(data = trainees, mapping = aes(x = prediction, y = prevalence)) +
+  geom_point(alpha = 0.35) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(), panel.grid.major = element_line(size = 0.05),
+        axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9),
+        axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
+  xlab(label = '\nprevalence: prediction\n') +
+  ylab(label = '\nprevalence: original\n')
