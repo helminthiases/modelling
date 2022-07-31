@@ -10,11 +10,8 @@ source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/DataSplitTemporal.R')
 source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/single/BinomialLogisticBayes.R')
-source(file = 'EvaluationMetricsBLB.R')
-source(file = 'R/single/BinomialLogisticMCML.R')
-source(file = 'R/functions/StandardisedResidual.R')
-source(file = 'R/functions/EmpiricalVariogram.R')
+source(file = 'R/single/StepsBLB.R')
+source(file = 'R/single/StepsBLM.R')
 
 
 # a data set
@@ -47,6 +44,10 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 terms <- 'log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 
+
+# Modelling
+bayes <- StepsBLB(data = excerpt, terms = terms, variables = variables)
+mcml <- StepsBLM(data = excerpt, terms = terms, variables = variables)
 
 
 
