@@ -4,6 +4,14 @@
 # Created on: 31/07/2022
 
 
+#' Standardised Residual
+#'
+#' @description Calculates the standardised residuals.
+#'
+#' @param design: A design matrix
+#' @param observed: The observed values of the dependent variable
+#' @param estimated: The estimated values of the dependent variable
+#'
 StandardisedResidual <- function (design, observed, estimated) {
 
   # differences/errors
