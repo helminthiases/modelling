@@ -10,7 +10,7 @@
 #' @param excerpt: The training data
 #' @param testing: The testing data
 #'
-BinomialLogisticBayesEVL <- function (model, excerpt, testing) {
+EvaluationMetricsBLB <- function (model, excerpt, testing) {
 
   # valuations w.r.t. excerpt points
   valuations <- spatial.pred.binomial.Bayes(
