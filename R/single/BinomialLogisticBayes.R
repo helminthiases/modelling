@@ -11,15 +11,12 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param terms: The fixed effects terms.
 #'
-BinomialLogisticBayes <- function (data, variables) {
+BinomialLogisticBayes <- function (data, variables, terms) {
 
 
   source(file = 'R/single/InitialParameterSettings.R')
-
-
-  # Fixed effect terms
-  terms <- 'log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation)'
 
 
   # Initial parameters, and priors, settings
@@ -48,7 +45,7 @@ BinomialLogisticBayes <- function (data, variables) {
 
   # Control settings for the MCMC algorithm used for Bayesian inference
   # base::rep(x = 0, times = length(coefficients))
-  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 8000, burnin = 2000, thin = 8,
+  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 5000, burnin = 2000, thin = 4,
                                               epsilon.S.lim = c(0.01, 0.05), L.S.lim = c(4, 16),
                                               start.beta = coefficients,
                                               start.sigma2 = initial$settings['sigma^2'],
@@ -61,7 +58,7 @@ BinomialLogisticBayes <- function (data, variables) {
   # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
   # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = positive ~ log(unpiped_sewer) + log(piped_sewer) + log(p_density) + log(elevation),
+    formula = positive ~ log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation),
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,
