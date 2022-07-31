@@ -8,12 +8,12 @@
 #' Geostatistical Binomial Logistic Model via Bayesian Estimation
 #'
 #' @param data: A data set
+#' @param terms: The fixed effects terms.
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
-#' @param terms: The fixed effects terms.
 #'
-BinomialLogisticBayes <- function (data, variables, terms) {
+BinomialLogisticBayes <- function (data, terms, variables) {
 
 
   source(file = 'R/single/InitialParameterSettings.R')
