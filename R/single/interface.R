@@ -48,6 +48,5 @@ terms <- 'log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 
 
-# Model: e
-source(file = 'R/single/steps.R')
+
 
