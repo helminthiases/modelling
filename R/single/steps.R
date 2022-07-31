@@ -11,7 +11,7 @@ cat(paste0('positive ~ ', {{terms}}))
 
 
 # Model
-objects <- BinomialLogisticBayes(data = excerpt, variables = variables, terms = terms)
+objects <- BinomialLogisticBayes(data = excerpt, terms = terms, variables = variables)
 model <- objects$model
 
 
@@ -58,7 +58,7 @@ tests <- data.frame(prevalence = testing$prevalence, prediction = predictions$pr
 
 diagonals <- rbind(cbind(trainees, segment = 'training'), cbind(tests, segment = 'testing'))
 
-ggplot(data = diagonals, mapping = aes(x = prediction, y = prevalence)) +
+map <- ggplot(data = diagonals, mapping = aes(x = prediction, y = prevalence)) +
   geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
   geom_point(alpha = 0.35) +
   facet_wrap(~segment) +
@@ -72,7 +72,7 @@ ggplot(data = diagonals, mapping = aes(x = prediction, y = prevalence)) +
   ylab(label = '\nprevalence: original\n') +
   xlim(0, 1) +
   ylim(0, 1)
-
+print(map)
 
 
 # Bias, Error, Noise
