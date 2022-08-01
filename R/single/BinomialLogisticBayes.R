@@ -58,7 +58,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
   # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
   # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = positive ~ log(unimproved_sewer) + log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation),
+    formula = positive ~ log(piped_sewer) + log(p_density) + log(elevation),
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,
