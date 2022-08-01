@@ -33,7 +33,7 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   cat('\n\nModelling ... \n')
   parameters <- initial$settings
   for (i in seq(from = 1, to = 5)) {
-    model <- binomial.logistic.MCML(formula = positive ~ log(unimproved_sewer) + log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation),
+    model <- binomial.logistic.MCML(formula = positive ~ log(piped_sewer) + log(p_density) + log(elevation),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
