@@ -30,17 +30,18 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   # Model
   # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
   # step is upcoming, use an explicitly written formula.
-  cat('\nModelling ... \n')
+  cat('\n\nModelling ... \n')
   parameters <- initial$settings
   for (i in seq(from = 1, to = 5)) {
-    model <- binomial.logistic.MCML(formula = positive ~ log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation),
+    model <- binomial.logistic.MCML(formula = positive ~ log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = 0.5,
-                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']),
+                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
+                                    fixed.rel.nugget = NULL,
                                     method = 'nlminb')
     parameters <- coef(model)
     cat(paste0('\n\nStep ', {{i}}))
