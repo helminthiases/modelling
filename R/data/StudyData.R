@@ -42,7 +42,7 @@ StudyData <- function(ISO2, infection) {
 
   # removing instances that have NaN core values
   states <- frame %>%
-    dplyr::select(core) %>%
+    dplyr::select(tidyselect::all_of(core)) %>%
     complete.cases()
   frame <- frame[states, ]
 
