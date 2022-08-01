@@ -41,13 +41,16 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'log(unpiped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
+terms <- 'log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
+initial$settings
 
 
 # Modelling
-bayes <- StepsBLB(data = excerpt, terms = terms, variables = variables)
 mcml <- StepsBLM(data = excerpt, terms = terms, variables = variables)
+bayes <- StepsBLB(data = excerpt, terms = terms, variables = variables)
 
 
-
+mcml$graph.spatial
+mcml$graph.diagonal
+summary(mcml$model)
