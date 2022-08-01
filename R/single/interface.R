@@ -7,6 +7,7 @@
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
+source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/functions/DataSplitTemporal.R')
 source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
@@ -24,16 +25,23 @@ frame <- StudyData(ISO2 = ISO2, infection = infection)
 instances <- GeographicObject(data = frame)
 
 
-# Splitting
-splits <- list(training = 2009, testing = 2015)
-T <- DataSplitTemporal(data = instances, splits = splits)
+# Spatial Splitting
+T <- SpatialSplitting(instances = instances, step = 5)
 training <- T$training
 testing <- T$testing
 rm(T)
 
 
+# Splitting
+# splits <- list(training = 2009, testing = 2015)
+# T <- DataSplitTemporal(data = instances, splits = splits)
+# training <- T$training
+# testing <- T$testing
+# rm(T)
+
+
 # Reducing
-excerpt <- SpatialExcerpt(data = training, step = 3)
+# excerpt <- SpatialExcerpt(data = training, step = 3)
 
 
 # Core variables
@@ -41,7 +49,8 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
+excerpt <- training
+terms <- 'log(unimproved_sewer) + log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 initial$settings
 
