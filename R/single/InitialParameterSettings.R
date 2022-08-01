@@ -24,7 +24,7 @@ InitialParameterSettings <- function (data, terms, variables) {
 
 
   # The control settings for the MCMC Algorithm
-  settings <- control.mcmc.MCML(n.sim = 1000, burnin = 100, thin = 2)
+  settings <- control.mcmc.MCML(n.sim = 10000, burnin = 2000, thin = 8)
 
 
   # Much more plausible initial parameter values
@@ -37,15 +37,18 @@ InitialParameterSettings <- function (data, terms, variables) {
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = 0.5,
-                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']),
+                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
+                                    fixed.rel.nugget = NULL,
                                     method = 'nlminb')
     parameters <- coef(model)
   }
   initial$settings <- parameters
+  print(initial$settings)
 
 
   # Prior settings for the variance/scale parameters
   priors <- summary(model)$cov.pars
+  print(priors)
 
 
   return(list(initial = initial, priors = priors))
