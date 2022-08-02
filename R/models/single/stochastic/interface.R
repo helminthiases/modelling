@@ -11,6 +11,7 @@ source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/stochastic/BinomialLogisticBayes.R')
+source(file = 'R/models/single/stochastic/MetricsBLB.R')
 
 
 # a data set
@@ -42,3 +43,9 @@ initial$settings
 
 # Modelling
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
+metrics <- MetricsBLB(model = bayes$model, training = training, testing = testing)
+
+
+
+
+
