@@ -43,12 +43,10 @@ InitialParameterSettings <- function (data, terms, variables) {
     parameters <- coef(model)
   }
   initial$settings <- parameters
-  print(initial$settings)
 
 
   # Prior settings for the variance/scale parameters
   priors <- summary(model)$cov.pars
-  print(priors)
 
 
   return(list(initial = initial, priors = priors))
