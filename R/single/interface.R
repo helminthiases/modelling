@@ -11,8 +11,8 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/functions/DataSplitTemporal.R')
 source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/single/StepsBLB.R')
-source(file = 'R/single/StepsBLM.R')
+source(file = 'R/models/single/nugget/StepsBLB.R')
+source(file = 'R/models/single/nugget/StepsBLM.R')
 
 
 # a data set
