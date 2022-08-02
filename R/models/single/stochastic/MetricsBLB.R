@@ -17,7 +17,7 @@ MetricsBLB <- function (model, training, testing) {
   source(file = 'R/functions/EmpiricalVariogram.R')
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
-  T <- EvaluationMetricsBLB(model = model, training = training, testing = testing)
+  T <- EvaluationMetricsBLB(model = model, training = training, testing = testing, type = 'marginal')
   valuations <- T$valuations
   predictions <- T$predictions
 
