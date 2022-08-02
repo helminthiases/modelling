@@ -1,11 +1,11 @@
-# Title     : Graphs.R
-# Objective : Graphs
+# Title     : EvaluationGraphs.R
+# Objective : Evaluation Graphs
 # Created by: greyhypotheses
 # Created on: 31/07/2022
 
 
 
-SpatialGraphs <- function (points, limit) {
+SpatialEvaluationGraphs <- function (points, limit) {
 
   # Graph
   map <- ggplot(data = points[points$distance < limit, ], mapping = aes(x = distance, y = estimate)) +
@@ -29,7 +29,7 @@ SpatialGraphs <- function (points, limit) {
 }
 
 
-DiagonalGraphs <- function (estimates) {
+DiagonalEvaluationGraphs <- function (estimates) {
 
   map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
     geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
