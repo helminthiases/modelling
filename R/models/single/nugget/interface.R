@@ -4,6 +4,7 @@
 # Created on: 26/07/2022
 
 
+
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
@@ -46,7 +47,7 @@ initial$settings
 
 # ... model, initial
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-mcml <- StepsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
+mcml <- MetricsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
 
 mcml$graph.spatial
 mcml$graph.diagonal
@@ -54,14 +55,8 @@ summary(mcml$model)
 
 # ... model, initial
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- StepsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
+bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
 
 bayes$graph.spatial
 bayes$graph.diagonal
 summary(bayes$model)
-
-
-
-
-
-
