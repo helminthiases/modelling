@@ -5,31 +5,20 @@
 
 
 
-#' Steps: Binomial Logistic MCML
+#' Metrics: Binomial Logistic MCML
 #'
+#' @param model: A model of class ...
 #' @param training: Training data
 #' @param testing: Testing data
-#' @param terms: Fixed effects terms
-#' @param variables: A list that identifies the names of the fields
-#'                      list(identifier = ..., tests = ..., positives = ...)
-#'                   in <data>.
+#' @param initial: Initial settings
 #'
-StepsBLM <- function (training, testing, terms, variables) {
+StepsBLM <- function (model, training, testing, initial) {
 
-  source(file = 'R/models/single/free/BinomialLogisticMCML.R')
+
   source(file = 'R/models/EvaluationMetrics.R')
   source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
   source(file = 'R/functions/EmpiricalVariogram.R')
-
-
-  # Architecture
-  cat(paste0('positive ~ ', {{terms}}))
-
-
-  # Model
-  objects <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-  model <- objects$model
 
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
@@ -60,6 +49,6 @@ StepsBLM <- function (training, testing, terms, variables) {
 
 
   return(list(model = model, valuations = valuations, predictions = predictions, residues = residues,
-              graph.spatial = spatial, graph.diagonal = diagonal ))
+              graph.spatial = spatial, graph.diagonal = diagonal, initial = initial))
 
 }
