@@ -43,7 +43,7 @@ initial$settings
 
 # Modelling
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-metrics <- MetricsBLB(model = bayes$model, training = training, testing = testing)
+bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
 
 
 
