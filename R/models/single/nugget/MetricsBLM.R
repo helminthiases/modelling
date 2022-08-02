@@ -5,7 +5,7 @@
 
 
 
-#' Steps: Binomial Logistic MCML
+#' Metrics: Binomial Logistic MCML
 #'
 #' @param model: A model of class ...
 #' @param training: Training data
