@@ -4,6 +4,7 @@
 # Created on: 02/08/2022
 
 
+
 #' Binomial Logistic MCML
 #'
 #' @param data: A data set
@@ -19,8 +20,8 @@ BinomialLogisticMCML <- function (data, terms, variables) {
 
 
   # Initial parameters, and priors, settings; nugget excluded
-  T <- InitialParameterSettings(data = data, terms = terms, variables = variables)
-  initial <- T$initial
+  initial <- InitialParameterSettings(data = data, terms = terms, variables = variables)
+  parameters <- initial$parameters
 
 
   # The control settings for the MCMC Algorithm
@@ -30,7 +31,6 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   # Model
   # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
   # step is upcoming, use an explicitly written formula.
-  parameters <- initial$settings
   for (i in seq(from = 1, to = 4)) {
     model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + log(p_density) + log(elevation),
                                     units.m = ~examined,
@@ -44,7 +44,7 @@ BinomialLogisticMCML <- function (data, terms, variables) {
                                     method = 'nlminb')
     parameters <- coef(model)
   }
-  initial$settings <- parameters
+
 
   return(list(model = model, initial = initial))
 
