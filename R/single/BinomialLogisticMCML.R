@@ -18,7 +18,7 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   source(file = 'R/single/InitialParameterSettings.R')
 
 
-  # Initial parameters, and priors, settings
+  # Initial parameters, and priors, settings; nugget excluded
   T <- InitialParameterSettings(data = data, terms = terms, variables = variables)
   initial <- T$initial
 
@@ -30,9 +30,10 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   # Model
   # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
   # step is upcoming, use an explicitly written formula.
-  cat('\n\nModelling ... \n')
+  cat('\n\nModelling.  Initial parameter settings:')
   parameters <- initial$settings
-  for (i in seq(from = 1, to = 5)) {
+  print(parameters)
+  for (i in seq(from = 1, to = 4)) {
     model <- binomial.logistic.MCML(formula = positive ~ log(piped_sewer) + log(p_density) + log(elevation),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
@@ -45,8 +46,9 @@ BinomialLogisticMCML <- function (data, terms, variables) {
                                     method = 'nlminb')
     parameters <- coef(model)
     cat(paste0('\n\nStep ', {{i}}))
-    cat(parameters)
+    print(parameters)
   }
+  initial$settings <- parameters
 
   return(list(model = model, initial = initial))
 
