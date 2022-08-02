@@ -4,6 +4,7 @@
 # Created on: 31/07/2022
 
 
+
 #' Binomial Logistic MCML
 #'
 #' @param data: A data set
@@ -34,7 +35,7 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   parameters <- initial$settings
   print(parameters)
   for (i in seq(from = 1, to = 4)) {
-    model <- binomial.logistic.MCML(formula = positive ~ log(piped_sewer) + log(p_density) + log(elevation),
+    model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + log(p_density) + log(elevation),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
