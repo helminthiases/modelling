@@ -11,8 +11,8 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
 source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
-source(file = 'R/models/single/nugget/StepsBLB.R')
-source(file = 'R/models/single/nugget/StepsBLM.R')
+source(file = 'R/models/single/nugget/MetricsBLB.R')
+source(file = 'R/models/single/nugget/MetricsBLM.R')
 
 
 # a data set
@@ -45,19 +45,23 @@ initial$settings
 # Modelling
 
 # ... model, initial
-bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- StepsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
-
-# ... model, initial
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
 mcml <- StepsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
-
-
 
 mcml$graph.spatial
 mcml$graph.diagonal
 summary(mcml$model)
 
+# ... model, initial
+bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
+bayes <- StepsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
+
 bayes$graph.spatial
 bayes$graph.diagonal
 summary(bayes$model)
+
+
+
+
+
+
