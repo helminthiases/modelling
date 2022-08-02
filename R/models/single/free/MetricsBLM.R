@@ -1,5 +1,5 @@
-# Title     : StepsBLM.R
-# Objective : Steps BLM
+# Title     : MetricsBLM.R
+# Objective : Metrics Binomial Logistic MCML
 # Created by: greyhypotheses
 # Created on: 02/08/2022
 
@@ -12,7 +12,7 @@
 #' @param testing: Testing data
 #' @param initial: Initial settings
 #'
-StepsBLM <- function (model, training, testing, initial) {
+MetricsBLM <- function (model, training, testing, initial) {
 
 
   source(file = 'R/models/EvaluationMetrics.R')
