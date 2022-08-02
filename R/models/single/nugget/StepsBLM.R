@@ -9,7 +9,7 @@ StepsBLM <- function (training, testing, terms, variables) {
 
   source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
   source(file = 'R/model/EvaluationMetrics.R')
-  source(file = 'R/model/Graphs.R')
+  source(file = 'R/model/EvaluationGraphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
   source(file = 'R/functions/EmpiricalVariogram.R')
 
@@ -40,7 +40,7 @@ StepsBLM <- function (training, testing, terms, variables) {
 
   # The empirical variogram measures & graph w.r.t. the standardised residual
   points <- EmpiricalVariogram(data = data.frame(residue = residues, x = training$x, y = training$y))
-  spatial <- SpatialGraphs(points = points, limit = 500)
+  spatial <- SpatialEvaluationGraphs(points = points, limit = 500)
 
 
 
@@ -49,7 +49,7 @@ StepsBLM <- function (training, testing, terms, variables) {
     data.frame(prevalence = training$prevalence, prediction = valuations$prevalence$predictions, segment = 'training'),
     data.frame(prevalence = testing$prevalence, prediction = predictions$prevalence$predictions, segment = 'testing')
   )
-  diagonal <- DiagonalGraphs(estimates = estimates)
+  diagonal <- DiagonalEvaluationGraphs(estimates = estimates)
 
 
 
