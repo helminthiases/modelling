@@ -7,7 +7,7 @@
 
 StepsBLM <- function (training, testing, terms, variables) {
 
-  source(file = 'R/single/BinomialLogisticMCML.R')
+  source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
   source(file = 'R/single/EvaluationMetricsBLM.R')
   source(file = 'R/single/Graphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
