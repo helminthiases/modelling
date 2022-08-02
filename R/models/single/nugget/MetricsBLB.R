@@ -1,5 +1,5 @@
-# Title     : StepsBLB.R
-# Objective : Steps BLB
+# Title     : MetricsBLB.R
+# Objective : Metrics BLB
 # Created by: greyhypotheses
 # Created on: 31/07/2022
 
@@ -12,7 +12,7 @@
 #' @param testing: Testing data
 #' @param initial: Initial settings
 #'
-StepsBLB <- function (model, training, testing, initial) {
+MetricsBLB <- function (model, training, testing, initial) {
 
 
   source(file = 'R/models/EvaluationMetrics.R')
