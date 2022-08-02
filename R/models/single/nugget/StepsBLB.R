@@ -8,7 +8,7 @@
 StepsBLB <- function (training, testing, terms, variables) {
 
   source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
-  source(file = 'R/model/EvaluationMetricsBLB.R')
+  source(file = 'R/model/EvaluationMetrics.R')
   source(file = 'R/model/Graphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
   source(file = 'R/functions/EmpiricalVariogram.R')
