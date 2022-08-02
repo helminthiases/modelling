@@ -9,10 +9,9 @@
 #'
 #' @param excerpt: The modelling data set w.r.t. the years of interest
 #'
-Distributions <- function (excerpt) {
+Distributions <- function (data) {
 
-  ggplot(data = excerpt, mapping = aes(x = prevalence)) +
-    facet_wrap(~ year) +
+  ggplot(data = data, mapping = aes(x = prevalence)) +
     geom_density() +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
