@@ -5,25 +5,32 @@
 
 
 
+#' Steps: Binomial Logistic Bayes
+#'
+#' @param training: Training data
+#' @param testing: Testing data
+#' @param terms: Fixed effects terms
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
+#'
 StepsBLB <- function (training, testing, terms, variables) {
 
+
   source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
-  source(file = 'R/model/EvaluationMetrics.R')
-  source(file = 'R/model/EvaluationGraphs.R')
+  source(file = 'R/models/EvaluationMetrics.R')
+  source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
   source(file = 'R/functions/EmpiricalVariogram.R')
-
 
 
   # Architecture
   cat(paste0('positive ~ ', {{terms}}))
 
 
-
   # Model
   objects <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
   model <- objects$model
-
 
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
@@ -32,16 +39,13 @@ StepsBLB <- function (training, testing, terms, variables) {
   predictions <- T$predictions
 
 
-
   # Is there still evidence of residual spatial correlation?
   # The standardised residuals of the differences/errors/residuals w.r.t. the training points
+  # Subsequently, the empirical variogram measures & graph w.r.t. the standardised residual
   residues <- StandardisedResidual(design = model$D, observed = training$prevalence,
                                    estimated = valuations$prevalence$predictions)
-
-  # The empirical variogram measures & graph w.r.t. the standardised residual
   points <- EmpiricalVariogram(data = data.frame(residue = residues, x = training$x, y = training$y))
   spatial <- SpatialEvaluationGraphs(points = points, limit = 500)
-
 
 
   # Illustrating Accuracy: Diagonals
@@ -52,10 +56,8 @@ StepsBLB <- function (training, testing, terms, variables) {
   diagonal <- DiagonalEvaluationGraphs(estimates = estimates)
 
 
-
   # Bias, Error, Noise
-  #
-
+  # Upcoming
 
 
   return(list(model = model, valuations = valuations, predictions = predictions, residues = residues,
