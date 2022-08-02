@@ -5,7 +5,7 @@
 
 
 
-#' Metrics: Binomial Logistic Bayes
+#' Metrics Binomial Logistic Bayes
 #'
 #' @param model: A model of class BayesPrevMap
 #' @param training: Training data
