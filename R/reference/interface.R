@@ -22,14 +22,10 @@ Time(data = frame)
 
 
 # graphs
-# w.r.t. TG, the years of interest are 2009 & 2015
-excerpt <- frame %>%
-  dplyr::filter(year %in% c(2009, 2015))
-
-Distributions(excerpt = excerpt)
-ElevationGraphs(excerpt = excerpt)
-DensityGraphs(excerpt = excerpt)
-SewerGraphs(excerpt = excerpt)
+Distributions(data = frame)
+ElevationGraphs(data = frame)
+DensityGraphs(data = frame)
+SewerGraphs(data = frame)
 
 
 
