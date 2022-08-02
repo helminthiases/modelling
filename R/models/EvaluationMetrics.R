@@ -10,15 +10,16 @@
 #' @param model: A PrevMap binomial.logistic.Bayes model
 #' @param training: The training data
 #' @param testing: The testing data
+#' @param type: Spatial prediction type -> joint or marginal
 #'
-EvaluationMetricsBLB <- function (model, training, testing) {
+EvaluationMetricsBLB <- function (model, training, testing, type) {
 
   # valuations w.r.t. training points
   valuations <- spatial.pred.binomial.Bayes(
     object = model,
     grid.pred = as.matrix(st_drop_geometry(training[, c('x', 'y')]) / 1000),
     predictors = st_drop_geometry(training),
-    type = 'marginal',
+    type = type,
     scale.predictions = 'prevalence',
     quantiles = c(0.025, 0.975), standard.errors = TRUE)
 
@@ -27,7 +28,7 @@ EvaluationMetricsBLB <- function (model, training, testing) {
     object = model,
     grid.pred = as.matrix(st_drop_geometry(testing[, c('x', 'y')]) / 1000),
     predictors = st_drop_geometry(testing),
-    type = 'marginal',
+    type = type,
     scale.predictions = 'prevalence',
     quantiles = c(0.025, 0.975), standard.errors = TRUE)
 
@@ -42,13 +43,14 @@ EvaluationMetricsBLB <- function (model, training, testing) {
 #' @param model: A PrevMap binomial.logistic.MCML model
 #' @param training: The training data
 #' @param testing: The testing data
+#' @param type: Spatial prediction type -> joint or marginal
 #'
-EvaluationMetricsBLM <- function (model, training, testing) {
+EvaluationMetricsBLM <- function (model, training, testing, type) {
 
   # valuations w.r.t. training points
   valuations <- spatial.pred.binomial.MCML(
     object = model,
-    type = 'joint',
+    type = type,
     grid.pred = as.matrix(st_drop_geometry(training[, c('x', 'y')]) / 1000),
     control.mcmc = control.mcmc.MCML(n.sim = 10000, burnin = 2000, thin = 8),
     predictors = st_drop_geometry(training),
@@ -58,7 +60,7 @@ EvaluationMetricsBLM <- function (model, training, testing) {
   # predictions
   predictions <- spatial.pred.binomial.MCML(
     object = model,
-    type = 'joint',
+    type = type,
     grid.pred = as.matrix(st_drop_geometry(testing[, c('x', 'y')]) / 1000),
     control.mcmc = control.mcmc.MCML(n.sim = 10000, burnin = 2000, thin = 8),
     predictors = st_drop_geometry(testing),
