@@ -5,7 +5,7 @@
 
 
 
-StepsBLM <- function (data, terms, variables) {
+StepsBLM <- function (training, testing, terms, variables) {
 
   source(file = 'R/single/BinomialLogisticMCML.R')
   source(file = 'R/single/EvaluationMetricsBLM.R')
@@ -21,13 +21,13 @@ StepsBLM <- function (data, terms, variables) {
 
 
   # Model
-  objects <- BinomialLogisticMCML(data = excerpt, terms = terms, variables = variables)
+  objects <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
   model <- objects$model
 
 
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
-  T <- EvaluationMetricsBLM(model = model, excerpt = excerpt, testing = testing)
+  T <- EvaluationMetricsBLM(model = model, training = training, testing = testing)
   valuations <- T$valuations
   predictions <- T$predictions
 
@@ -35,18 +35,18 @@ StepsBLM <- function (data, terms, variables) {
 
   # Is there still evidence of residual spatial correlation?
   # The standardised residuals of the differences/errors/residuals w.r.t. the training points
-  residues <- StandardisedResidual(design = model$D, observed = excerpt$prevalence,
+  residues <- StandardisedResidual(design = model$D, observed = training$prevalence,
                                    estimated = valuations$prevalence$predictions)
 
   # The empirical variogram measures & graph w.r.t. the standardised residual
-  points <- EmpiricalVariogram(data = data.frame(residue = residues, x = excerpt$x, y = excerpt$y))
+  points <- EmpiricalVariogram(data = data.frame(residue = residues, x = training$x, y = training$y))
   spatial <- SpatialGraphs(points = points, limit = 500)
 
 
 
   # Illustrating Accuracy: Diagonals
   estimates <- rbind(
-    data.frame(prevalence = excerpt$prevalence, prediction = valuations$prevalence$predictions, segment = 'training'),
+    data.frame(prevalence = training$prevalence, prediction = valuations$prevalence$predictions, segment = 'training'),
     data.frame(prevalence = testing$prevalence, prediction = predictions$prevalence$predictions, segment = 'testing')
   )
   diagonal <- DiagonalGraphs(estimates = estimates)
