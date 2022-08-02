@@ -20,10 +20,10 @@ BinomialLogisticBayes <- function (data, terms, variables) {
 
 
   # Initial parameters, and priors, settings
-  T <- InitialParameterSettings(data = data, terms = terms, variables = variables)
-  parameters <- T$parameters
-  priors <- T$priors
-  S <- apply(X = T$model$samples, MARGIN = 2, FUN = mean)
+  initial <- InitialParameterSettings(data = data, terms = terms, variables = variables)
+  parameters <- initial$parameters
+  priors <- initial$priors
+  S <- apply(X = initial$model$samples, MARGIN = 2, FUN = mean)
 
 
   # For PrevMap::control.prior: Initial coefficient estimates
@@ -67,6 +67,6 @@ BinomialLogisticBayes <- function (data, terms, variables) {
     control.mcmc = control.mcmc.settings,
     kappa = 0.5)
 
-  return(list(model = model, T = T))
+  return(list(model = model, initial = initial))
 
 }
