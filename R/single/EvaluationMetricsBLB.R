@@ -8,16 +8,16 @@
 #' Evaluating the Geostatistical Binomial Logistic Model
 #'
 #' @param model: A PrevMap binomial.logistic.Bayes model
-#' @param excerpt: The training data
+#' @param training: The training data
 #' @param testing: The testing data
 #'
-EvaluationMetricsBLB <- function (model, excerpt, testing) {
+EvaluationMetricsBLB <- function (model, training, testing) {
 
-  # valuations w.r.t. excerpt points
+  # valuations w.r.t. training points
   valuations <- spatial.pred.binomial.Bayes(
     object = model,
-    grid.pred = as.matrix(st_drop_geometry(excerpt[, c('x', 'y')]) / 1000),
-    predictors = st_drop_geometry(excerpt),
+    grid.pred = as.matrix(st_drop_geometry(training[, c('x', 'y')]) / 1000),
+    predictors = st_drop_geometry(training),
     type = 'marginal',
     scale.predictions = 'prevalence',
     quantiles = c(0.025, 0.975), standard.errors = TRUE)
