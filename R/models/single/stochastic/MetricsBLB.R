@@ -5,11 +5,14 @@
 
 
 
+#' Metrics: Binomial Logistic Bayes
 #'
 #' @param model: A model of class BayesPrevMap
 #' @param training: Training data
 #' @param testing: Testing data
-MetricsBLB <- function (model, training, testing) {
+#' @param initial: Initial settings
+#'
+MetricsBLB <- function (model, training, testing, initial) {
 
   source(file = 'R/models/EvaluationMetrics.R')
   source(file = 'R/models/EvaluationGraphs.R')
@@ -44,7 +47,7 @@ MetricsBLB <- function (model, training, testing) {
 
 
   return(list(model = model, valuations = valuations, predictions = predictions, residues = residues,
-              graph.spatial = spatial, graph.diagonal = diagonal ))
+              graph.spatial = spatial, graph.diagonal = diagonal, initial = initial))
 
 
 }
