@@ -26,7 +26,7 @@ instances <- GeographicObject(data = frame)
 
 
 # Spatial Splitting
-T <- SpatialSplitting(instances = instances, step = 5)
+T <- SpatialSplitting(instances = instances, step = 4)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -37,11 +37,10 @@ rm(T)
 # T <- DataSplitTemporal(data = instances, splits = splits)
 # training <- T$training
 # testing <- T$testing
-# rm(T)
 
 
 # Reducing
-# excerpt <- SpatialExcerpt(data = training, step = 3)
+# training <- SpatialExcerpt(data = training, step = 3)
 
 
 # Core variables
@@ -49,17 +48,19 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-excerpt <- training
-terms <- 'log(unimproved_sewer) + log(piped_sewer) + log(piped_water) + log(p_density) + log(elevation)'
-initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
+terms <- 'log(piped_sewer) + log(p_density) + log(elevation)'
+initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 initial$settings
 
 
 # Modelling
-mcml <- StepsBLM(data = excerpt, terms = terms, variables = variables)
-bayes <- StepsBLB(data = excerpt, terms = terms, variables = variables)
-
+mcml <- StepsBLM(training = training, testing = testing, terms = terms, variables = variables)
+bayes <- StepsBLB(training = training, testing = testing, terms = terms, variables = variables)
 
 mcml$graph.spatial
 mcml$graph.diagonal
 summary(mcml$model)
+
+bayes$graph.spatial
+bayes$graph.diagonal
+summary(bayes$model)
