@@ -5,7 +5,7 @@
 
 
 
-#' Metrics: Binomial Logistic Bayes
+#' Metrics Binomial Logistic Bayes
 #'
 #' @param model: A model of class BayesPrevMap
 #' @param training: Training data
@@ -18,6 +18,7 @@ MetricsBLB <- function (model, training, testing, initial) {
   source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/functions/StandardisedResidual.R')
   source(file = 'R/functions/EmpiricalVariogram.R')
+
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
   T <- EvaluationMetricsBLB(model = model, training = training, testing = testing, type = 'marginal')
