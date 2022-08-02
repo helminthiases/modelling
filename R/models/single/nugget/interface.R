@@ -8,8 +8,6 @@
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
-source(file = 'R/functions/DataSplitTemporal.R')
-source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/StepsBLB.R')
 source(file = 'R/models/single/nugget/StepsBLM.R')
@@ -32,23 +30,12 @@ testing <- T$testing
 rm(T)
 
 
-# Splitting
-# splits <- list(training = 2009, testing = 2015)
-# T <- DataSplitTemporal(data = instances, splits = splits)
-# training <- T$training
-# testing <- T$testing
-
-
-# Reducing
-# training <- SpatialExcerpt(data = training, step = 3)
-
-
 # Core variables
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 
 
 # Diagnostics
-terms <- 'log(piped_sewer) + log(p_density) + log(elevation)'
+terms <- 'piped_sewer + log(p_density) + log(elevation)'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 initial$settings
 
