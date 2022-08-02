@@ -7,17 +7,21 @@
 
 #' Examinations Sites Elevations
 #'
-#' @param excerpt: The modelling data set w.r.t. the years of interest
+#' @param data: The modelling data set w.r.t. the years of interest
 #'
-ElevationGraphs <- function (excerpt) {
+ElevationGraphs <- function (data) {
 
-  ggplot(data = excerpt, mapping = aes(x = elevation, y = prevalence)) +
+  data$year <- as.factor(data$year)
+
+  ggplot(data = data, mapping = aes(x = elevation, y = prevalence)) +
     geom_point(alpha = 0.35) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3)) +
     facet_wrap(~year) +
     theme_minimal() +
-    theme(panel.spacing = unit(x = 2, units = 'lines'),
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
+          strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
           axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     xlab(label = '\nelevation (metres)\n') +
@@ -28,16 +32,19 @@ ElevationGraphs <- function (excerpt) {
 
 #' The Graphs of Population Density
 #'
-#' @param excerpt: The modelling data set w.r.t. the years of interest
+#' @param data: The data
 #'
-DensityGraphs <- function (excerpt) {
+DensityGraphs <- function (data) {
 
-  ggplot(data = excerpt, mapping = aes(x = log(p_density), y = prevalence)) +
+  data$year <- as.factor(data$year)
+
+  ggplot(data = data, mapping = aes(x = log(p_density), y = prevalence)) +
     geom_point(alpha = 0.35) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3)) +
     facet_wrap(~year) +
     theme_minimal() +
-    theme(plot.margin = margin(t = 10, r = 25, b = 10, l = 25, unit = 'pt'),
-          panel.spacing = unit(x = 2, units = 'lines'),
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
+          plot.margin = margin(t = 10, r = 25, b = 10, l = 25, unit = 'pt'),
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
@@ -51,13 +58,13 @@ DensityGraphs <- function (excerpt) {
 
 #' The Graphs of the Sewer Access Categories
 #'
-#' @param excerpt: The modelling data set w.r.t. the years of interest
+#' @param data: The data
 #'
-SewerGraphs <- function (excerpt) {
+SewerGraphs <- function (data) {
 
   variables <- c('year', 'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer', 'prevalence')
 
-  instances <- excerpt %>%
+  instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
     gather(key = 'sewage', value = 'access_percentage', -c(year, prevalence))
 
@@ -68,7 +75,7 @@ SewerGraphs <- function (excerpt) {
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~sewage) +
     theme_minimal() +
-    theme(panel.spacing = unit(x = 2, units = 'lines'),
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
