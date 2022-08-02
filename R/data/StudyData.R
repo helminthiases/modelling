@@ -52,6 +52,10 @@ StudyData <- function(ISO2, infection) {
   dim(frame)
 
 
+  # Extra
+  frame$elevation.km <- frame$elevation / 1000
+
+
   # Hence
   return(frame)
 
