@@ -7,8 +7,10 @@
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/reference/Time.R')
-source(file = 'R/reference/Graphs.R')
 source(file = 'R/reference/Distributions.R')
+source(file = 'R/reference/Graphs.R')
+source(file = 'R/reference/AggregateGraphs.R')
+
 
 
 # a data set
@@ -23,11 +25,12 @@ Time(data = frame)
 
 # graphs
 Distributions(data = frame)
-ElevationGraphs(data = frame)
-DensityGraphs(data = frame)
+
 SewerGraphs(data = frame)
+SewerAggregateGraphs(data = frame)
 
-
+MiscellaneousGraphs(data = frame)
+MiscellaneousAggregateGraphs(data = frame)
 
 
 
