@@ -32,7 +32,7 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
   # step is upcoming, use an explicitly written formula.
   for (i in seq(from = 1, to = 4)) {
-    model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + log(p_density) + elevation.km + I(elevation.km^2),
+    model <- binomial.logistic.MCML(formula = positive ~ log(piped_sewer) + log(p_density) + elevation.km,
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
