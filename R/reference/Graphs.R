@@ -5,57 +5,6 @@
 
 
 
-#' Examinations Sites Elevations
-#'
-#' @param data: The modelling data set w.r.t. the years of interest
-#'
-ElevationGraphs <- function (data) {
-
-  data$year <- as.factor(data$year)
-
-  ggplot(data = data, mapping = aes(x = elevation, y = prevalence)) +
-    geom_point(alpha = 0.35) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3)) +
-    facet_wrap(~year) +
-    theme_minimal() +
-    theme(panel.spacing = unit(x = 3, units = 'lines'),
-          panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05),
-          strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
-          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
-    xlab(label = '\nelevation (metres)\n') +
-    ylab(label = '\nprevalence\n')
-
-}
-
-
-#' The Graphs of Population Density
-#'
-#' @param data: The data
-#'
-DensityGraphs <- function (data) {
-
-  data$year <- as.factor(data$year)
-
-  ggplot(data = data, mapping = aes(x = log(p_density), y = prevalence)) +
-    geom_point(alpha = 0.35) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3)) +
-    facet_wrap(~year) +
-    theme_minimal() +
-    theme(panel.spacing = unit(x = 3, units = 'lines'),
-          plot.margin = margin(t = 10, r = 25, b = 10, l = 25, unit = 'pt'),
-          panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05),
-          strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
-          axis.text.x = element_text(size = 9, angle = 90, vjust = 0.5), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(population density)\n(people per square kilometre)\n') +
-    ylab(label = '\nprevalence\n')
-
-}
-
-
 #' The Graphs of the Sewer Access Categories
 #'
 #' @param data: The data
@@ -70,8 +19,10 @@ SewerGraphs <- function (data) {
 
   instances$year <- as.factor(instances$year)
 
-  ggplot(data = instances, mapping = aes(x = access_percentage, y = prevalence, colour = year)) +
-    geom_point(alpha = 0.25, na.rm = TRUE) +
+  graph <- ggplot(data = instances, mapping = aes(x = access_percentage, y = prevalence, colour = year)) +
+    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~sewage) +
     theme_minimal() +
@@ -83,5 +34,82 @@ SewerGraphs <- function (data) {
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\naccess percentage\n') +
     ylab(label = '\nprevalence\n')
+  print(graph)
+
+
+  graph <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = prevalence, colour = year)) +
+    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
+    scale_colour_manual(values = c('black', 'orange')) +
+    facet_wrap(~sewage) +
+    theme_minimal() +
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size = 0.05),
+          strip.text.x = element_text(face = 'bold', size = 10),
+          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
+    xlab(label = '\nln(access percentage)\n') +
+    ylab(label = '\nprevalence\n')
+  print(graph)
 
 }
+
+
+
+#' Graphs of features; excluding WASH variables.
+#'
+#' @param data: The data
+#'
+MiscellaneousGraphs <- function (data) {
+
+  variables <- c('year', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'elevation.km', 'p_density', 'prevalence')
+
+  instances <- data %>%
+    dplyr::select(dplyr::all_of(variables)) %>%
+    gather(key = 'miscellaneous', value = 'value', -c(year, prevalence))
+
+  instances$year <- as.factor(instances$year)
+
+  graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence, colour = year)) +
+    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
+    scale_colour_manual(values = c('black', 'orange')) +
+    facet_wrap(~miscellaneous, scales = 'free') +
+    theme_minimal() +
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size = 0.05),
+          strip.text.x = element_text(face = 'bold', size = 10),
+          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
+    xlab(label = '\nvalue\n') +
+    ylab(label = '\nprevalence\n')
+  print(graph)
+
+
+  graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence, colour = year)) +
+    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
+    scale_colour_manual(values = c('black', 'orange')) +
+    facet_wrap(~miscellaneous, scales = 'free') +
+    theme_minimal() +
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size = 0.05),
+          strip.text.x = element_text(face = 'bold', size = 10),
+          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
+    xlab(label = '\nln(value)\n') +
+    ylab(label = '\nprevalence\n')
+  print(graph)
+
+}
+
+
+
+
+
