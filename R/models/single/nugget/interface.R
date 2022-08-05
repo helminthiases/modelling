@@ -27,7 +27,7 @@ instances <- GeographicObject(data = frame)
 
 
 # Spatial Splitting
-T <- SpatialSplitting(instances = instances, step = 4)
+T <- SpatialSplitting(instances = instances, step = 5)
 training <- T$training
 testing <- T$testing
 rm(T)
