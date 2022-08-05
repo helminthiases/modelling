@@ -59,7 +59,7 @@ SewerAggregateGraphs <- function (data) {
 #'
 MiscellaneousAggregateGraphs <- function (data) {
 
-  variables <- c('elevation.km', 'p_density', 'prevalence')
+  variables <- c('elevation.km', 'p_density', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'prevalence')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
@@ -67,8 +67,10 @@ MiscellaneousAggregateGraphs <- function (data) {
 
   graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3),  linetype = 'solid', colour = 'olivedrab') +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,  linetype = 'dashed', colour = 'olivedrab') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3),
+                linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
+                linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
@@ -83,8 +85,10 @@ MiscellaneousAggregateGraphs <- function (data) {
 
   graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', colour = 'olivedrab') +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', colour = 'olivedrab') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3),
+                linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
+                linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
