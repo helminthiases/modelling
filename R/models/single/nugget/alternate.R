@@ -19,6 +19,8 @@ source(file = 'R/models/single/nugget/MetricsBLM.R')
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
+frame <- frame[frame$year == 2015, ]
+row.names(frame) <- NULL
 
 
 # geographic form
@@ -26,7 +28,7 @@ instances <- GeographicObject(data = frame)
 
 
 # splitting
-T <- DataSplitFractional(instances = instances, fraction = 0.70, year = 2015)
+T <- DataSplitFractional(instances = instances, fraction = 0.70)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -37,7 +39,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'surface_sewer + log(piped_sewer) + log(p_density) + elevation.km'
+terms <- 'surface_sewer + log(piped_sewer) + log(p_density) + elevation.km + I(elevation.km^2)'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
@@ -60,15 +62,3 @@ bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing,
 bayes$graph.spatial
 bayes$graph.diagonal
 summary(bayes$model)
-
-
-
-
-
-
-
-
-
-
-
-
