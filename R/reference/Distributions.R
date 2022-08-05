@@ -11,8 +11,10 @@
 #'
 Distributions <- function (data) {
 
-  ggplot(data = data, mapping = aes(x = prevalence)) +
-    geom_density() +
+  data$year <- as.factor(data$year)
+
+  ggplot(data = data, mapping = aes(x = prevalence, fill = year)) +
+    geom_density(alpha = 0.35, colour = 'white') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
           panel.grid.minor = element_blank(),
