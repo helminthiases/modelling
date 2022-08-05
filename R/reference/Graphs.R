@@ -64,7 +64,7 @@ SewerGraphs <- function (data) {
 #'
 MiscellaneousGraphs <- function (data) {
 
-  variables <- c('year', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'elevation.km', 'p_density', 'prevalence')
+  variables <- c('year', 'elevation.km', 'p_density', 'prevalence')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
