@@ -54,6 +54,12 @@ StudyData <- function(ISO2, infection) {
   frame <- frame[states, ]
 
 
+  # access percentages as fractional measures
+  access <- c('improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
+              'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water')
+  frame[, access] <- frame[, access] / 100
+
+
   # if prevalence exists, then examinations > 0
   frame <- frame[!is.nan(frame$prevalence), ]
   dim(frame)
