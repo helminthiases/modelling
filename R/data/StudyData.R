@@ -23,7 +23,7 @@ StudyData <- function(ISO2, infection) {
   core <- c('identifier', 'iso2', 'longitude', 'latitude', 'year',
             'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
             'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water',
-            'p_density', 'elevation', 'AnnualPrecip', 'AnPET', 'AridityIndex')
+            'p_density', 'elevation')
   select <- c(core, unlist(measures, use.names = FALSE))
   colClasses <- c('identifier' = 'integer', 'iso2' = 'character', 'year' = 'integer')
 
