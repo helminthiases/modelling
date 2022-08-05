@@ -16,7 +16,7 @@ source(file = 'R/reference/Miscellaneous.R')
 # a data set
 ISO2 <- 'TG'
 infection <- 'hk'
-frame <- StudyData(ISO2 = ISO2, infection = infection)
+frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = TRUE)
 
 
 # the number of observations per year
