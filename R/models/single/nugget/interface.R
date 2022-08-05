@@ -29,7 +29,7 @@ instances <- GeographicObject(data = frame)
 
 
 # Spatial Splitting
-T <- SpatialSplitting(instances = instances, step = 3)
+T <- SpatialSplitting(instances = instances, step = 2)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -40,7 +40,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'log(p_density) + elevation.km + I(elevation.km^2)'
+terms <- 'piped_sewer + I(piped_sewer^2) + log(p_density) + elevation.km'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
