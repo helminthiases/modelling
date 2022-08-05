@@ -4,10 +4,13 @@
 # Created on: 05/08/2022
 
 
-DataSplitFractional <- function (instances, fraction, year) {
 
-  instances <- instances[instances$year == year, ]
-  row.names(instances) <- NULL
+#' Data Split Fractional
+#'
+#' @param instances: The modelling data set
+#' @param fraction: The training data fraction
+#'
+DataSplitFractional <- function (instances, fraction) {
 
 
   # ... splitting via this quotient ensures similar training & testing prevalence
