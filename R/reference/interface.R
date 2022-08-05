@@ -8,8 +8,8 @@
 source(file = 'R/data/StudyData.R')
 source(file = 'R/reference/Time.R')
 source(file = 'R/reference/Distributions.R')
-source(file = 'R/reference/Graphs.R')
-source(file = 'R/reference/AggregateGraphs.R')
+source(file = 'R/reference/Sewer.R')
+source(file = 'R/reference/Miscellaneous.R')
 
 
 
@@ -25,12 +25,10 @@ Time(data = frame)
 
 # graphs
 Distributions(data = frame)
-
-SewerGraphs(data = frame)
-SewerAggregateGraphs(data = frame)
-
-MiscellaneousGraphs(data = frame)
-MiscellaneousAggregateGraphs(data = frame)
+AggregateSewer(data = frame)
+DisaggregateSewer(data = frame)
+AggregateMiscellaneous(data = frame)
+DisaggregateMiscellaneous(data = frame)
 
 
 
