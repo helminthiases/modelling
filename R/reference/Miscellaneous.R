@@ -20,9 +20,9 @@ DisaggregateMiscellaneous <- function (data) {
   instances$year <- as.factor(instances$year)
 
   graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence, colour = year)) +
-    geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
+    geom_point(alpha = 0.05) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
@@ -38,9 +38,9 @@ DisaggregateMiscellaneous <- function (data) {
 
 
   graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence, colour = year)) +
-    geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
+    geom_point(alpha = 0.05) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
@@ -72,11 +72,11 @@ AggregateMiscellaneous <- function (data) {
     gather(key = 'miscellaneous', value = 'value', -prevalence)
 
   graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence)) +
-    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_point(alpha = 0.05) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3),
-                linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
+                linetype = 'solid', colour = 'olivedrab') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
-                linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
+                linetype = 'dashed', colour = 'olivedrab') +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
@@ -90,11 +90,11 @@ AggregateMiscellaneous <- function (data) {
   print(graph)
 
   graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence)) +
-    geom_point(alpha = 0.05, na.rm = TRUE) +
+    geom_point(alpha = 0.05) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3),
-                linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
+                linetype = 'solid', colour = 'olivedrab') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
-                linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
+                linetype = 'dashed', colour = 'olivedrab') +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
