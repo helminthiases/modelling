@@ -64,7 +64,7 @@ SewerGraphs <- function (data) {
 #'
 MiscellaneousGraphs <- function (data) {
 
-  variables <- c('year', 'elevation.km', 'p_density', 'prevalence')
+  variables <- c('year', 'elevation.km', 'p_density', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'prevalence')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
@@ -74,8 +74,8 @@ MiscellaneousGraphs <- function (data) {
 
   graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence, colour = year)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
@@ -92,8 +92,8 @@ MiscellaneousGraphs <- function (data) {
 
   graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence, colour = year)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
-    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
+    geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
     scale_colour_manual(values = c('black', 'orange')) +
     facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
