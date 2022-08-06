@@ -22,12 +22,17 @@ infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
+# An experiment cycle
+frame <- frame[frame$year == 2015, ]
+row.names(frame) <- NULL
+
+
 # geographic form
 instances <- GeographicObject(data = frame)
 
 
 # Spatial Splitting
-T <- SpatialSplitting(instances = instances, step = 3)
+T <- SpatialSplitting(instances = instances, step = 2)
 training <- T$training
 testing <- T$testing
 rm(T)
