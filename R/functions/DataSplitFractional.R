@@ -13,6 +13,13 @@
 DataSplitFractional <- function (instances, fraction) {
 
 
+  source(file = 'R/functions/SpatialExcerpt.R')
+
+
+  # Reducing the number of instances
+  instances <- SpatialExcerpt(data = instances, step = 2)
+
+
   # ... splitting via this quotient ensures similar training & testing prevalence
   # distributions
   instances$quotient <- instances$prevalence
