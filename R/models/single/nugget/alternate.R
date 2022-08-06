@@ -28,13 +28,13 @@ instances <- GeographicObject(data = frame)
 
 
 # splitting; this function
-#   a. spatially splits the data into 2 parts - to avoid ill-conditioned
+#   a. spatially splits the data into <step> parts - to avoid ill-conditioned
 #      problems due to geographically close sites
 #      [1. Advanced Engineering Mathematics by Erwin Kreyszig,
 #       2. https://en.wikipedia.org/wiki/Condition_number]
 #   b. splits one of the parts into training & testing sets such that
 #      they have similar prevalence distributions
-T <- DataSplitFractional(instances = instances, fraction = 0.75)
+T <- DataSplitFractional(instances = instances, fraction = 0.80, step = 3)
 training <- T$training
 testing <- T$testing
 rm(T)
