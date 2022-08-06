@@ -11,7 +11,7 @@
 #'
 DisaggregateMiscellaneous <- function (data) {
 
-  variables <- c('year', 'elevation.km', 'p_density', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'prevalence')
+  variables <- c('year', 'elevation.km', 'p_density', 'prevalence')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
@@ -65,7 +65,7 @@ DisaggregateMiscellaneous <- function (data) {
 #'
 AggregateMiscellaneous <- function (data) {
 
-  variables <- c('elevation.km', 'p_density', 'AnnualPrecip', 'AnPET', 'AridityIndex', 'prevalence')
+  variables <- c('elevation.km', 'p_density', 'prevalence')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
