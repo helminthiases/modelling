@@ -5,7 +5,7 @@
 
 
 
-# functions
+# Functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
@@ -16,19 +16,22 @@ source(file = 'R/models/single/nugget/MetricsBLB.R')
 source(file = 'R/models/single/nugget/MetricsBLM.R')
 
 
-# a data set
+# A data set
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
+
+
+# An experiment cycle
 frame <- frame[frame$year == 2015, ]
 row.names(frame) <- NULL
 
 
-# geographic form
+# Geographic form
 instances <- GeographicObject(data = frame)
 
 
-# Spatial Splitting
+# Spatial splitting
 T <- SpatialSplitting(instances = instances, step = 2)
 training <- T$training
 testing <- T$testing
