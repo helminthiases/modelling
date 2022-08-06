@@ -10,14 +10,10 @@
 #' @param instances: The modelling data set
 #' @param fraction: The training data fraction
 #'
-DataSplitFractional <- function (instances, fraction, step) {
+DataSplitFractional <- function (instances, fraction) {
 
 
   source(file = 'R/functions/SpatialExcerpt.R')
-
-
-  # Reducing the number of instances
-  instances <- SpatialExcerpt(data = instances, step = step)
 
 
   # ... splitting via this quotient ensures similar training & testing prevalence
