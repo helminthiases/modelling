@@ -4,6 +4,7 @@
 # Created on: 26/07/2022
 
 
+#' Data Split Temporal
 #'
 #' @param data: The modelling data set
 #' @param splits: A list of the form list(training = ..., testing = ...), wherein

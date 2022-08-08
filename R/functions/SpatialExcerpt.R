@@ -4,6 +4,12 @@
 # Created on: 30/07/2022
 
 
+
+#' Spatial Excerpt
+#'
+#' @param data: The modelling data set
+#' @param step: Select every <step> record
+#'
 SpatialExcerpt <- function (data, step) {
 
   # arrange spatially
@@ -20,23 +26,10 @@ SpatialExcerpt <- function (data, step) {
   excerpt$index <- NULL
 
 
-  # preview
-  map <- tmap::tm_shape(data) +
-    tm_layout(main.title = 'Distribution of\nPoints\n', frame = FALSE, main.title.size = 0.85, main.title.position = 'center') +
-    tm_dots()
-  print(map)
-
-  map <- tmap::tm_shape(excerpt) +
-    tm_layout(main.title = 'Distribution of\nExcerpt\n', frame = FALSE, main.title.size = 0.85, main.title.position = 'center') +
-    tm_dots()
-  print(map)
-
-
-
   # spreads
   spreads <- rbind(data.frame(prevalence = data$prevalence, segment = 'all points'),
                    data.frame(prevalence = excerpt$prevalence, segment = 'excerpt'))
-  graph <- ggplot(data = spreads, mapping = aes(x= prevalence, fill = segment)) +
+  ggplot(data = spreads, mapping = aes(x= prevalence, fill = segment)) +
     geom_density(alpha = 0.35, colour = 'white') +
     theme_minimal() +
     theme(panel.grid.minor = element_blank(),
@@ -45,7 +38,6 @@ SpatialExcerpt <- function (data, step) {
           axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     ylab(label = '\ndensity\n') +
     xlab(label = '\nprevalence\n')
-  print(graph)
 
 
   # hence

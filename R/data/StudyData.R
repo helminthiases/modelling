@@ -9,7 +9,7 @@
 #' @param ISO2: The ISO 3166-1 alpha-2 of a country
 #' @param infection: The infection in focus → ascariasis, hookworm, or trichuriasis
 #'
-StudyData <- function(ISO2, infection) {
+StudyData <- function(ISO2, infection, add.extraneous = FALSE) {
 
 
   # The infection of interest
@@ -24,7 +24,19 @@ StudyData <- function(ISO2, infection) {
             'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
             'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water',
             'p_density', 'elevation')
-  select <- c(core, unlist(measures, use.names = FALSE))
+
+
+  # Extra
+  extra <- c('AnnualPrecip', 'AnPET','AridityIndex')
+
+
+  # Setting selections & types
+  if (add.extraneous) {
+    select <- c(core, extra, unlist(measures, use.names = FALSE))
+    core <- c(core, extra)
+  } else {
+    select <- c(core, unlist(measures, use.names = FALSE))
+  }
   colClasses <- c('identifier' = 'integer', 'iso2' = 'character', 'year' = 'integer')
 
 
@@ -47,6 +59,12 @@ StudyData <- function(ISO2, infection) {
   frame <- frame[states, ]
 
 
+  # access percentages as fractional measures
+  access <- c('improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer',
+              'improved_water', 'unpiped_water', 'surface_water', 'piped_water', 'unimproved_water')
+  frame[, access] <- frame[, access] / 100
+
+
   # if prevalence exists, then examinations > 0
   frame <- frame[!is.nan(frame$prevalence), ]
   dim(frame)
@@ -54,6 +72,7 @@ StudyData <- function(ISO2, infection) {
 
   # Extra
   frame$elevation.km <- frame$elevation / 1000
+  frame$p_density.k <- frame$p_density / 1000
 
 
   # Hence

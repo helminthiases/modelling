@@ -20,12 +20,17 @@ infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
+# An experiment cycle
+frame <- frame[frame$year == 2015, ]
+row.names(frame) <- NULL
+
+
 # geographic form
 instances <- GeographicObject(data = frame)
 
 
 # Spatial Splitting
-T <- SpatialSplitting(instances = instances, step = 4)
+T <- SpatialSplitting(instances = instances, step = 2)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -36,16 +41,13 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'piped_sewer + log(p_density) + elevation.km + I(elevation.km^2)'
+terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 initial$settings
+summary(initial$model)
 
 
 # Modelling
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
 bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
-
-
-
-
 

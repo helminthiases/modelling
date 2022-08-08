@@ -1,14 +1,13 @@
-# Title     : interface.R
-# Objective : Interface
+# Title     : alternate.R
+# Objective : Alternate
 # Created by: greyhypotheses
-# Created on: 26/07/2022
+# Created on: 05/08/2022
 
 
-
-# Functions
+# functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
-source(file = 'R/functions/SpatialSplitting.R')
+source(file = 'R/functions/DataSplitFractional.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
 source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
@@ -16,23 +15,21 @@ source(file = 'R/models/single/nugget/MetricsBLB.R')
 source(file = 'R/models/single/nugget/MetricsBLM.R')
 
 
-# A data set
+# a data set
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
-
-
-# An experiment cycle
 frame <- frame[frame$year == 2015, ]
 row.names(frame) <- NULL
 
 
-# Geographic form
+# geographic form
 instances <- GeographicObject(data = frame)
 
 
-# Spatial splitting
-T <- SpatialSplitting(instances = instances, step = 2)
+# splits <instances> into training & testing sets such that
+# they have similar prevalence distributions
+T <- DataSplitFractional(instances = instances, fraction = 0.65)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -43,7 +40,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
+terms <- 'piped_sewer + I(piped_sewer^2) + log(p_density) + elevation.km'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
