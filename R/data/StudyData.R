@@ -72,6 +72,7 @@ StudyData <- function(ISO2, infection, add.extraneous = FALSE) {
 
   # Extra
   frame$elevation.km <- frame$elevation / 1000
+  frame$p_density.k <- frame$p_density / 1000
 
 
   # Hence
