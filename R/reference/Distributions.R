@@ -9,7 +9,7 @@
 #'
 #' @param excerpt: The modelling data set w.r.t. the years of interest
 #'
-Distributions <- function (data) {
+DensityDistributions <- function (data) {
 
   data$year <- as.factor(data$year)
 
