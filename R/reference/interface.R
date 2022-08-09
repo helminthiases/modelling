@@ -15,18 +15,26 @@ source(file = 'R/reference/Extraneous.R')
 
 
 
-# a data set: TG, etc
+# A data set: The project will focus on TG, and briefly explore MW.
 ISO2 <- 'TG'
 infection <- 'hk'
 add.extraneous <- FALSE
 frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
 
 
-# the number of observations per year
+# Longitudinal aspects?
+frame %>%
+  dplyr::select(identifier) %>%
+  dplyr::group_by(identifier) %>%
+  summarise(N = n()) %>%
+  dplyr::arrange(desc(N))
+
+
+# The number of observations per year
 Time(data = frame)
 
 
-# graphs
+# Graphs
 Distributions(data = frame)
 AggregateSewer(data = frame)
 DisaggregateSewer(data = frame)
