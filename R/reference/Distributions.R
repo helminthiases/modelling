@@ -5,9 +5,9 @@
 
 
 
-#' Prevalence Distributions
+#' Prevalence Distributions: Density Graphs
 #'
-#' @param excerpt: The modelling data set w.r.t. the years of interest
+#' @param excerpt: The modelling data set
 #'
 DensityDistributions <- function (data) {
 
@@ -28,6 +28,10 @@ DensityDistributions <- function (data) {
 }
 
 
+#' Prevalence Distributions: Map
+#'
+#' @param excerpt: The modelling data set
+#'
 MapDistributions <- function (data) {
 
   source(file = 'R/functions/GeographicObject.R')
@@ -51,8 +55,23 @@ MapDistributions <- function (data) {
                title.size = 'Prevalence',
                title.col = 'Year', scale = 0.80)
 
-
-
 }
 
 
+#' Prevalence Distributions: Candle/Box Plots
+#'
+#' @param excerpt: The modelling data set
+#'
+CandleDistributions <- function (data) {
+
+  ggplot(data = data, mapping = aes(x = as.factor(year), y = prevalence)) +
+    geom_boxplot(notch = TRUE, notchwidth = 0.5) +
+    geom_jitter(alpha = 0.35, width = 0.25, size = 0.5, colour = 'olivedrab') +
+    theme_minimal() +
+    theme(panel.grid.minor = element_blank(), panel.grid.major = element_line(size = 0.05),
+          axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5), axis.text.y = element_text(size = 10),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
+    xlab(label = '\n') +
+    ylab(label = '\nprevalence\n')
+
+}
