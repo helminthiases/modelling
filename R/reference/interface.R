@@ -35,7 +35,8 @@ Time(data = frame)
 
 
 # Graphs
-Distributions(data = frame)
+DensityDistributions(data = frame)
+MapDistributions(data = frame)
 AggregateSewer(data = frame)
 DisaggregateSewer(data = frame)
 AggregateWater(data = frame)
