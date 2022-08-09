@@ -15,16 +15,11 @@ source(file = 'R/reference/Extraneous.R')
 
 
 
-# a data set: TG, MW, etc
+# a data set: TG, etc
 ISO2 <- 'TG'
 infection <- 'hk'
 add.extraneous <- FALSE
 frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
-
-if (ISO2 == 'MW') {
-  frame <- frame[frame$year %in% c(2012, 2017), ]
-}
-
 
 
 # the number of observations per year
