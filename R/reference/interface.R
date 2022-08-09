@@ -6,7 +6,7 @@
 
 # functions
 source(file = 'R/data/StudyData.R')
-source(file = 'R/reference/Time.R')
+source(file = 'Frequencies.R')
 source(file = 'R/reference/Distributions.R')
 source(file = 'R/reference/Sewer.R')
 source(file = 'R/reference/Water.R')
@@ -23,15 +23,11 @@ frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extr
 
 
 # Longitudinal aspects?
-frame %>%
-  dplyr::select(identifier) %>%
-  dplyr::group_by(identifier) %>%
-  summarise(N = n()) %>%
-  dplyr::arrange(desc(N))
+IdentifierFrequencies(data = frame)
 
 
 # The number of observations per year
-Time(data = frame)
+TimeFrequencies(data = frame)
 
 
 # Graphs
