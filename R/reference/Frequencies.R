@@ -7,12 +7,27 @@
 #'
 #' @param data: The modelling data data frame, it must include the field <year>
 #'
-Time <- function (data) {
+TimeFrequencies <- function (data) {
 
   # This expression counts the # of records per year
   data %>%
     dplyr::select(year) %>%
     dplyr::group_by(year) %>%
     summarise(N = n())
+
+}
+
+
+#'
+#' @param data: The modelling data data frame, it must include the field <identifier>
+#'
+IdentifierFrequencies <- function (data) {
+
+  # This expression counts the # of records per geographic site identifier
+  data %>%
+    dplyr::select(identifier) %>%
+    dplyr::group_by(identifier) %>%
+    summarise(N = n()) %>%
+    dplyr::arrange(desc(N))
 
 }
