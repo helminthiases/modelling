@@ -26,3 +26,33 @@ Distributions <- function (data) {
     ylab(label = '\ndensity\n')
 
 }
+
+
+MapDistributions <- function (data) {
+
+  source(file = 'R/functions/GeographicObject.R')
+
+  data$year <- as.factor(data$year)
+
+  instances <- GeographicObject(data = data)
+
+  tm_shape(instances) +
+    tm_layout(main.title = '\n', frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
+              outer.margins = c(0.1, 0.1, 0.1, 0.1), main.title.size = 0.95,
+              main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
+              legend.outside = TRUE, legend.position = c('left', 'bottom')) +
+    tm_bubbles(size = 'prevalence',
+               col = 'year',
+               alpha = 0.35,
+               border.col = 'white',
+               border.alpha = 0,
+               breaks = c(0, 0.05, 0.1, 0.2, 0.5, 1),
+               palette = c('orange', 'black'),
+               title.size = 'Prevalence',
+               title.col = 'Year', scale = 0.80)
+
+
+
+}
+
+
