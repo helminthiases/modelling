@@ -22,7 +22,7 @@ infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
-# An experiment cycle
+# An experiment cycle {2009, 2015}
 frame <- frame[frame$year == 2015, ]
 row.names(frame) <- NULL
 
