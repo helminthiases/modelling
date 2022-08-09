@@ -1,5 +1,5 @@
-# Title     : Time.R
-# Objective : Observations per time period
+# Title     : Frequencies.R
+# Objective : Observations per time period, identifier, etc
 # Created by: greyhypotheses
 # Created on: 27/07/2022
 
