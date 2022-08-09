@@ -7,7 +7,7 @@
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
-source(file = 'R/functions/DataSplitFractional.R')
+source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
 source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
@@ -19,17 +19,15 @@ source(file = 'R/models/single/nugget/MetricsBLM.R')
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
-frame <- frame[frame$year == 2015, ]
-row.names(frame) <- NULL
 
 
 # geographic form
 instances <- GeographicObject(data = frame)
+dim(instances)
 
 
-# splits <instances> into training & testing sets such that
-# they have similar prevalence distributions
-T <- DataSplitFractional(instances = instances, fraction = 0.65)
+# Spatial splitting
+T <- SpatialSplitting(instances = instances, step = 4)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -40,7 +38,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'piped_sewer + I(piped_sewer^2) + log(p_density) + elevation.km'
+terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
 initial <- InitialEstimates(data = training, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
