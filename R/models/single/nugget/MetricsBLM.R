@@ -35,13 +35,12 @@ T <- EvaluationVariogram(
 T$graph
 
 
-
-
 # Coefficients
 variables <- list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)' , 'elevation.km'),
                   labels = c('(Intercept)', 'piped_sewer', 'I(piped_sewer$^{2}$)' , 'elevation.km'))
 parameters <- c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')
-CoefficientsEstimatesBLM(model = mcml$model, variables = variables, parameters = parameters)
+coefficients <- CoefficientsEstimatesBLM(model = mcml$model, variables = variables, parameters = parameters)
+coefficients
 
 
 # Special
@@ -50,6 +49,7 @@ special$parameter <- c('$ln(\\sigma^2)$','$ln(\\phi)$', '$ln(\\tau^2)$')
 row.names(special) <- NULL
 special <- special %>% dplyr::select('parameter', 'estimate', 'lower_ci', 'upper_ci',
                                      'exp(estimate)', 'exp(lower_ci)', 'exp(upper_ci)')
+special
 
 
 # Bias & RMSE
