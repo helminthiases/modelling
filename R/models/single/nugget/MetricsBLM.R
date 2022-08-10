@@ -53,5 +53,5 @@ special
 
 
 # Bias & RMSE
-ErrorMetrics(observed = training$prevalence, estimated = mcml$valuations$prevalence$predictions, name = 'training')
-ErrorMetrics(observed = testing$prevalence, estimated = mcml$predictions$prevalence$predictions, name = 'testing')
+ErrorMetrics(observed = training$prevalence, estimated = valuations$prevalence$predictions, name = 'training')
+ErrorMetrics(observed = testing$prevalence, estimated = predictions$prevalence$predictions, name = 'testing')
