@@ -4,15 +4,14 @@
 # Created on: 05/08/2022
 
 
+
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
-source(file = 'R/functions/SpatialSplitting.R')
+source(file = 'R/functions/SpatialExcerpt.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
-source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
-source(file = 'R/models/single/nugget/MetricsBLB.R')
-source(file = 'R/models/single/nugget/MetricsBLM.R')
+source(file = 'R/models/single/alternate/BinomialLogisticBayes.R')
+source(file = 'R/models/single/alternate/BinomialLogisticMCML.R')
 
 
 # a data set
@@ -27,10 +26,8 @@ dim(instances)
 
 
 # Spatial splitting
-T <- SpatialSplitting(instances = instances, step = 4)
-training <- T$training
-testing <- T$testing
-rm(T)
+excerpt <- SpatialExcerpt(data = instances, step = 4)
+
 
 
 # Core variables
@@ -39,7 +36,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 # Diagnostics
 terms <- 'piped_sewer + elevation.km'
-initial <- InitialEstimates(data = training, terms = terms, variables = variables)
+initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
 
@@ -47,17 +44,8 @@ initial$settings
 # Modelling
 
 # ... model, initial
-mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-mcml <- MetricsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
+mcml <- BinomialLogisticMCML(data = excerpt, terms = terms, variables = variables)
 
-mcml$graph.spatial
-mcml$graph.diagonal
-summary(mcml$model)
 
 # ... model, initial
-bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
-
-bayes$graph.spatial
-bayes$graph.diagonal
-summary(bayes$model)
+bayes <- BinomialLogisticBayes(data = excerpt, terms = terms, variables = variables)
