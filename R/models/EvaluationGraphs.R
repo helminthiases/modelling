@@ -29,7 +29,12 @@ SpatialEvaluationGraphs <- function (points, limit) {
 }
 
 
-DoubleDiagonalEvaluationGraphs <- function (estimates) {
+DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
+
+  estimates <- rbind(
+    data.frame(prevalence = training_$prevalence, prediction = training_$prediction, segment = 'training'),
+    data.frame(prevalence = testing_$prevalence, prediction = testing_$prediction, segment = 'testing')
+  )
 
   map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
     geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
@@ -52,7 +57,14 @@ DoubleDiagonalEvaluationGraphs <- function (estimates) {
 }
 
 
-SingleDiagonalEvaluationGraphs <- function (estimates) {
+#'
+#' @param data_: A list that has the set-up
+#'                  list(prevalence = , prediction = )
+#'               wherein <prediction> represents the prevalence predictions of a model.
+#'
+SingleDiagonalEvaluationGraphs <- function (data_) {
+
+  estimates <- data.frame(prevalence = data_$prevalence, prediction = data_$prediction)
 
   map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
     geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
