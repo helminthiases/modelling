@@ -14,6 +14,7 @@ source(file = 'R/models/single/alternate/BinomialLogisticBayes.R')
 source(file = 'R/models/single/alternate/BinomialLogisticMCML.R')
 
 
+
 # a data set
 ISO2 <- 'TG'
 infection <- 'hk'
