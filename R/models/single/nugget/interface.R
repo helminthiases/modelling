@@ -22,13 +22,14 @@ infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
-# An experiment cycle {2009, 2015}
+# An experiment cycle
 frame <- frame[frame$year == 2015, ]
 row.names(frame) <- NULL
 
 
 # Geographic form
 instances <- GeographicObject(data = frame)
+instances$year <- as.factor(instances$year)
 
 
 # Spatial splitting
@@ -53,11 +54,7 @@ initial$settings
 
 # ... model, initial
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-mcml <- MetricsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
 
-mcml$graph.spatial
-mcml$graph.diagonal
-summary(mcml$model)
 
 # ... model, initial
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
