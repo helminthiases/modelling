@@ -5,8 +5,53 @@
 
 
 
-#' Metrics Binomial Logistic MCML
-#'
-MetricsBLM <- function () {
+source(file = 'R/models/EvaluationMetrics.R')
+source(file = 'R/models/EvaluationGraphs.R')
+source(file = 'R/models/EvaluationVariogram.R')
+source(file = 'R/models/CoefficientsEstimates.R')
+source(file = 'R/functions/ConfidenceInterval.R')
+source(file = 'R/functions/ErrorMetrics.R')
 
-}
+
+
+# Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
+valuations <- EvaluationMetricsBLM(model = mcml$model, data = training, type = 'marginal')
+predictions <- EvaluationMetricsBLM(model = mcml$model, data = testing, type = 'marginal')
+
+
+# Illustrating Accuracy: Diagonals
+diagonal <- DoubleDiagonalEvaluationGraphs(
+  training_ = list(prediction = valuations$prevalence$predictions, prevalence = training$prevalence),
+  testing_ = list(prediction = predictions$prevalence$predictions, prevalence = testing$prevalence))
+
+
+# Is there still evidence of residual spatial correlation?
+# The standardised residuals of the differences/errors/residuals w.r.t. the training points
+# Subsequently, the empirical variogram measures & graph w.r.t. the standardised residual
+T <- EvaluationVariogram(
+  model = mcml$model,
+  data = data.frame(prevalence = training$prevalence, x = training$x, y = training$y,
+                    estimate = valuations$prevalence$predictions))
+T$graph
+
+
+
+
+# Coefficients
+variables <- list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)' , 'elevation.km'),
+                  labels = c('(Intercept)', 'piped_sewer', 'I(piped_sewer$^{2}$)' , 'elevation.km'))
+parameters <- c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')
+CoefficientsEstimatesBLM(model = mcml$model, variables = variables, parameters = parameters)
+
+
+# Special
+special <- SpecialConfidenceInterval(estimates = summary(mcml$model))
+special$parameter <- c('$ln(\\sigma^2)$','$ln(\\phi)$', '$ln(\\tau^2)$')
+row.names(special) <- NULL
+special <- special %>% dplyr::select('parameter', 'estimate', 'lower_ci', 'upper_ci',
+                                     'exp(estimate)', 'exp(lower_ci)', 'exp(upper_ci)')
+
+
+# Bias & RMSE
+ErrorMetrics(observed = training$prevalence, estimated = mcml$valuations$prevalence$predictions, name = 'training')
+ErrorMetrics(observed = testing$prevalence, estimated = mcml$predictions$prevalence$predictions, name = 'testing')
