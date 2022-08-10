@@ -1,5 +1,5 @@
-# Title     : MetricsBLM.R
-# Objective : Metrics BLM
+# Title     : blm.R
+# Objective : Binomial Logistic MCML
 # Created by: greyhypotheses
 # Created on: 31/07/2022
 
