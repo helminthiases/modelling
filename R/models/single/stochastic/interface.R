@@ -49,5 +49,3 @@ summary(initial$model)
 
 # Modelling
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
-
