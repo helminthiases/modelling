@@ -104,3 +104,7 @@ anova(models[[1]])
 anova(models[[3]], models[[6]], models[[2]])
 anova(models[[7]], models[[6]], models[[2]])
 
+
+# Diagnostics of randomw effects
+
+
