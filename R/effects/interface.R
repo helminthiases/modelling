@@ -32,7 +32,7 @@ models <- list('1' = model)
 summary(object = model)
 
 
-string <- paste('piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km ',
+string <- paste('piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
                 '+ (1|identifier) + (1|year)', collapse = NULL)
 model <- Estimates(data = frame, expression = string)
 models <- append(models, list('2' = model))
@@ -67,7 +67,7 @@ models <- append(models, list('6' = model))
 summary(object = model)
 
 
-string <- paste('piped_sewer + I(piped_sewer^2) + elevation.km ',
+string <- paste('piped_sewer + I(piped_sewer^2) + elevation.km',
                 '+ (1|identifier) + (1|year)', collapse = NULL)
 model <- Estimates(data = frame, expression = string)
 models <- append(models, list('7' = model))
@@ -103,8 +103,3 @@ anova(models[[1]])
 # Hence: Reject 1
 anova(models[[3]], models[[6]], models[[2]])
 anova(models[[7]], models[[6]], models[[2]])
-
-
-# Diagnostics of randomw effects
-
-
