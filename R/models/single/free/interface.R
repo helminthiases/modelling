@@ -53,16 +53,7 @@ initial$settings
 
 # ... model, initial
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-mcml <- MetricsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
 
-mcml$graph.spatial
-mcml$graph.diagonal
-summary(mcml$model)
 
 # ... model, initial
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
-
-bayes$graph.spatial
-bayes$graph.diagonal
-summary(bayes$model)
