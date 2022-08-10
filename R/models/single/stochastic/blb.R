@@ -1,5 +1,5 @@
-# Title     : MetricsBLB.R
-# Objective : Metrics Binomial Logistic Bayes
+# Title     : blb.R
+# Objective : Binomial Logistic Bayes
 # Created by: greyhypotheses
 # Created on: 02/08/2022
 
