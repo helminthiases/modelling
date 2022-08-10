@@ -12,8 +12,7 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/free/BinomialLogisticBayes.R')
 source(file = 'R/models/single/free/BinomialLogisticMCML.R')
-source(file = 'R/models/single/free/blb.R')
-source(file = 'R/models/single/free/blm.R')
+
 
 
 # a data set
