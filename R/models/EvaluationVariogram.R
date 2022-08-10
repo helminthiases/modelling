@@ -13,6 +13,10 @@
 #'
 EvaluationVariogram <- function (model, data) {
 
+  source(file = 'R/functions/StandardisedResidual.R')
+  source(file = 'R/functions/EmpiricalVariogram.R')
+  source(file = 'R/models/EvaluationGraphs.R')
+
   # Is there still evidence of residual spatial correlation?
   # The standardised residuals of the differences/errors/residuals w.r.t. the training points
   # Subsequently, the empirical variogram measures & graph w.r.t. the standardised residual
