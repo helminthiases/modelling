@@ -1,7 +1,7 @@
 # Title     : BinomialLogisticMCML.R
 # Objective : Binomial Logistic MCML
 # Created by: greyhypotheses
-# Created on: 02/08/2022
+# Created on: 10/08/2022
 
 
 
@@ -16,7 +16,7 @@
 BinomialLogisticMCML <- function (data, terms, variables) {
 
 
-  source(file = 'R/models/single/free/InitialParameterSettings.R')
+  source(file = 'R/models/single/nugget/InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings; nugget excluded
@@ -39,8 +39,8 @@ BinomialLogisticMCML <- function (data, terms, variables) {
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = 0.5,
-                                    start.cov.pars = parameters['phi'],
-                                    fixed.rel.nugget = 0,
+                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
+                                    fixed.rel.nugget = NULL,
                                     method = 'nlminb')
     parameters <- coef(model)
   }

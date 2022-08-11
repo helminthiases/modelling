@@ -12,8 +12,7 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
 source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
-source(file = 'R/models/single/nugget/MetricsBLB.R')
-source(file = 'R/models/single/nugget/MetricsBLM.R')
+
 
 
 # A data set
@@ -29,6 +28,7 @@ row.names(frame) <- NULL
 
 # Geographic form
 instances <- GeographicObject(data = frame)
+instances$year <- as.factor(instances$year)
 
 
 # Spatial splitting
@@ -53,16 +53,8 @@ initial$settings
 
 # ... model, initial
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
-mcml <- MetricsBLM(model = mcml$model, training = training, testing = testing, initial = mcml$initial)
 
-mcml$graph.spatial
-mcml$graph.diagonal
-summary(mcml$model)
 
 # ... model, initial
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
-bayes <- MetricsBLB(model = bayes$model, training = training, testing = testing, initial = bayes$initial)
 
-bayes$graph.spatial
-bayes$graph.diagonal
-summary(bayes$model)

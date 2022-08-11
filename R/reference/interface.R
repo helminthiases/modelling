@@ -6,7 +6,7 @@
 
 # functions
 source(file = 'R/data/StudyData.R')
-source(file = 'R/reference/Time.R')
+source(file = 'R/reference/Frequencies.R')
 source(file = 'R/reference/Distributions.R')
 source(file = 'R/reference/Sewer.R')
 source(file = 'R/reference/Water.R')
@@ -15,24 +15,25 @@ source(file = 'R/reference/Extraneous.R')
 
 
 
-# a data set: TG, MW, etc
+# A data set: The project will focus on TG, and briefly explore MW.
 ISO2 <- 'TG'
 infection <- 'hk'
 add.extraneous <- FALSE
 frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
 
-if (ISO2 == 'MW') {
-  frame <- frame[frame$year %in% c(2012, 2017), ]
-}
+
+# Longitudinal aspects?
+IdentifierFrequencies(data = frame)
 
 
+# The number of observations per year
+TimeFrequencies(data = frame)
 
-# the number of observations per year
-Time(data = frame)
 
-
-# graphs
-Distributions(data = frame)
+# Graphs
+DensityDistributions(data = frame)
+MapDistributions(data = frame)
+CandleDistributions(data = frame)
 AggregateSewer(data = frame)
 DisaggregateSewer(data = frame)
 AggregateWater(data = frame)

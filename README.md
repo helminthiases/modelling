@@ -1,16 +1,10 @@
 <br>
 
-Predicting geohelminths infections prevalence
+The Prevalence of Geohelminths Infections
 
 <br>
 
-## Notes
-
-<br>
-
-### Evidence of residual spatial correlation?
-
-<img src="./warehouse/images/UPS.png" style="text-align: center; margin-left: 150px; height: 80%;">
+[comment]: <> (<img src="./warehouse/images/prevalence/map.png" style="text-align: center; margin-left: 150px;  width: 35%;">)
 
 <br>
 <br>

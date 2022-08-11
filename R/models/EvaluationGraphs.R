@@ -29,7 +29,12 @@ SpatialEvaluationGraphs <- function (points, limit) {
 }
 
 
-DiagonalEvaluationGraphs <- function (estimates) {
+DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
+
+  estimates <- rbind(
+    data.frame(prevalence = training_$prevalence, prediction = training_$prediction, segment = 'training'),
+    data.frame(prevalence = testing_$prevalence, prediction = testing_$prediction, segment = 'testing')
+  )
 
   map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
     geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
@@ -49,4 +54,33 @@ DiagonalEvaluationGraphs <- function (estimates) {
   
   return(map)
   
+}
+
+
+#'
+#' @param data_: A list that has the set-up
+#'                  list(prevalence = , prediction = )
+#'               wherein <prediction> represents the prevalence predictions of a model.
+#'
+SingleDiagonalEvaluationGraphs <- function (data_) {
+
+  estimates <- data.frame(prevalence = data_$prevalence, prediction = data_$prediction)
+
+  map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
+    geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
+    geom_point(alpha = 0.35) +
+    theme_minimal() +
+    theme(panel.spacing = unit(x = 3, units = 'lines'),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size = 0.05),
+          strip.text.x = element_text(size = 10),
+          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9),
+          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
+    xlab(label = '\nprevalence: prediction\n') +
+    ylab(label = '\nprevalence: original\n') +
+    xlim(0, 1) +
+    ylim(0, 1)
+
+  return(map)
+
 }

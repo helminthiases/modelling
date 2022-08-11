@@ -1,38 +1,37 @@
-# Title     : BinomialLogisticMCML.R
-# Objective : Binomial Logistic MCML
+# Title     : InitialParameterSettings.R
+# Objective : Initial parameter settings
 # Created by: greyhypotheses
-# Created on: 31/07/2022
+# Created on: 10/08/2022
 
 
 
-#' Binomial Logistic MCML
+#' Initial Parameter Settings
 #'
 #' @param data: A data set
-#' @param terms: The fixed effects terms.
+#' @param terms: The fixed effect terms
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
 #'
-BinomialLogisticMCML <- function (data, terms, variables) {
+InitialParameterSettings <- function (data, terms, variables) {
 
 
-  source(file = 'R/models/single/nugget/InitialParameterSettings.R')
+  # Functions
+  source(file = 'R/diagnostics/InitialEstimates.R')
 
 
-  # Initial parameters, and priors, settings; nugget excluded
-  initial <- InitialParameterSettings(data = data, terms = terms, variables = variables)
-  parameters <- initial$parameters
+  # Initial coefficient & variance/scale parameter values
+  initial <- InitialEstimates(data = data, terms = terms, variables = variables)
 
 
   # The control settings for the MCMC Algorithm
   settings <- control.mcmc.MCML(n.sim = 10000, burnin = 2000, thin = 8)
 
 
-  # Model
-  # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
-  # step is upcoming, use an explicitly written formula.
-  for (i in seq(from = 1, to = 5)) {
-    model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + I(piped_sewer^2) + elevation.km,
+  # Much more plausible initial parameter values
+  parameters <- initial$settings
+  for (i in seq(from = 1, to = 2)) {
+    model <- binomial.logistic.MCML(formula = as.formula(paste0('positive ~ ', terms)),
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
@@ -46,6 +45,11 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   }
 
 
-  return(list(model = model, initial = initial))
+  # Settings for variance/scale parameters priors.  Natural logarithm values.
+  priors <- summary(model)$cov.pars
+
+
+  return(list(parameters = parameters, priors = priors, model = model))
 
 }
+
