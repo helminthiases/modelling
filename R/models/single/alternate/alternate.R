@@ -36,7 +36,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Diagnostics
-terms <- 'piped_sewer + elevation.km'
+terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
 initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
 summary(initial$model)
 initial$settings
