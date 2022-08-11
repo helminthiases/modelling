@@ -8,9 +8,10 @@ Predicting geohelminths infections prevalence
 
 <br>
 
-### Evidence of residual spatial correlation?
+The distribution of hookworm disease examinations sites in Togo.  During the two years in question, the examinations 
+predominantly occurred at different sites; only 4 overlap.
 
-<img src="./warehouse/images/UPS.png" style="text-align: center; margin-left: 150px; height: 80%;">
+<img src="./warehouse/images/prevalence/map.png" style="text-align: center; margin-left: 150px; height: 80%;">
 
 <br>
 <br>
