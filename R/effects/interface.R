@@ -7,7 +7,9 @@
 
 # functions
 source(file = 'R/data/StudyData.R')
-source(file = 'R/effects/Estimates.R')
+source(file = 'R/effects/EffectsBaseline.R')
+source(file = 'R/effects/EffectsSegment.R')
+
 
 
 # a data set
@@ -17,89 +19,36 @@ frame <- StudyData(ISO2 = ISO2, infection = infection)
 frame$year <- factor(frame$year)
 
 
-# Key Variables
+# Setting-up
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 frame <- dplyr::rename(frame, 'identifier' = variables$identifier,
                       'positives' = variables$positives, 'tests' = variables$tests)
+X <- list('1' = paste('improved_sewer + unimproved_sewer + piped_sewer + log(unpiped_sewer) ',
+                      '+ surface_sewer + log(p_density.k) + elevation.km', collapse = NULL),
+          '2' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
+          '3' = 'piped_sewer + log(p_density.k) + elevation.km',
+          '4' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + log(p_density.k) + elevation.km',
+          '5' = 'piped_sewer + I(piped_sewer^2) + log(p_density.k) + elevation.km',
+          '6' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
+          '7' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
+          '8' = 'piped_sewer + surface_sewer + elevation.km',
+          '9' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
 
 
-# Plausible fixed effects
-string <- paste('improved_sewer + unimproved_sewer + piped_sewer + log(unpiped_sewer) ',
-              '+ surface_sewer + log(p_density.k) + elevation.km ',
-              '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- list('1' = model)
-summary(object = model)
+# Effects
+baseline <- EffectsBaseline(frame = frame, X = X)
 
-
-string <- paste('piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('2' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + log(p_density.k) + elevation.km ',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('3' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + I(piped_sewer^2) + surface_sewer + log(p_density.k) + elevation.km ',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('4' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + I(piped_sewer^2) + log(p_density.k) + elevation.km ',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('5' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('6' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + I(piped_sewer^2) + elevation.km',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('7' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + surface_sewer + elevation.km ',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('8' = model))
-summary(object = model)
-
-
-string <- paste('piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km ',
-                '+ (1|identifier) + (1|year)', collapse = NULL)
-model <- Estimates(data = frame, expression = string)
-models <- append(models, list('9' = model))
-summary(object = model)
+instances <- frame[frame$year == 2015, ]
+row.names(instances) <- NULL
+segment <- EffectsSegment(frame = instances, X = X)
 
 
 
-# All the models
-cat('\n\nAll the models ...', sep = '\n')
-print(anova(models[[1]], models[[2]], models[[8]], models[[4]], models[[6]], models[[5]],
-            models[[7]], models[[3]], models[[9]]))
+# Inspect
+dplyr::bind_rows(baseline$LSE)
+dplyr::bind_rows(segment$LSE)
 
-anova(models[[8]], models[[7]], models[[3]])
-anova(models[[9]], models[[5]], models[[6]])
-anova(models[[4]], models[[2]])
-anova(models[[1]])
-
-
-# Hence: Reject 1
-anova(models[[3]], models[[6]], models[[2]])
-anova(models[[7]], models[[6]], models[[2]])
+baseline_ <- baseline$models
+segment_ <- segment$models
+anova(baseline_[[8]], baseline_[[7]], baseline_[[3]], baseline_[[6]], baseline_[[2]])
+anova(segment_[[8]], segment_[[7]], segment_[[3]], segment_[[6]], segment_[[2]])
