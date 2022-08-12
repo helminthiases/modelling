@@ -7,9 +7,9 @@
 
 # functions
 source(file = 'R/data/StudyData.R')
+source(file = 'R/effects/Expressions.R')
 source(file = 'R/effects/EffectsBaseline.R')
 source(file = 'R/effects/EffectsSegment.R')
-
 
 
 # a data set
@@ -23,34 +23,20 @@ frame$year <- factor(frame$year)
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 frame <- dplyr::rename(frame, 'identifier' = variables$identifier,
                       'positives' = variables$positives, 'tests' = variables$tests)
-X <- list('1' = paste('improved_sewer + unimproved_sewer + piped_sewer + log(unpiped_sewer) ',
-                      '+ surface_sewer + log(p_density.k) + elevation.km', collapse = NULL),
-          '2' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
-          '3' = 'piped_sewer + log(p_density.k) + elevation.km',
-          '4' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + log(p_density.k) + elevation.km',
-          '5' = 'piped_sewer + I(piped_sewer^2) + log(p_density.k) + elevation.km',
-          '6' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
-          '7' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
-          '8' = 'piped_sewer + surface_sewer + elevation.km',
-          '9' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
-Y <- list('1' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
-          '2' = 'piped_sewer + log(p_density.k) + elevation.km',
-          '3' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
-          '4' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
-          '5' = 'piped_sewer + surface_sewer + elevation.km',
-          '6' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
 
 
 # Effects
-baseline <- EffectsBaseline(frame = frame, X = Y)
+expressions <- Expressions()
+
+baseline <- EffectsBaseline(frame = frame, expressions = expressions[[2]])
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-later <- EffectsSegment(frame = instances, X = Y)
+later <- EffectsSegment(frame = instances, expressions = expressions[[2]])
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-earlier <- EffectsSegment(frame = instances, X = Y)
+earlier <- EffectsSegment(frame = instances, expressions = expressions[[2]])
 
 
 # Inspect
