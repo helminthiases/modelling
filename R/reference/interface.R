@@ -30,9 +30,30 @@ IdentifierFrequencies(data = frame)
 TimeFrequencies(data = frame)
 
 
+# setting-up
+sections <- c('distributions', 'sewer', 'miscellaneous', 'water')
+pathstr <- file.path(getwd(), 'warehouse', 'reference')
+for (section in sections) {
+
+  path <- file.path(pathstr, section)
+
+  # delete
+  if (dir.exists(paths = path)) {
+    base::unlink(path)
+  }
+
+  # create
+  if (!dir.exists(paths = path)) {
+    dir.create(path = path, showWarnings = TRUE, recursive = TRUE)
+  }
+
+}
+
+
+
 # Graphs
-DensityDistributions(data = frame)
-MapDistributions(data = frame)
+DensityDistributions(data = frame, pathstr = pathstr)
+MapDistributions(data = frame, pathstr = pathstr)
 CandleDistributions(data = frame)
 AggregateSewer(data = frame)
 DisaggregateSewer(data = frame)
