@@ -8,9 +8,9 @@
 #' Effects Segment
 #'
 #' @param frame: The data of a year
-#' @param X: A list of formulae expressions
+#' @param expressions: A list of formulae expressions
 #'
-EffectsSegment <- function (frame, X) {
+EffectsSegment <- function (frame, expressions) {
 
 
   try(if (length(unique(frame$year)) > 1) stop('The observations must be asociated with a single year.'))
@@ -28,7 +28,7 @@ EffectsSegment <- function (frame, X) {
 
 
   # Calculations
-  models <- lapply(X = X, FUN = .glmm)
+  models <- lapply(X = expressions, FUN = .glmm)
 
 
   return(models)
