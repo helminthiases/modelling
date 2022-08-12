@@ -109,12 +109,14 @@ IllustrationSegment <- function (data, variables) {
   LSE <- InitialDiagnostics(data = data, terms = terms, variables = variables)
   points <- data.frame(distance = as.numeric(LSE$distance.bins), estimate = as.numeric(LSE$obs.variogram),
                        estimate.lower = LSE$lower.lim, estimate.upper = LSE$upper.lim)
-  LSE$graph <- .graph(points = points)
+  graph <- .graph(points = points)
+  LSE$graph <- graph
 
 
   # save
   save(fixed_, random_, LSE, file = file.path(pathstr, 'segment'), ascii = TRUE,
        compress = TRUE, compression_level = 7)
-
+  ggsave(filename = file.path(pathstr, 'segment.pdf'),
+         plot = graph, width = 390, units = 'px', dpi = 95, scale = 1)
 
 }
