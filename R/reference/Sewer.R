@@ -37,7 +37,7 @@ DisaggregateSewer <- function (data, pathstr) {
     ylab(label = '\nprevalence\n')
   print(diagram)
   ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerReal.pdf'),
-         plot = diagram, dpi = 95, scale = 1)
+         plot = diagram, dpi = 85, scale = 1, height = 345, units = 'px')
 
 
   diagram <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = prevalence, colour = year)) +
@@ -57,7 +57,7 @@ DisaggregateSewer <- function (data, pathstr) {
     ylab(label = '\nprevalence\n')
   print(diagram)
   ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerLN.pdf'),
-         plot = diagram, dpi = 95, scale = 1)
+         plot = diagram, dpi = 85, scale = 1, height = 345, units = 'px')
 
 }
 
