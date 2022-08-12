@@ -48,6 +48,6 @@ InitialDiagnostics <- function (data, terms) {
                        lse.variogram = TRUE,
                        ID.coords = ID.coords)
 
-  return(T$lse.variogram)
+  return(T)
 
 }
