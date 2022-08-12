@@ -8,8 +8,9 @@
 #' Graphs of features; excluding WASH variables.
 #'
 #' @param data: The data
+#' @param pathstr:
 #'
-DisaggregateMiscellaneous <- function (data) {
+DisaggregateMiscellaneous <- function (data, pathstr) {
 
   variables <- c('year', 'elevation.km', 'p_density', 'prevalence')
 
@@ -19,7 +20,7 @@ DisaggregateMiscellaneous <- function (data) {
 
   instances$year <- as.factor(instances$year)
 
-  graph <- ggplot(data = instances, mapping = aes(x = value, y = prevalence, colour = year)) +
+  diagram <- ggplot(data = instances, mapping = aes(x = value, y = prevalence, colour = year)) +
     geom_point(alpha = 0.05) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
@@ -34,10 +35,12 @@ DisaggregateMiscellaneous <- function (data) {
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\nvalue\n') +
     ylab(label = '\nprevalence\n')
-  print(graph)
+  print(diagram)
+  ggsave(filename = file.path(pathstr, 'miscellaneous', 'disaggregateMiscellaneousReal.pdf'),
+         plot = diagram, dpi = 95, height = 250, units = 'px', scale = 1)
 
 
-  graph <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence, colour = year)) +
+  diagram <- ggplot(data = instances, mapping = aes(x = log(value), y = prevalence, colour = year)) +
     geom_point(alpha = 0.05) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
@@ -52,8 +55,9 @@ DisaggregateMiscellaneous <- function (data) {
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\nln(value)\n') +
     ylab(label = '\nprevalence\n')
-  print(graph)
-
+  print(diagram)
+  ggsave(filename = file.path(pathstr, 'miscellaneous', 'disaggregateMiscellaneousLN.pdf'),
+         plot = diagram, dpi = 95, height = 250, units = 'px', scale = 1)
 
 }
 
