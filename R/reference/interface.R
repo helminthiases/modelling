@@ -60,7 +60,7 @@ DisaggregateSewer(data = frame, pathstr = pathstr)
 AggregateWater(data = frame)
 DisaggregateWater(data = frame)
 AggregateMiscellaneous(data = frame)
-DisaggregateMiscellaneous(data = frame)
+DisaggregateMiscellaneous(data = frame, pathstr = pathstr)
 
 if (add.extraneous) {
   AggregateExtraneous(data = frame)
