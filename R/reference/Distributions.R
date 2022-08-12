@@ -7,13 +7,14 @@
 
 #' Prevalence Distributions: Density Graphs
 #'
-#' @param excerpt: The modelling data set
+#' @param data: The modelling data set
+#' @param pathstr:
 #'
-DensityDistributions <- function (data) {
+DensityDistributions <- function (data, pathstr) {
 
   data$year <- as.factor(data$year)
 
-  ggplot(data = data, mapping = aes(x = prevalence, fill = year)) +
+  diagram <- ggplot(data = data, mapping = aes(x = prevalence, fill = year)) +
     geom_density(alpha = 0.35, colour = 'white') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
@@ -24,15 +25,20 @@ DensityDistributions <- function (data) {
           axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
     xlab(label = '\nprevalence\n') +
     ylab(label = '\ndensity\n')
+  print(diagram)
+
+  ggsave(filename = file.path(pathstr, 'distributions', 'densityDistributions.pdf'),
+         plot = diagram, dpi = 95, scale = 1)
 
 }
 
 
 #' Prevalence Distributions: Map
 #'
-#' @param excerpt: The modelling data set
+#' @param data: The modelling data set
+#' @param pathstr:
 #'
-MapDistributions <- function (data) {
+MapDistributions <- function (data, pathstr) {
 
   source(file = 'R/functions/GeographicObject.R')
 
@@ -40,7 +46,7 @@ MapDistributions <- function (data) {
 
   instances <- GeographicObject(data = data)
 
-  tm_shape(instances) +
+  diagram <- tm_shape(instances) +
     tm_layout(main.title = '\n', frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
               outer.margins = c(0.1, 0.1, 0.1, 0.1), main.title.size = 0.95,
               main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
@@ -54,13 +60,16 @@ MapDistributions <- function (data) {
                palette = c('orange', 'black'),
                title.size = 'Prevalence',
                title.col = 'Year', scale = 0.80)
+  print(diagram)
+
+  tmap::tmap_save(diagram, filename = file.path(pathstr, 'distributions', 'mapDistributions.pdf'))
 
 }
 
 
 #' Prevalence Distributions: Candle/Box Plots
 #'
-#' @param excerpt: The modelling data set
+#' @param data: The modelling data set
 #'
 CandleDistributions <- function (data) {
 
