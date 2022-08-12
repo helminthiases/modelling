@@ -29,14 +29,3 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 # Manuscript illustrations
 IllustrationBaseline(data = instances, variables = variables)
 IllustrationSegment(data = instances, variables = variables)
-
-
-
-
-
-
-
-
-
-
-
