@@ -21,22 +21,20 @@ frame$year <- factor(frame$year)
 
 # Setting-up
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
-frame <- dplyr::rename(frame, 'identifier' = variables$identifier,
-                      'positives' = variables$positives, 'tests' = variables$tests)
 
 
 # Effects
 expressions <- Expressions()
 
-baseline <- EffectsBaseline(frame = frame, expressions = expressions[[2]])
+baseline <- EffectsBaseline(frame = frame, expressions = expressions[[2]], variables = variables)
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-later <- EffectsSegment(frame = instances, expressions = expressions[[2]])
+later <- EffectsSegment(frame = instances, expressions = expressions[[2]], variables = variables)
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-earlier <- EffectsSegment(frame = instances, expressions = expressions[[2]])
+earlier <- EffectsSegment(frame = instances, expressions = expressions[[2]], variables = variables)
 
 
 # Inspect
