@@ -33,41 +33,36 @@ X <- list('1' = paste('improved_sewer + unimproved_sewer + piped_sewer + log(unp
           '7' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
           '8' = 'piped_sewer + surface_sewer + elevation.km',
           '9' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
+Y <- list('1' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
+          '2' = 'piped_sewer + log(p_density.k) + elevation.km',
+          '3' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
+          '4' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
+          '5' = 'piped_sewer + surface_sewer + elevation.km',
+          '6' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
 
 
 # Effects
-baseline <- EffectsBaseline(frame = frame, X = X)
+baseline <- EffectsBaseline(frame = frame, X = Y)
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-later <- EffectsSegment(frame = instances, X = X)
+later <- EffectsSegment(frame = instances, X = Y)
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-earlier <- EffectsSegment(frame = instances, X = X)
+earlier <- EffectsSegment(frame = instances, X = Y)
 
 
 # Inspect
-dplyr::bind_rows(baseline$LSE)
-dplyr::bind_rows(later$LSE)
-dplyr::bind_rows(earlier$LSE)
-
-baseline_ <- baseline$models
-later_ <- later$models
-earlier_ <- earlier$models
-
-anova(baseline_[[8]], baseline_[[7]], baseline_[[3]], baseline_[[6]], baseline_[[2]])
-anova(later_[[8]], later_[[7]], later_[[3]], later_[[6]], later_[[2]])
-anova(earlier_[[8]], earlier_[[7]], earlier_[[3]], earlier_[[6]], earlier_[[2]])
+anova(baseline[[5]], baseline[[4]], baseline[[2]], baseline[[3]], baseline[[6]], baseline[[1]])
+anova(later[[4]], later[[5]], later[[2]], later[[3]], later[[6]], later[[1]])
+anova(earlier[[5]], earlier[[4]], earlier[[2]], earlier[[3]], earlier[[6]], earlier[[1]])
 
 
-# In focus: 3, 7
-for (i in c(3, 7)) {
-  summary(later_[[i]])
-  summary(earlier_[[i]])
-}
-
-for (i in c(2, 6, 8)) {
-  print(summary(later_[[i]]))
-  print(summary(earlier_[[i]]))
+# Summaries
+for (i in seq_len(length(baseline))) {
+  print(summary(baseline[[i]]))
+  print(summary(later[[i]]))
+  print(summary(earlier[[i]]))
+  cat('\n\n\n\n')
 }
