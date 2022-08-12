@@ -17,7 +17,6 @@ EffectsSegment <- function (frame, X) {
 
 
   source(file = 'R/effects/Estimates.R')
-  source(file = 'R/effects/InitialDiagnostics.R')
 
 
   # Generalised linear mixed models
@@ -28,19 +27,11 @@ EffectsSegment <- function (frame, X) {
   }
 
 
-  # Spatial correlation diagnostics
-  .lse <- function (terms) {
-    lse <- InitialDiagnostics(data = frame, terms = terms)
-    return(lse)
-  }
-
-
   # Calculations
-  LSE <- lapply(X = X, FUN = .lse)
   models <- lapply(X = X, FUN = .glmm)
 
 
-  return(list(LSE = LSE, models = models))
+  return(models)
 
 
 }
