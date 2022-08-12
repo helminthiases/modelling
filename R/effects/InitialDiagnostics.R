@@ -9,14 +9,14 @@
 #'
 #' @param data: A data set.
 #' @param terms: The fixed effects.
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
 #'
-InitialDiagnostics <- function (data, terms) {
+InitialDiagnostics <- function (data, terms, variables) {
 
-  source(file = 'R/functions/GeographicObject.R')
-
-
-  # Geographic form
-  data <- GeographicObject(data = data)
+  data <- dplyr::rename(data, 'identifier' = variables$identifier,
+                        'positives' = variables$positives, 'tests' = variables$tests)
 
 
   # Addressing spat.corr.diagnostic's peculiar identification code rules
