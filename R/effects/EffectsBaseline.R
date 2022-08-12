@@ -8,9 +8,9 @@
 #' Effects Baseline
 #'
 #' @param frame: The data of a year
-#' @param X: A list of formulae expressions
+#' @param expressions: A list of formulae expressions
 #'
-EffectsBaseline <- function (frame, X) {
+EffectsBaseline <- function (frame, expressions) {
 
 
   source(file = 'R/effects/Estimates.R')
@@ -25,7 +25,7 @@ EffectsBaseline <- function (frame, X) {
 
 
   # Calculations
-  models <- lapply(X = X, FUN = .glmm)
+  models <- lapply(X = expressions, FUN = .glmm)
 
 
   return(models)
