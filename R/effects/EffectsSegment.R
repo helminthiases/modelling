@@ -9,8 +9,11 @@
 #'
 #' @param frame: The data of a year
 #' @param expressions: A list of formulae expressions
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
 #'
-EffectsSegment <- function (frame, expressions) {
+EffectsSegment <- function (frame, expressions, variables) {
 
 
   try(if (length(unique(frame$year)) > 1) stop('The observations must be asociated with a single year.'))
@@ -22,7 +25,7 @@ EffectsSegment <- function (frame, expressions) {
   # Generalised linear mixed models
   .glmm <- function (terms) {
     string <- paste(terms, ' + (1|identifier)', collapse = NULL)
-    model <- Estimates(data = frame, expression = string)
+    model <- Estimates(data = frame, expression = string, variables = variables)
     return(model)
   }
 
