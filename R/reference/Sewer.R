@@ -8,8 +8,9 @@
 #' The Graphs of the Sewer Access Categories
 #'
 #' @param data: The data
+#' @param pathstr:
 #'
-DisaggregateSewer <- function (data) {
+DisaggregateSewer <- function (data, pathstr) {
 
   variables <- c('year', 'improved_sewer', 'unpiped_sewer', 'surface_sewer', 'piped_sewer', 'unimproved_sewer', 'prevalence')
 
@@ -19,7 +20,7 @@ DisaggregateSewer <- function (data) {
 
   instances$year <- as.factor(instances$year)
 
-  graph <- ggplot(data = instances, mapping = aes(x = access_percentage, y = prevalence, colour = year)) +
+  diagram <- ggplot(data = instances, mapping = aes(x = access_percentage, y = prevalence, colour = year)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
@@ -28,16 +29,18 @@ DisaggregateSewer <- function (data) {
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05),
+          panel.grid.major = element_line(size = 0.01),
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess percentage\n') +
+    xlab(label = '\naccess fraction\n') +
     ylab(label = '\nprevalence\n')
-  print(graph)
+  print(diagram)
+  ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerReal.pdf'),
+         plot = diagram, dpi = 95, scale = 1)
 
 
-  graph <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = prevalence, colour = year)) +
+  diagram <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = prevalence, colour = year)) +
     geom_point(alpha = 0.05, na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed') +
@@ -46,13 +49,15 @@ DisaggregateSewer <- function (data) {
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05),
+          panel.grid.major = element_line(size = 0.01),
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access percentage)\n') +
+    xlab(label = '\nln(access fraction)\n') +
     ylab(label = '\nprevalence\n')
-  print(graph)
+  print(diagram)
+  ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerLN.pdf'),
+         plot = diagram, dpi = 95, scale = 1)
 
 }
 
