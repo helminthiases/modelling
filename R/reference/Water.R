@@ -29,7 +29,7 @@ DisaggregateWater <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\naccess percentage\n') +
     ylab(label = '\nprevalence\n')
@@ -47,7 +47,7 @@ DisaggregateWater <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\nln(access percentage)\n') +
     ylab(label = '\nprevalence\n')
@@ -79,7 +79,7 @@ AggregateWater <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\naccess percentage\n') +
     ylab(label = '\nprevalence\n')
@@ -95,7 +95,7 @@ AggregateWater <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
     xlab(label = '\nln(access percentage)\n') +
     ylab(label = '\nprevalence\n')
