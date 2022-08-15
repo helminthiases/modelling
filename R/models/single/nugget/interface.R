@@ -32,7 +32,7 @@ instances$year <- as.factor(instances$year)
 
 
 # Spatial splitting
-T <- SpatialSplitting(instances = instances, step = 2)
+T <- SpatialSplitting(instances = instances, step = 4)
 training <- T$training
 testing <- T$testing
 rm(T)
@@ -44,7 +44,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 # Diagnostics
 terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
-initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 1.5)
+initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
 summary(initial$model)
 initial$settings
 
@@ -52,9 +52,9 @@ initial$settings
 # Modelling
 
 # ... model, initial
-mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 1.5)
+mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
 
 
 # ... model, initial
-bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 1.5)
+bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
 
