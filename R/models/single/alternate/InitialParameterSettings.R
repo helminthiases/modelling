@@ -35,6 +35,7 @@ InitialParameterSettings <- function (data, terms, variables) {
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
+                                    times = ~year,
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = 0.5,
