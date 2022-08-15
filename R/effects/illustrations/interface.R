@@ -29,6 +29,17 @@ instances <- GeographicObject(data = frame)
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 
 
+# Setting-up
+pathstr <- file.path(getwd(), 'warehouse', 'effects', 'illustration')
+if (dir.exists(paths = pathstr)) {
+  base::unlink(pathstr, recursive = TRUE)
+}
+if (!dir.exists(paths = pathstr)) {
+  dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
+}
+
+
+
 # Manuscript illustrations
 IllustrationBaseline(data = instances, variables = variables)
 IllustrationSegment(data = instances, variables = variables)
