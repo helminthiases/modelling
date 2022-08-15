@@ -21,7 +21,7 @@ EffectsBaseline <- function (frame, expressions, variables) {
 
   # Generalised linear mixed models
   .glmm <- function (terms) {
-    string <- paste(terms, ' + (1|identifier) + (1|year)', collapse = NULL)
+    string <- paste(terms, ' + (1|identifier)', collapse = NULL)
     model <- Estimates(data = frame, expression = string, variables = variables)
     return(model)
   }
