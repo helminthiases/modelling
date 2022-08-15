@@ -21,6 +21,7 @@ valuations <- EvaluationMetricsBLM(model = mcml$model, data = excerpt, type = 'm
 # Illustrating Accuracy: Diagonals
 diagonal <- SingleDiagonalEvaluationGraphs(
   data_ = list(prediction = valuations$prevalence$predictions, prevalence = excerpt$prevalence))
+diagonal
 
 
 # Is there still evidence of residual spatial correlation?
@@ -34,9 +35,9 @@ T$graph
 
 
 # Coefficients
-variables <- list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)' , 'elevation.km'),
-                  labels = c('(Intercept)', 'piped_sewer', 'I(piped_sewer$^{2}$)' , 'elevation.km'))
-parameters <- c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')
+variables <- list(strings = c('(Intercept)', 'piped_sewer', 'elevation.km'),
+                  labels = c('(Intercept)', 'piped_sewer', 'elevation.km'))
+parameters <- c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$')
 coefficients <- CoefficientsEstimatesBLM(model = mcml$model, variables = variables, parameters = parameters)
 coefficients
 
