@@ -80,7 +80,7 @@ IllustrationBaseline <- function (data, variables) {
 
 
   # save
-  save(fixed_, random_, file = file.path(pathstr, 'baseline'), ascii = TRUE,
+  save(fixed_, random_, file = file.path(pathstr, 'baseline.Rdata'), ascii = TRUE,
        compress = TRUE, compression_level = 7)
 
 
