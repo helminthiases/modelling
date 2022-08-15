@@ -22,34 +22,27 @@ add.extraneous <- FALSE
 frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
 
 
-# Longitudinal aspects?
-IdentifierFrequencies(data = frame)
-
-
-# The number of observations per year
-TimeFrequencies(data = frame)
-
-
 # setting-up
-sections <- c('distributions', 'sewer', 'miscellaneous', 'water')
+sections <- c('distributions', 'frequencies', 'sewer', 'miscellaneous', 'water')
 pathstr <- file.path(getwd(), 'warehouse', 'reference')
 for (section in sections) {
-
   path <- file.path(pathstr, section)
-
   # delete
   if (dir.exists(paths = path)) {
     base::unlink(path)
   }
-
   # create
   if (!dir.exists(paths = path)) {
     dir.create(path = path, showWarnings = TRUE, recursive = TRUE)
   }
-
 }
 
 
+# Longitudinal aspects?
+IdentifierFrequencies(data = frame)
+
+# The number of observations per year
+TimeFrequencies(data = frame, pathstr = pathstr)
 
 # Graphs
 DensityDistributions(data = frame, pathstr = pathstr)
@@ -66,6 +59,4 @@ if (add.extraneous) {
   AggregateExtraneous(data = frame)
   DisaggregateExtraneous(data = frame)
 }
-
-
 
