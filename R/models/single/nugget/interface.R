@@ -44,7 +44,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 # Diagnostics
 terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
-initial <- InitialEstimates(data = training, terms = terms, variables = variables)
+initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 1.5)
 summary(initial$model)
 initial$settings
 
@@ -52,9 +52,9 @@ initial$settings
 # Modelling
 
 # ... model, initial
-mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables)
+mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 1.5)
 
 
 # ... model, initial
-bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables)
+bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 1.5)
 
