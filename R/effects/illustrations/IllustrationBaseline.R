@@ -17,16 +17,7 @@ IllustrationBaseline <- function (data, variables) {
 
   source(file = 'R/effects/Estimates.R')
   source(file = 'R/diagnostics/InitialDiagnostics.R')
-
-
-  # setting-up
-  pathstr <- file.path(getwd(), 'warehouse', 'effects', 'illustration')
-  if (!dir.exists(paths = pathstr)) {
-    dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
-  }
-  if (file.exists(paths = file.path(pathstr, 'baseline'))) {
-    base::unlink(file.path(pathstr, 'baseline'))
-  }
+  source(file = 'R/functions/ConfidenceInterval.R')
 
 
   # fixed terms
@@ -34,8 +25,8 @@ IllustrationBaseline <- function (data, variables) {
 
     # the coefficient estimates
     template <- summary(object = model)
-    estimates <- template$coefficients[, c('Estimate', 'Pr(>|z|)')] %>% data.frame()
-    names(estimates) <- c('estimate', 'p.value')
+    estimates <- template$coefficients[, c('Estimate', 'Std. Error', 'Pr(>|z|)')] %>% data.frame()
+    names(estimates) <- c('est', 'SE', 'p.value')
 
     # their descriptions
     descriptions <- data.frame(term = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer',
@@ -46,6 +37,10 @@ IllustrationBaseline <- function (data, variables) {
     # hence, a comprehensible summary
     T <- merge(x = descriptions, y = estimates,
                by = 0, all.x = TRUE, sort = FALSE) %>% dplyr::select(!Row.names)
+
+    # CI
+    T <- CoefficientConfidenceInterval(parameters = T)
+
 
     return(T)
 
