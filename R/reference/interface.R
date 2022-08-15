@@ -29,7 +29,7 @@ for (section in sections) {
   path <- file.path(pathstr, section)
   # delete
   if (dir.exists(paths = path)) {
-    base::unlink(path)
+    base::unlink(path, recursive = TRUE)
   }
   # create
   if (!dir.exists(paths = path)) {
