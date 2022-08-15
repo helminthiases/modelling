@@ -98,7 +98,7 @@ IllustrationsSegment <- function (data, variables) {
 
 
   # diagnostics
-  LSE <- InitialDiagnostics(data = data, terms = terms, variables = variables, kappa = 1.5)
+  LSE <- InitialDiagnostics(data = data, terms = terms, variables = variables, kappa = 0.5)
   points <- data.frame(distance = as.numeric(LSE$distance.bins), estimate = as.numeric(LSE$obs.variogram),
                        estimate.lower = LSE$lower.lim, estimate.upper = LSE$upper.lim)
   graph <- .graph(points = points)
