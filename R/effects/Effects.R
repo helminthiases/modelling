@@ -7,7 +7,7 @@
 
 #' Effects Baseline
 #'
-#' @param frame: The data of a year
+#' @param frame: A data frame
 #' @param expressions: A list of formulae expressions
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
