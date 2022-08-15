@@ -50,27 +50,30 @@ anova(earlier[[1]], earlier[[2]], earlier[[3]], earlier[[4]], earlier[[5]],
 anova(later[[1]], later[[2]], later[[3]], later[[4]], later[[5]],
       later[[6]], later[[7]], later[[8]], later[[9]])
 
+arc <- later
+anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
+indices <- c(7, 8, 3, 6, 2)
 
 
 # Summaries
-for (i in seq_len(length(baseline))) {
-  InitialDiagnostics(data = frame, terms = expressions_[[1]][[i]], variables = variables, kappa = 1.5)
+for (i in indices) {
+  InitialDiagnostics(data = frame, terms = expressions_[[1]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('baseline: ', i))
 }
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
 instances <- SpatialExcerpt(data = instances, step = 2, part = 2)
-for (i in seq_len(length(later))) {
-  InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 1.5)
+for (i in indices) {
+  InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('later: ', i))
 }
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
 instances <- SpatialExcerpt(data = instances, step = 2, part = 2)
-for (i in seq_len(length(earlier))) {
-  InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 1.5)
+for (i in indices) {
+  InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('earlier: ', i))
 }
 
