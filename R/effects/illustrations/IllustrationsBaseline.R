@@ -1,4 +1,4 @@
-# Title     : IllustrationBaseline.R
+# Title     : IllustrationsBaseline.R
 # Objective : For the manuscript
 # Created by: greyhypotheses
 # Created on: 12/08/2022
@@ -12,7 +12,7 @@
 #' @note save(..., file = file.path(pathstr, 'baseline'), ascii = TRUE,
 #'            compress = TRUE, compression_level = 7)
 #'
-IllustrationBaseline <- function (data, variables) {
+IllustrationsBaseline <- function (data, variables) {
 
 
   source(file = 'R/effects/Estimates.R')
