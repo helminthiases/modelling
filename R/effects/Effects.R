@@ -1,4 +1,4 @@
-# Title     : EffectsBaseline.R
+# Title     : Effects.R
 # Objective : Effects
 # Created by: greyhypotheses
 # Created on: 10/08/2022
@@ -13,7 +13,7 @@
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
 #'
-EffectsBaseline <- function (frame, expressions, variables) {
+Effects <- function (frame, expressions, variables) {
 
 
   source(file = 'R/effects/Estimates.R')
