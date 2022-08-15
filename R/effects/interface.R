@@ -8,8 +8,7 @@
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/effects/Expressions.R')
-source(file = 'R/effects/EffectsBaseline.R')
-source(file = 'R/effects/EffectsSegment.R')
+source(file = 'R/effects/Effects.R')
 source(file = 'R/diagnostics/InitialDiagnostics.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialExcerpt.R')
@@ -35,15 +34,15 @@ expressions_ <- Expressions()
 
 
 # Options
-baseline <- EffectsBaseline(frame = frame, expressions = expressions_[[1]], variables = variables)
+baseline <- Effects(frame = frame, expressions = expressions_[[1]], variables = variables)
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-later <- EffectsSegment(frame = instances, expressions = expressions_[[2]], variables = variables)
+later <- Effects(frame = instances, expressions = expressions_[[2]], variables = variables)
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-earlier <- EffectsSegment(frame = instances, expressions = expressions_[[2]], variables = variables)
+earlier <- Effects(frame = instances, expressions = expressions_[[2]], variables = variables)
 
 
 
@@ -57,14 +56,12 @@ anova(later[[1]], later[[2]], later[[3]], later[[4]], later[[5]],
 
 arc <- later
 anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
-
 arc <- earlier
 anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
 
 
 
 # Spatial Correlation: Expressions 7 & 3 lead to earlier & later models with sigificant coefficients
-
 indices <- c(7, 3)
 
 # ... data deficient
