@@ -4,6 +4,9 @@
 # Created on: 12/08/2022
 
 
+par(bty = 'n', fg = 'grey')
+
+
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
