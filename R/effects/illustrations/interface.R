@@ -30,7 +30,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Setting-up
-pathstr <- file.path(getwd(), 'warehouse', 'effects', 'illustration')
+pathstr <- file.path(getwd(), 'warehouse', 'effects', 'illustrations')
 if (dir.exists(paths = pathstr)) {
   base::unlink(pathstr, recursive = TRUE)
 }
