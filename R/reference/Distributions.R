@@ -47,10 +47,10 @@ MapDistributions <- function (data, pathstr) {
   instances <- GeographicObject(data = data)
 
   diagram <- tm_shape(instances) +
-    tm_layout(main.title = '\n', frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
+    tm_layout(main.title = NULL, frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
               outer.margins = c(0.01, 0.01, 0.01, 0.01), main.title.size = 0.95,
               main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
-              legend.outside = TRUE, legend.position = c('left', 'bottom')) +
+              legend.outside = TRUE, legend.position = c('left', 'center'), legend.title.size = 0.95) +
     tm_bubbles(size = 'prevalence',
                col = 'year',
                alpha = 0.35,
@@ -62,7 +62,9 @@ MapDistributions <- function (data, pathstr) {
                title.col = 'Year', scale = 0.80)
   print(diagram)
 
-  tmap::tmap_save(diagram, filename = file.path(pathstr, 'distributions', 'mapDistributions.pdf'))
+  tmap::tmap_save(diagram,
+                  filename = file.path(pathstr, 'distributions', 'mapDistributions.pdf'))
+
 
 }
 
