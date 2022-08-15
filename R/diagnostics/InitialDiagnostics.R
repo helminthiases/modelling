@@ -12,8 +12,9 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: the smoothness parameter of the Matérn function
 #'
-InitialDiagnostics <- function (data, terms, variables) {
+InitialDiagnostics <- function (data, terms, variables, kappa) {
 
   data <- dplyr::rename(data, 'identifier' = variables$identifier,
                         'positives' = variables$positives, 'tests' = variables$tests)
@@ -40,13 +41,14 @@ InitialDiagnostics <- function (data, terms, variables) {
   # illustrating diagnostics
   par(bty = 'n', fg = 'grey')
   T <- spat.corr.diagnostic(formula = as.formula(object = paste0('positives ~ ', terms)),
-                       units.m = ~tests,
-                       nAGQ = 18,
-                       data = st_drop_geometry(data),
-                       coords = ~I(x / 1000) + I(y / 1000),
-                       likelihood = 'Binomial',
-                       lse.variogram = TRUE,
-                       ID.coords = ID.coords)
+                            units.m = ~tests,
+                            nAGQ = 18,
+                            data = st_drop_geometry(data),
+                            coords = ~I(x / 1000) + I(y / 1000),
+                            likelihood = 'Binomial',
+                            lse.variogram = TRUE,
+                            kappa = kappa,
+                            ID.coords = ID.coords)
 
   return(T)
 
