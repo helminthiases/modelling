@@ -24,7 +24,7 @@ IllustrationsSegment <- function (data, variables) {
 
   # Data segment, and preventing ill-conditioning
   data <- instances[data$year == 2015, ]
-  data <- SpatialExcerpt(data = data, step = 2)
+  data <- SpatialExcerpt(data = data, step = 2, part = 2)
 
 
   # fixed terms
@@ -47,6 +47,7 @@ IllustrationsSegment <- function (data, variables) {
 
     # CI
     T <- CoefficientConfidenceInterval(parameters = T)
+    T <- T %>% select(term, coefficient, '2.5 %', '97.5 %', SE, 'p.value')
 
     return(T)
 
@@ -73,7 +74,7 @@ IllustrationsSegment <- function (data, variables) {
       scale_y_continuous(breaks = c(0.70, 0.9, 1.1), limits = c(0.6, 1.15)) +
       geom_line() +
       geom_ribbon(mapping = aes(ymin = `estimate.lower`, ymax = `estimate.upper`), alpha = 0.3, linetype = 0) +
-      geom_point(alpha = 0.65, size = 1) +
+      geom_point(alpha = 0.65, size = 1, na.rm = TRUE) +
       geom_vline(xintercept = 0, alpha = 0.35, size = 0.25) +
       theme_minimal() +
       theme(panel.grid.minor = element_blank(),
@@ -97,7 +98,7 @@ IllustrationsSegment <- function (data, variables) {
 
 
   # diagnostics
-  LSE <- InitialDiagnostics(data = data, terms = terms, variables = variables)
+  LSE <- InitialDiagnostics(data = data, terms = terms, variables = variables, kappa = 1.5)
   points <- data.frame(distance = as.numeric(LSE$distance.bins), estimate = as.numeric(LSE$obs.variogram),
                        estimate.lower = LSE$lower.lim, estimate.upper = LSE$upper.lim)
   graph <- .graph(points = points)
