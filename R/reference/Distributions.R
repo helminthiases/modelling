@@ -19,7 +19,7 @@ DensityDistributions <- function (data, pathstr) {
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
           panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05),
+          panel.grid.major = element_line(size = 0.05, colour = 'white'),
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
@@ -27,7 +27,7 @@ DensityDistributions <- function (data, pathstr) {
     ylab(label = '\ndensity\n')
   print(diagram)
 
-  ggsave(filename = file.path(pathstr, 'distributions', 'densityDistributions.pdf'),
+  ggsave(filename = file.path(pathstr, 'distributions', 'densityDistributions.pdf'), width = 370, height = 205, units = 'px',
          plot = diagram, dpi = 95, scale = 1)
 
 }
@@ -50,7 +50,7 @@ MapDistributions <- function (data, pathstr) {
     tm_layout(main.title = NULL, frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
               outer.margins = c(0.01, 0.01, 0.01, 0.01), main.title.size = 0.95,
               main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
-              legend.outside = TRUE, legend.position = c('left', 'center'), legend.title.size = 0.95) +
+              legend.outside = TRUE, legend.position = c('left', 'center'), legend.title.size = 1.25) +
     tm_bubbles(size = 'prevalence',
                col = 'year',
                alpha = 0.35,
@@ -62,7 +62,7 @@ MapDistributions <- function (data, pathstr) {
                title.col = 'Year', scale = 0.80)
   print(diagram)
 
-  tmap::tmap_save(diagram,
+  tmap::tmap_save(diagram, dpi = 95,
                   filename = file.path(pathstr, 'distributions', 'mapDistributions.pdf'))
 
 
