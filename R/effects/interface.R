@@ -15,6 +15,7 @@ source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialExcerpt.R')
 
 
+
 # a data set
 ISO2 <- 'TG'
 infection <- 'hk'
@@ -22,12 +23,15 @@ frame <- StudyData(ISO2 = ISO2, infection = infection)
 frame <- GeographicObject(data = frame)
 
 
+
 # Setting-up
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 
 
+
 # Effects
 expressions_ <- Expressions()
+
 
 
 # Options
@@ -42,6 +46,7 @@ row.names(instances) <- NULL
 earlier <- EffectsSegment(frame = instances, expressions = expressions_[[2]], variables = variables)
 
 
+
 # Inspect
 anova(baseline[[1]], baseline[[2]], baseline[[3]], baseline[[4]], baseline[[5]],
       baseline[[6]], baseline[[7]], baseline[[8]], baseline[[9]])
@@ -52,26 +57,34 @@ anova(later[[1]], later[[2]], later[[3]], later[[4]], later[[5]],
 
 arc <- later
 anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
-indices <- c(7, 8, 3, 6, 2)
+
+arc <- earlier
+anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
 
 
-# Summaries
+
+# Spatial Correlation: Expressions 7 & 3 lead to earlier & later models with sigificant coefficients
+
+indices <- c(7, 3)
+
+# ... data deficient
 for (i in indices) {
   InitialDiagnostics(data = frame, terms = expressions_[[1]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('baseline: ', i))
 }
 
+# ... compact
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-instances <- SpatialExcerpt(data = instances, step = 2, part = 2)
+instances <- SpatialExcerpt(data = instances, step = 4, part = 2)
 for (i in indices) {
   InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('later: ', i))
 }
 
+# ... data deficient
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-instances <- SpatialExcerpt(data = instances, step = 2, part = 2)
 for (i in indices) {
   InitialDiagnostics(data = instances, terms = expressions_[[2]][[i]], variables = variables, kappa = 0.5)
   title(main = paste0('earlier: ', i))
