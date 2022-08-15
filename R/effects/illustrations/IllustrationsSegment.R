@@ -70,7 +70,7 @@ IllustrationsSegment <- function (data, variables) {
   # spatial correlation
   .graph <- function (points) {
     graph <- ggplot(data = points, mapping = aes(x = distance, y = estimate)) +
-      scale_y_continuous(breaks = c(0.70, 0.8, 0.9, 1.00, 1.1), limits = c(0.6, 1.15)) +
+      scale_y_continuous(breaks = c(0.70, 0.9, 1.1), limits = c(0.6, 1.15)) +
       geom_line() +
       geom_ribbon(mapping = aes(ymin = `estimate.lower`, ymax = `estimate.upper`), alpha = 0.3, linetype = 0) +
       geom_point(alpha = 0.65, size = 1) +
