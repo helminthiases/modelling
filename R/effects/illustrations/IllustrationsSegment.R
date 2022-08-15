@@ -1,4 +1,4 @@
-# Title     : IllustrationSegment.R
+# Title     : IllustrationsSegment.R
 # Objective : For the manuscript
 # Created by: greyhypotheses
 # Created on: 12/08/2022
@@ -13,7 +13,7 @@
 #' @note save(..., file = file.path(pathstr, 'segment'), ascii = TRUE,
 #'            compress = TRUE, compression_level = 7)
 #'
-IllustrationSegment <- function (data, variables) {
+IllustrationsSegment <- function (data, variables) {
 
 
   source(file = 'R/effects/Estimates.R')
