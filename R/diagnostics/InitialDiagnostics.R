@@ -14,7 +14,7 @@
 #'                   in <data>.
 #' @param kappa: the smoothness parameter of the Matérn function
 #'
-InitialDiagnostics <- function (data, terms, variables, kappa) {
+InitialDiagnostics <- function (data, terms, variables, kappa = 0.5) {
 
   data <- dplyr::rename(data, 'identifier' = variables$identifier,
                         'positives' = variables$positives, 'tests' = variables$tests)
