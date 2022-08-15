@@ -10,8 +10,8 @@ par(bty = 'n', fg = 'grey')
 # functions
 source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
-source(file = 'R/effects/illustrations/IllustrationBaseline.R')
-source(file = 'R/effects/illustrations/IllustrationSegment.R')
+source(file = 'R/effects/illustrations/IllustrationsBaseline.R')
+source(file = 'R/effects/illustrations/IllustrationsSegment.R')
 
 
 # a data set
@@ -41,5 +41,5 @@ if (!dir.exists(paths = pathstr)) {
 
 
 # Manuscript illustrations
-IllustrationBaseline(data = instances, variables = variables)
-IllustrationSegment(data = instances, variables = variables)
+IllustrationsBaseline(data = instances, variables = variables)
+IllustrationsSegment(data = instances, variables = variables)
