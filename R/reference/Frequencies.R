@@ -17,7 +17,7 @@ TimeFrequencies <- function (data, pathstr) {
 
   # Write
   utils::write.table(x = tally,
-                     file = file.path(pathstr, 'frequencies', 'timeFrequecies.csv'),
+                     file = file.path(pathstr, 'frequencies', 'timeFrequencies.csv'),
                      append = FALSE,
                      sep = ',',
                      na = '',
