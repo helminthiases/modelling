@@ -114,7 +114,7 @@ IllustrationSegment <- function (data, variables) {
 
 
   # save
-  save(fixed_, random_, LSE, file = file.path(pathstr, 'segment'), ascii = TRUE,
+  save(fixed_, random_, LSE, file = file.path(pathstr, 'segment.Rdata'), ascii = TRUE,
        compress = TRUE, compression_level = 7)
   ggsave(filename = file.path(pathstr, 'segment.pdf'),
          plot = graph, width = 390, units = 'px', dpi = 95, scale = 1)
