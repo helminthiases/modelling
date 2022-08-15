@@ -10,16 +10,21 @@
 #' @param data: The modelling data set
 #' @param step: Select every <step> record
 #'
-SpatialExcerpt <- function (data, step) {
+SpatialExcerpt <- function (data, step, part = 1) {
 
   # arrange spatially
   T <- data %>%
     dplyr::arrange(x, y)
 
+  limit <- step * floor(nrow(T) / step)
+  indices <- seq_len(limit)
+  sections <- matrix(data = indices, ncol = step, byrow = TRUE)
+  focus <- sections[, part]
+
 
   # excerpt: select an observation at every <step> point
   T$index <- 1:nrow(x = T)
-  excerpt <- T[(T$index %% step) == 0, ]
+  excerpt <- T[(T$index %in% focus), ]
   
 
   # clean-up
