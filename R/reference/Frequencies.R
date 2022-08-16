@@ -7,13 +7,23 @@
 #'
 #' @param data: The modelling data data frame, it must include the field <year>
 #'
-TimeFrequencies <- function (data) {
+TimeFrequencies <- function (data, pathstr) {
 
   # This expression counts the # of records per year
-  data %>%
+  tally <- data %>%
     dplyr::select(year) %>%
     dplyr::group_by(year) %>%
     summarise(N = n())
+
+  # Write
+  utils::write.table(x = tally,
+                     file = file.path(pathstr, 'frequencies', 'timeFrequencies.csv'),
+                     append = FALSE,
+                     sep = ',',
+                     na = '',
+                     row.names = FALSE,
+                     col.names = TRUE,
+                     fileEncoding = 'UTF-8')
 
 }
 

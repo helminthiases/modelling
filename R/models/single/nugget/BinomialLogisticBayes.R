@@ -12,8 +12,9 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-BinomialLogisticBayes <- function (data, terms, variables) {
+BinomialLogisticBayes <- function (data, terms, variables, kappa = 0.5) {
 
 
   source(file = 'R/models/single/nugget/InitialParameterSettings.R')
@@ -54,7 +55,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
   # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
   # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = positive ~ piped_sewer + I(piped_sewer^2) + elevation.km,
+    formula = positive ~ piped_sewer + log(p_density.k) + elevation.km,
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,

@@ -26,8 +26,8 @@ instances <- GeographicObject(data = frame)
 dim(instances)
 
 
-# Spatial splitting
-excerpt <- SpatialExcerpt(data = instances, step = 4)
+# Spatial excerpt
+excerpt <- SpatialExcerpt(data = instances, step = 4, part = 4)
 
 
 
@@ -37,7 +37,7 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 # Diagnostics
 terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
-initial <- InitialEstimates(data = excerpt, terms = terms, variables = variables)
+initial <- InitialEstimates(data = excerpt, terms = paste0(terms, ' + (1|year)'), variables = variables)
 summary(initial$model)
 initial$settings
 

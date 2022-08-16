@@ -7,8 +7,11 @@
 
 # functions
 source(file = 'R/data/StudyData.R')
-source(file = 'R/effects/EffectsBaseline.R')
-source(file = 'R/effects/EffectsSegment.R')
+source(file = 'R/effects/Expressions.R')
+source(file = 'R/effects/Effects.R')
+source(file = 'R/diagnostics/InitialDiagnostics.R')
+source(file = 'R/functions/GeographicObject.R')
+source(file = 'R/functions/SpatialExcerpt.R')
 
 
 
@@ -16,58 +19,42 @@ source(file = 'R/effects/EffectsSegment.R')
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
-frame$year <- factor(frame$year)
+frame <- GeographicObject(data = frame)
+
 
 
 # Setting-up
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
-frame <- dplyr::rename(frame, 'identifier' = variables$identifier,
-                      'positives' = variables$positives, 'tests' = variables$tests)
-X <- list('1' = paste('improved_sewer + unimproved_sewer + piped_sewer + log(unpiped_sewer) ',
-                      '+ surface_sewer + log(p_density.k) + elevation.km', collapse = NULL),
-          '2' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
-          '3' = 'piped_sewer + log(p_density.k) + elevation.km',
-          '4' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + log(p_density.k) + elevation.km',
-          '5' = 'piped_sewer + I(piped_sewer^2) + log(p_density.k) + elevation.km',
-          '6' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
-          '7' = 'piped_sewer + I(piped_sewer^2) + elevation.km',
-          '8' = 'piped_sewer + surface_sewer + elevation.km',
-          '9' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
+
 
 
 # Effects
-baseline <- EffectsBaseline(frame = frame, X = X)
+expressions_ <- Expressions()
+
+
+
+# Options
+baseline <- Effects(frame = frame, expressions = expressions_[[1]], variables = variables)
 
 instances <- frame[frame$year == 2015, ]
 row.names(instances) <- NULL
-later <- EffectsSegment(frame = instances, X = X)
+later <- Effects(frame = instances, expressions = expressions_[[2]], variables = variables)
 
 instances <- frame[frame$year == 2009, ]
 row.names(instances) <- NULL
-earlier <- EffectsSegment(frame = instances, X = X)
+earlier <- Effects(frame = instances, expressions = expressions_[[2]], variables = variables)
 
 
-# Inspect
-dplyr::bind_rows(baseline$LSE)
-dplyr::bind_rows(later$LSE)
-dplyr::bind_rows(earlier$LSE)
 
-baseline_ <- baseline$models
-later_ <- later$models
-earlier_ <- earlier$models
+# Inspect:  Expressions 7 & 3 lead to <earlier> & <later> models with sigificant coefficients.
+anova(baseline[[1]], baseline[[2]], baseline[[3]], baseline[[4]], baseline[[5]],
+      baseline[[6]], baseline[[7]], baseline[[8]], baseline[[9]])
+anova(earlier[[1]], earlier[[2]], earlier[[3]], earlier[[4]], earlier[[5]],
+      earlier[[6]], earlier[[7]], earlier[[8]], earlier[[9]])
+anova(later[[1]], later[[2]], later[[3]], later[[4]], later[[5]],
+      later[[6]], later[[7]], later[[8]], later[[9]])
 
-anova(baseline_[[8]], baseline_[[7]], baseline_[[3]], baseline_[[6]], baseline_[[2]])
-anova(later_[[8]], later_[[7]], later_[[3]], later_[[6]], later_[[2]])
-anova(earlier_[[8]], earlier_[[7]], earlier_[[3]], earlier_[[6]], earlier_[[2]])
-
-
-# In focus: 3, 7
-for (i in c(3, 7)) {
-  summary(later_[[i]])
-  summary(earlier_[[i]])
-}
-
-for (i in c(2, 6, 8)) {
-  print(summary(later_[[i]]))
-  print(summary(earlier_[[i]]))
-}
+arc <- later
+anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])
+arc <- earlier
+anova(arc[[7]], arc[[8]], arc[[3]], arc[[6]], arc[[2]])

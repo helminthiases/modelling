@@ -9,14 +9,15 @@
 #'
 #' @param data: A data set.
 #' @param terms: The fixed effects.
+#' @param variables: A list that identifies the names of the fields
+#'                      list(identifier = ..., tests = ..., positives = ...)
+#'                   in <data>.
+#' @param kappa: the smoothness parameter of the Matérn function
 #'
-InitialDiagnostics <- function (data, terms) {
+InitialDiagnostics <- function (data, terms, variables, kappa = 0.5) {
 
-  source(file = 'R/functions/GeographicObject.R')
-
-
-  # Geographic form
-  data <- GeographicObject(data = data)
+  data <- dplyr::rename(data, 'identifier' = variables$identifier,
+                        'positives' = variables$positives, 'tests' = variables$tests)
 
 
   # Addressing spat.corr.diagnostic's peculiar identification code rules
@@ -40,14 +41,15 @@ InitialDiagnostics <- function (data, terms) {
   # illustrating diagnostics
   par(bty = 'n', fg = 'grey')
   T <- spat.corr.diagnostic(formula = as.formula(object = paste0('positives ~ ', terms)),
-                       units.m = ~tests,
-                       nAGQ = 18,
-                       data = st_drop_geometry(data),
-                       coords = ~I(x / 1000) + I(y / 1000),
-                       likelihood = 'Binomial',
-                       lse.variogram = TRUE,
-                       ID.coords = ID.coords)
+                            units.m = ~tests,
+                            nAGQ = 18,
+                            data = st_drop_geometry(data),
+                            coords = ~I(x / 1000) + I(y / 1000),
+                            likelihood = 'Binomial',
+                            lse.variogram = TRUE,
+                            kappa = kappa,
+                            ID.coords = ID.coords)
 
-  return(T$lse.variogram)
+  return(T)
 
 }

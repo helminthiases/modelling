@@ -12,8 +12,9 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-InitialParameterSettings <- function (data, terms, variables) {
+InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
 
 
   # Functions
@@ -37,7 +38,7 @@ InitialParameterSettings <- function (data, terms, variables) {
                                     data = data,
                                     par0 = parameters,
                                     control.mcmc = settings,
-                                    kappa = 0.5,
+                                    kappa = kappa,
                                     start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
                                     fixed.rel.nugget = NULL,
                                     method = 'nlminb')

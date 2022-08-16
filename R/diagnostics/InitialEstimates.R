@@ -12,8 +12,9 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: the smoothness parameter of the Matérn function
 #'
-InitialEstimates <- function (data, terms, variables) {
+InitialEstimates <- function (data, terms, variables, kappa = 0.5) {
 
   data <- dplyr::rename(data, 'identifier' = variables$identifier,
                         'positives' = variables$positives, 'tests' = variables$tests)
@@ -46,6 +47,7 @@ InitialEstimates <- function (data, terms, variables) {
                                      coords = ~I(x / 1000) + I(y / 1000),
                                      likelihood = 'Binomial',
                                      lse.variogram = TRUE,
+                                     kappa = kappa,
                                      ID.coords = ID.coords)
 
 
