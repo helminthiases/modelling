@@ -23,7 +23,7 @@ EvaluationVariogram <- function (model, data) {
   residues <- StandardisedResidual(design = model$D, observed = data$prevalence,
                                    estimated = data$estimate)
   points <- EmpiricalVariogram(data = data.frame(residue = residues, x = data$x, y = data$y))
-  graph <- SpatialEvaluationGraphs(points = points, limit = 500)
+  graph <- SpatialEvaluationGraphs(points = points, limit = 300)
 
   return(list(residues = residues, points = points, graph = graph))
 
