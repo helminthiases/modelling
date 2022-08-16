@@ -12,6 +12,7 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
 source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
+source(file = 'R/models/single/nugget/CaseBLB.R')
 source(file = 'R/models/single/nugget/CaseBLM.R')
 
 
@@ -89,3 +90,6 @@ pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', names(case
 .directory(pathstr = pathstr)
 CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', names(cases)[[option]])
+.directory(pathstr = pathstr)
+CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
