@@ -28,13 +28,6 @@ Expressions <- function () {
                   '8' = 'piped_sewer + surface_sewer + elevation.km',
                   '9' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
 
-  excerpt <- list('1' = 'piped_sewer + log(unpiped_sewer) + surface_sewer + log(p_density.k) + elevation.km',
-            '2' = 'piped_sewer + log(p_density.k) + elevation.km',
-            '3' = 'piped_sewer + surface_sewer + log(p_density.k) + elevation.km',
-            '4' = 'piped_sewer + I(piped_sewer^2) + elevation.km ',
-            '5' = 'piped_sewer + surface_sewer + elevation.km',
-            '6' = 'piped_sewer + I(piped_sewer^2) + surface_sewer + elevation.km')
-
-  return(list('1' = initial, '2' = simple, '3' = excerpt))
+  return(list('1' = initial, '2' = simple))
 
 }
