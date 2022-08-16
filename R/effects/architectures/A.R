@@ -96,9 +96,9 @@ A <- function (data, variables, pathstr) {
 
 
   # save
-  save(fixed_, random_, LSE, file = file.path(pathstr, 'A.Rdata'), ascii = TRUE,
-       compress = TRUE, compression_level = 7)
-  ggsave(filename = file.path(pathstr, 'A.pdf'),
+  estimations <- list(fixed = fixed_, random = random_, LSE = LSE)
+  saveRDS(object = estimations, file = file.path(pathstr, 'estimations.rds'))
+  ggsave(filename = file.path(pathstr, 'variogram.pdf'),
          plot = graph, height = 310, width = 390, units = 'px', dpi = 95, scale = 1)
 
 
