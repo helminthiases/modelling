@@ -6,12 +6,14 @@
 
 CaseBLM <- function (mcml, training, testing, pathstr, notes) {
 
+
   source(file = 'R/models/EvaluationMetrics.R')
   source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/models/EvaluationVariogram.R')
   source(file = 'R/models/CoefficientsEstimates.R')
   source(file = 'R/functions/ConfidenceInterval.R')
   source(file = 'R/functions/ErrorMetrics.R')
+
 
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
@@ -36,7 +38,6 @@ CaseBLM <- function (mcml, training, testing, pathstr, notes) {
     model = mcml$model,
     data = data.frame(prevalence = training$prevalence, x = training$x, y = training$y,
                       estimate = valuations$prevalence$predictions))
-  T$graph
   ggsave(filename = file.path(pathstr, 'variogram.pdf'),
          plot = T$graph, height = 310, width = 390, units = 'px', dpi = 95, scale = 1)
 
