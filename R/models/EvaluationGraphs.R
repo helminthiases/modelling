@@ -9,7 +9,8 @@ SpatialEvaluationGraphs <- function (points, limit) {
 
   # Graph
   map <- ggplot(data = points[points$distance < limit, ], mapping = aes(x = distance, y = estimate)) +
-    scale_y_continuous(breaks = c(0, 0.50, 1.00, 1.5), limits = c(0, 1.8)) +
+    scale_y_continuous(breaks = c(0.70, 0.9, 1.1), limits = c(0.6, 1.25)) +
+    scale_x_continuous(breaks = c(0, 100, 200)) +
     geom_line() +
     geom_ribbon(mapping = aes(ymin = `estimate.lower`, ymax = `estimate.upper`), alpha = 0.3, linetype = 0) +
     geom_point(alpha = 0.65, size = 1) +
@@ -37,9 +38,11 @@ DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
   )
 
   map <- ggplot(data = estimates, mapping = aes(x = prediction, y = prevalence)) +
-    geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), alpha = 0.2, colour = 'lightgrey', size = 0.01) +
+    geom_segment(mapping = aes(x = 0, y = 0, xend = 1, yend = 1), linetype = 'dotdash', alpha = 0.05, colour = 'lightgrey', size = 0.05) +
     geom_point(alpha = 0.35) +
-    facet_wrap(~segment) +
+    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
+    scale_x_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
+    facet_wrap(~segment, labeller = ggplot2::as_labeller(c('training' = 'training\n data', 'testing' = 'testing\n data' ))) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(), 
@@ -47,10 +50,8 @@ DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
           strip.text.x = element_text(size = 10),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9),
           axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
-    xlab(label = '\nprevalence: prediction\n') +
-    ylab(label = '\nprevalence: original\n') +
-    xlim(0, 1) +
-    ylim(0, 1)
+    xlab(label = '\nprevalence: estimate\n') +
+    ylab(label = '\nprevalence: original\n')
   
   return(map)
   
