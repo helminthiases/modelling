@@ -37,7 +37,7 @@ A <- function (data, variables, pathstr) {
 
     # CI
     T <- CoefficientConfidenceInterval(parameters = T)
-    T <- T %>% select(term, coefficient, '2.5 %', '97.5 %', SE, 'p.value')
+    T <- T %>% select(term, coefficient, est, '2.5 %', '97.5 %', SE, 'p.value')
 
     return(T)
 
