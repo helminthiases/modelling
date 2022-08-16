@@ -30,13 +30,19 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # Setting-up
-pathstr <- file.path(getwd(), 'warehouse', 'effects', 'architectures')
-if (dir.exists(paths = pathstr)) {
-  base::unlink(pathstr, recursive = TRUE)
-}
-if (!dir.exists(paths = pathstr)) {
-  dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
+.directory <- function (pathstr) {
+  if (dir.exists(paths = pathstr)) {
+    base::unlink(pathstr, recursive = TRUE)
+  }
+  if (!dir.exists(paths = pathstr)) {
+    dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
+  }
 }
 
+pathstr <- file.path(getwd(), 'warehouse', 'effects', 'architectures', 'A')
+.directory(pathstr = pathstr)
 A(data = instances, variables = variables, pathstr = pathstr)
+
+pathstr <- file.path(getwd(), 'warehouse', 'effects', 'architectures', 'B')
+.directory(pathstr = pathstr)
 B(data = instances, variables = variables, pathstr = pathstr)
