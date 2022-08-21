@@ -18,8 +18,7 @@ source(file = 'R/reference/Extraneous.R')
 # A data set: The project will focus on TG, and briefly explore MW.
 ISO2 <- 'TG'
 infection <- 'hk'
-add.extraneous <- FALSE
-frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
+frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
 # setting-up
@@ -54,9 +53,4 @@ AggregateWater(data = frame)
 DisaggregateWater(data = frame)
 AggregateMiscellaneous(data = frame)
 DisaggregateMiscellaneous(data = frame, pathstr = pathstr)
-
-if (add.extraneous) {
-  AggregateExtraneous(data = frame)
-  DisaggregateExtraneous(data = frame)
-}
 
