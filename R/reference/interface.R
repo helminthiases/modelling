@@ -14,6 +14,9 @@ source(file = 'R/reference/Miscellaneous.R')
 source(file = 'R/reference/Extraneous.R')
 
 
+# Outputs path
+pathstr <- file.path(getwd(), 'warehouse', 'reference')
+
 
 # A data set: The project will focus on TG, and briefly explore MW.
 ISO2 <- 'TG'
@@ -22,8 +25,7 @@ frame <- StudyData(ISO2 = ISO2, infection = infection)
 
 
 # setting-up
-sections <- c('distributions', 'frequencies', 'sewer', 'miscellaneous', 'water')
-pathstr <- file.path(getwd(), 'warehouse', 'reference')
+sections <- c('distributions', 'frequencies', 'sewer', 'miscellaneous')
 for (section in sections) {
   path <- file.path(pathstr, section)
   # delete
