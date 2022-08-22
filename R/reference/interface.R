@@ -22,6 +22,8 @@ pathstr <- file.path(getwd(), 'warehouse', 'reference')
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
+frame$EL <- {(frame$positive + 0.5) / (frame$examined - frame$positive + 0.5)} %>%
+  log()
 
 
 # setting-up
