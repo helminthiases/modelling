@@ -79,14 +79,13 @@ AggregatePopulation <- function (data) {
                 linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
                 linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     theme_minimal() +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12),
-          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nthousand inhabitants per square kilometres\n') +
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
+          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
+    xlab(label = '\nthousand inhabitants per\nsquare kilometres\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
@@ -96,14 +95,13 @@ AggregatePopulation <- function (data) {
                 linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
                 linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     theme_minimal() +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
-          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(thousand inhabitants per square kilometres)\n') +
+          axis.title.x = element_text(size = 11, face = 'italic'), axis.title.y = element_text(size = 11),
+          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
+    xlab(label = '\nln(thousand inhabitants per\nsquare kilometres)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
