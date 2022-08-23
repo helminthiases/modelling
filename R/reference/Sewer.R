@@ -32,15 +32,15 @@ DisaggregateSewer <- function (data, pathstr) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.01),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 10, lineheight = 1.25), axis.text.x = element_text(size = 9),
-          axis.title.y = element_text(size = 10), axis.text.y = element_text(size = 9),
-          legend.title = element_text(size = 10), legend.text = element_text(size = 9)) +
+          axis.title.x = element_text(size = 11, lineheight = 1.25), axis.text.x = element_text(size = 10),
+          axis.title.y = element_text(size = 11), axis.text.y = element_text(size = 10),
+          legend.title = element_text(size = 11), legend.text = element_text(size = 10)) +
     xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
     ylab(label = '\nempirical logit (prevalence)\n') +
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
   ggsave(filename = file.path(pathstr, 'disaggregateSewerReal.pdf'),
-         plot = diagram, dpi = 85, scale = 1, width = 675, height = 375, units = 'px')
+         plot = diagram, dpi = 85, scale = 1, width = 500, height = 445, units = 'px')
 
 
   diagram <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = EL, colour = year)) +
@@ -62,7 +62,7 @@ DisaggregateSewer <- function (data, pathstr) {
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
   ggsave(filename = file.path(pathstr, 'disaggregateSewerLN.pdf'),
-         plot = diagram, dpi = 85, scale = 1, width = 675, height = 375, units = 'px')
+         plot = diagram, dpi = 85, scale = 1, width = 500, height = 445, units = 'px')
 
 }
 
@@ -85,7 +85,6 @@ AggregateSewer <- function (data) {
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', colour = 'olivedrab') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', colour = 'olivedrab') +
     scale_x_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     facet_wrap(~sewage, ncol = 2) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
@@ -102,7 +101,6 @@ AggregateSewer <- function (data) {
     geom_point(alpha = 0.05, na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', colour = 'olivedrab') +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', colour = 'olivedrab') +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     facet_wrap(~sewage, ncol = 2) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 2, units = 'lines'),
