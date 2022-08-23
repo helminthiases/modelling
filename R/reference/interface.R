@@ -10,6 +10,7 @@ source(file = 'R/reference/Frequencies.R')
 source(file = 'R/reference/Distributions.R')
 source(file = 'R/reference/Sewer.R')
 source(file = 'R/reference/Water.R')
+source(file = 'R/reference/Elevation.R')
 source(file = 'R/reference/Population.R')
 
 
@@ -50,8 +51,17 @@ TimeFrequencies(data = frame, pathstr = pathstr)
 DensityDistributions(data = frame, pathstr = pathstr)
 MapDistributions(data = frame, pathstr = pathstr)
 CandleDistributions(data = frame)
+
 AggregateSewer(data = frame)
 DisaggregateSewer(data = frame, pathstr = pathstr)
+
 AggregateWater(data = frame)
 DisaggregateWater(data = frame)
+
+AggregateElevation(data = frame)
+DisaggregateElevation(data = frame, pathstr = pathstr)
+
+AggregatePopulation(data = frame)
+DisaggregatePopulation(data = frame, pathstr = pathstr)
+
 
