@@ -48,20 +48,20 @@ IdentifierFrequencies(data = frame)
 TimeFrequencies(data = frame, pathstr = pathstr)
 
 # Graphs
-DensityDistributions(data = frame, pathstr = pathstr)
-MapDistributions(data = frame, pathstr = pathstr)
+DensityDistributions(data = frame, pathstr = file.path(pathstr, 'distributions'))
+MapDistributions(data = frame, pathstr = file.path(pathstr, 'distributions'))
 CandleDistributions(data = frame)
 
 AggregateSewer(data = frame)
-DisaggregateSewer(data = frame, pathstr = pathstr)
+DisaggregateSewer(data = frame, pathstr = file.path(pathstr, 'sewer'))
 
 AggregateWater(data = frame)
 DisaggregateWater(data = frame)
 
 AggregateElevation(data = frame)
-DisaggregateElevation(data = frame, pathstr = pathstr)
+DisaggregateElevation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
 
 AggregatePopulation(data = frame)
-DisaggregatePopulation(data = frame, pathstr = pathstr)
+DisaggregatePopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
 
 
