@@ -10,8 +10,7 @@ source(file = 'R/reference/Frequencies.R')
 source(file = 'R/reference/Distributions.R')
 source(file = 'R/reference/Sewer.R')
 source(file = 'R/reference/Water.R')
-source(file = 'R/reference/Miscellaneous.R')
-source(file = 'R/reference/Extraneous.R')
+source(file = 'R/reference/Population.R')
 
 
 # Outputs path
@@ -27,7 +26,7 @@ frame$EL <- {(frame$positive + 0.5) / (frame$examined - frame$positive + 0.5)} %
 
 
 # setting-up
-sections <- c('distributions', 'frequencies', 'sewer', 'miscellaneous')
+sections <- c('distributions', 'frequencies', 'sewer', 'extraneous')
 for (section in sections) {
   path <- file.path(pathstr, section)
   # delete
@@ -55,6 +54,4 @@ AggregateSewer(data = frame)
 DisaggregateSewer(data = frame, pathstr = pathstr)
 AggregateWater(data = frame)
 DisaggregateWater(data = frame)
-AggregateMiscellaneous(data = frame)
-DisaggregateMiscellaneous(data = frame, pathstr = pathstr)
 
