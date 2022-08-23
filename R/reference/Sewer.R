@@ -93,8 +93,9 @@ AggregateSewer <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11, lineheight = 1.25), axis.title.y = element_text(size = 11),
-          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
+          axis.title.x = element_text(size = 11, hjust = 0.5, margin = margin(t = 9, r = 0, b = 9, l = 0, unit = 'pt')),
+          axis.title.y = element_text(size = 11),
+          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     xlab(label = TeX(input = 'access fraction, $1 \\equiv \\; 100\\%$') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
@@ -109,8 +110,9 @@ AggregateSewer <- function (data) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11, lineheight = 1.25), axis.title.y = element_text(size = 11),
-          axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
+          axis.title.x = element_text(size = 11, hjust = 0.5, margin = margin(t = 9, r = 0, b = 9, l = 0, unit = 'pt')),
+          axis.title.y = element_text(size = 11),
+          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     xlab(label = TeX(input = 'ln(access fraction), ln(1) $\\equiv \\;$ ln(100$\\%$)') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
