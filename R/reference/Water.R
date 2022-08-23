@@ -23,7 +23,6 @@ DisaggregateWater <- function (data) {
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
     scale_x_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     scale_colour_manual(values = c('orange', 'black')) +
     facet_wrap(~water) +
     theme_minimal() +
@@ -42,7 +41,6 @@ DisaggregateWater <- function (data) {
     geom_point(alpha = 0.05, na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', na.rm = TRUE) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     scale_colour_manual(values = c('orange', 'black')) +
     facet_wrap(~water) +
     theme_minimal() +
@@ -77,7 +75,6 @@ AggregateWater <- function (data) {
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
     scale_x_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     facet_wrap(~water) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
@@ -94,7 +91,6 @@ AggregateWater <- function (data) {
     geom_point(alpha = 0.05, na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ splines::bs(x, df = 3), linetype = 'solid', colour = 'olivedrab', na.rm = TRUE) +
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x, linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
-    scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
     facet_wrap(~water) +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
