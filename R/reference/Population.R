@@ -48,7 +48,7 @@ DisaggregatePopulation <- function (data, pathstr) {
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11, face = 'italic'), axis.title.y = element_text(size = 11),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10),
           legend.title = element_text(size = 11), legend.text = element_text(size = 10)) +
     xlab(label = '\nln(thousand inhabitants\nper square kilometres)\n') +
@@ -99,7 +99,7 @@ AggregatePopulation <- function (data) {
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.05),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11, face = 'italic'), axis.title.y = element_text(size = 11),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     xlab(label = '\nln(thousand inhabitants per\nsquare kilometres)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
