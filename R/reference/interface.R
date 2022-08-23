@@ -10,21 +10,24 @@ source(file = 'R/reference/Frequencies.R')
 source(file = 'R/reference/Distributions.R')
 source(file = 'R/reference/Sewer.R')
 source(file = 'R/reference/Water.R')
-source(file = 'R/reference/Miscellaneous.R')
-source(file = 'R/reference/Extraneous.R')
+source(file = 'R/reference/Elevation.R')
+source(file = 'R/reference/Population.R')
 
+
+# Outputs path
+pathstr <- file.path(getwd(), 'warehouse', 'reference')
 
 
 # A data set: The project will focus on TG, and briefly explore MW.
 ISO2 <- 'TG'
 infection <- 'hk'
-add.extraneous <- FALSE
-frame <- StudyData(ISO2 = ISO2, infection = infection, add.extraneous = add.extraneous)
+frame <- StudyData(ISO2 = ISO2, infection = infection)
+frame$EL <- {(frame$positive + 0.5) / (frame$examined - frame$positive + 0.5)} %>%
+  log()
 
 
 # setting-up
-sections <- c('distributions', 'frequencies', 'sewer', 'miscellaneous', 'water')
-pathstr <- file.path(getwd(), 'warehouse', 'reference')
+sections <- c('distributions', 'frequencies', 'sewer', 'extraneous')
 for (section in sections) {
   path <- file.path(pathstr, section)
   # delete
@@ -45,18 +48,20 @@ IdentifierFrequencies(data = frame)
 TimeFrequencies(data = frame, pathstr = pathstr)
 
 # Graphs
-DensityDistributions(data = frame, pathstr = pathstr)
-MapDistributions(data = frame, pathstr = pathstr)
+DensityDistributions(data = frame, pathstr = file.path(pathstr, 'distributions'))
+MapDistributions(data = frame, pathstr = file.path(pathstr, 'distributions'))
 CandleDistributions(data = frame)
+
 AggregateSewer(data = frame)
-DisaggregateSewer(data = frame, pathstr = pathstr)
+DisaggregateSewer(data = frame, pathstr = file.path(pathstr, 'sewer'))
+
 AggregateWater(data = frame)
 DisaggregateWater(data = frame)
-AggregateMiscellaneous(data = frame)
-DisaggregateMiscellaneous(data = frame, pathstr = pathstr)
 
-if (add.extraneous) {
-  AggregateExtraneous(data = frame)
-  DisaggregateExtraneous(data = frame)
-}
+AggregateElevation(data = frame)
+DisaggregateElevation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+
+AggregatePopulation(data = frame)
+DisaggregatePopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+
 

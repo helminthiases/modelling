@@ -9,7 +9,7 @@
 #' @param ISO2: The ISO 3166-1 alpha-2 of a country
 #' @param infection: The infection in focus → ascariasis, hookworm, or trichuriasis
 #'
-StudyData <- function(ISO2, infection, add.extraneous = FALSE) {
+StudyData <- function(ISO2, infection) {
 
 
   # The infection of interest
@@ -26,17 +26,9 @@ StudyData <- function(ISO2, infection, add.extraneous = FALSE) {
             'p_density', 'elevation')
 
 
-  # Extra
-  extra <- c('AnnualPrecip', 'AnPET','AridityIndex')
-
 
   # Setting selections & types
-  if (add.extraneous) {
-    select <- c(core, extra, unlist(measures, use.names = FALSE))
-    core <- c(core, extra)
-  } else {
-    select <- c(core, unlist(measures, use.names = FALSE))
-  }
+  select <- c(core, unlist(measures, use.names = FALSE))
   colClasses <- c('identifier' = 'integer', 'iso2' = 'character', 'year' = 'integer')
 
 
