@@ -30,7 +30,7 @@ DensityDistributions <- function (data, pathstr) {
     guides(fill = guide_legend(title = 'Year'))
   print(diagram)
 
-  ggsave(filename = file.path(pathstr, 'distributions', 'densityDistributions.pdf'), width = 370, height = 205, units = 'px',
+  ggsave(filename = file.path(pathstr, 'densityDistributions.pdf'), width = 370, height = 205, units = 'px',
          plot = diagram, dpi = 95, scale = 1)
 
 }
@@ -67,7 +67,7 @@ MapDistributions <- function (data, pathstr) {
   print(diagram)
 
   tmap::tmap_save(diagram, dpi = 95, width = 625, height = 650, units = 'px',
-                  filename = file.path(pathstr, 'distributions', 'mapDistributions.pdf'))
+                  filename = file.path(pathstr, 'mapDistributions.pdf'))
 
 }
 
