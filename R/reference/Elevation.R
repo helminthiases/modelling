@@ -33,7 +33,7 @@ DisaggregateElevation <- function (data, pathstr) {
     xlab(label = '\nelevation <kilometres>\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregateElevationReal.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregateElevationReal.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 
@@ -53,7 +53,7 @@ DisaggregateElevation <- function (data, pathstr) {
     xlab(label = '\nln(elevation <kilometres>)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregateElevationLN.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregateElevationLN.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 }
