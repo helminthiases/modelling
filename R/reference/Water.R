@@ -33,8 +33,8 @@ DisaggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess fraction\n') +
-    ylab(label = '\nprevalence\n')
+    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
 
@@ -52,8 +52,8 @@ DisaggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n') +
-    ylab(label = '\nprevalence\n')
+    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+    ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
 }
@@ -86,8 +86,8 @@ AggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess fraction\n') +
-    ylab(label = '\nprevalence\n')
+    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
   graph <- ggplot(data = instances, mapping = aes(x = log(access_percentage), y = EL)) +
@@ -103,8 +103,8 @@ AggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n') +
-    ylab(label = '\nprevalence\n')
+    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+    ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
 }
