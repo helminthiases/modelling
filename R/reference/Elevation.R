@@ -33,7 +33,7 @@ DisaggregateElevation <- function (data, pathstr) {
     xlab(label = '\nelevation <kilometres>\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'miscellaneous', 'disaggregateElevationReal.pdf'),
+  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregateElevationReal.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 
@@ -53,7 +53,7 @@ DisaggregateElevation <- function (data, pathstr) {
     xlab(label = '\nln(elevation <kilometres>)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'miscellaneous', 'disaggregateElevationLN.pdf'),
+  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregateElevationLN.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 }
@@ -95,7 +95,6 @@ AggregateElevation <- function (data) {
     geom_smooth(se = FALSE, size = 0.25, method = 'lm', formula = y ~ x,
                 linetype = 'dashed', colour = 'olivedrab', na.rm = TRUE) +
     scale_y_continuous(breaks = c(0, 0.5, 1.0), limits = c(0, 1.0)) +
-    facet_wrap(~miscellaneous, scales = 'free') +
     theme_minimal() +
     theme(panel.spacing = unit(x = 3, units = 'lines'),
           panel.grid.minor = element_blank(),
