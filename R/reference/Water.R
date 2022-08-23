@@ -32,7 +32,7 @@ DisaggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    xlab(label = TeX(input = 'access fraction, $1 \\equiv \\; 100\\%$') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
@@ -50,7 +50,7 @@ DisaggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+    xlab(label = TeX(input = 'ln(access fraction), ln(1) $\\equiv \\;$ ln(100$\\%$)') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
@@ -83,7 +83,7 @@ AggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    xlab(label = TeX(input = 'access fraction, $1 \\equiv \\; 100\\%$') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
@@ -99,7 +99,7 @@ AggregateWater <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+    xlab(label = TeX(input = 'ln(access fraction), ln(1) $\\equiv \\;$ ln(100$\\%$)') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
