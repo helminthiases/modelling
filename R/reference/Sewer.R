@@ -32,10 +32,11 @@ DisaggregateSewer <- function (data, pathstr) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.01),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 11, lineheight = 1.25), axis.text.x = element_text(size = 10),
+          axis.title.x = element_text(size = 11, hjust = 0.5, margin = margin(t = 9, r = 0, b = 9, l = 0, unit = 'pt')),
+          axis.text.x = element_text(size = 10),
           axis.title.y = element_text(size = 11), axis.text.y = element_text(size = 10),
           legend.title = element_text(size = 11), legend.text = element_text(size = 10)) +
-    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    xlab(label = TeX(input = 'access fraction, $1 \\equiv \\; 100\\%$') ) +
     ylab(label = '\nempirical logit (prevalence)\n') +
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
@@ -54,10 +55,11 @@ DisaggregateSewer <- function (data, pathstr) {
           panel.grid.minor = element_blank(),
           panel.grid.major = element_line(size = 0.01),
           strip.text.x = element_text(face = 'bold', size = 10),
-          axis.title.x = element_text(size = 10, lineheight = 1.25), axis.text.x = element_text(size = 9),
-          axis.title.y = element_text(size = 10), axis.text.y = element_text(size = 9),
-          legend.title = element_text(size = 10), legend.text = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+          axis.title.x = element_text(size = 11, hjust = 0.5, margin = margin(t = 9, r = 0, b = 9, l = 0, unit = 'pt')),
+          axis.text.x = element_text(size = 10),
+          axis.title.y = element_text(size = 11), axis.text.y = element_text(size = 10),
+          legend.title = element_text(size = 11), legend.text = element_text(size = 10)) +
+    xlab(label = TeX(input = 'ln(access fraction), ln(1) $\\equiv \\;$ ln(100$\\%$)') ) +
     ylab(label = '\nempirical logit (prevalence)\n') +
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
@@ -93,7 +95,7 @@ AggregateSewer <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11, lineheight = 1.25), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\naccess fraction\n 1 ≡ 100%\n') +
+    xlab(label = TeX(input = 'access fraction, $1 \\equiv \\; 100\\%$') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
@@ -109,7 +111,7 @@ AggregateSewer <- function (data) {
           strip.text.x = element_text(face = 'bold', size = 10),
           axis.title.x = element_text(size = 11, lineheight = 1.25), axis.title.y = element_text(size = 11),
           axis.text.x = element_text(size = 9), axis.text.y = element_text(size = 9)) +
-    xlab(label = '\nln(access fraction)\n ln(1) ≡ ln(100%)\n') +
+    xlab(label = TeX(input = 'ln(access fraction), ln(1) $\\equiv \\;$ ln(100$\\%$)') ) +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
 
