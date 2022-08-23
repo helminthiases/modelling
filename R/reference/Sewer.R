@@ -39,7 +39,7 @@ DisaggregateSewer <- function (data, pathstr) {
     ylab(label = '\nempirical logit (prevalence)\n') +
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerReal.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregateSewerReal.pdf'),
          plot = diagram, dpi = 85, scale = 1, width = 675, height = 375, units = 'px')
 
 
@@ -61,7 +61,7 @@ DisaggregateSewer <- function (data, pathstr) {
     ylab(label = '\nempirical logit (prevalence)\n') +
     guides(colour = guide_legend(title = 'Year'))
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'sewer', 'disaggregateSewerLN.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregateSewerLN.pdf'),
          plot = diagram, dpi = 85, scale = 1, width = 675, height = 375, units = 'px')
 
 }
@@ -74,7 +74,7 @@ DisaggregateSewer <- function (data, pathstr) {
 #'
 AggregateSewer <- function (data) {
 
-  variables <- c('unpiped_sewer', 'surface_sewer', 'piped_sewer', 'prevalence')
+  variables <- c('unpiped_sewer', 'surface_sewer', 'piped_sewer', 'EL')
 
   instances <- data %>%
     dplyr::select(dplyr::all_of(variables)) %>%
