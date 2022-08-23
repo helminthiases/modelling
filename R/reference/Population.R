@@ -34,7 +34,7 @@ DisaggregatePopulation <- function (data, pathstr) {
     xlab(label = '\nthousand inhabitants per square kilometres\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregatePopulationDensityReal.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregatePopulationDensityReal.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 
@@ -53,7 +53,7 @@ DisaggregatePopulation <- function (data, pathstr) {
     xlab(label = '\nln(thousand inhabitants per square kilometres)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(diagram)
-  ggsave(filename = file.path(pathstr, 'extraneous', 'disaggregatePopulationDensityLN.pdf'),
+  ggsave(filename = file.path(pathstr, 'disaggregatePopulationDensityLN.pdf'),
          plot = diagram, dpi = 85, width = 575, height = 250, units = 'px', scale = 1)
 
 }
