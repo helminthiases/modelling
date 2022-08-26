@@ -8,7 +8,7 @@ CoefficientsEstimatesBLM <- function (model, variables, parameters) {
 
   estimates <- summary(model)
 
-  reference <- data.frame(variable = variables$strings, coefficient = parameters, row.names = variables$strings)
+  reference <- data.frame(variable = variables$labels, coefficient = parameters, row.names = variables$strings)
 
   coefficients <- estimates$coefficients %>% data.frame() %>% dplyr::select(!z.value)
   names(coefficients) <- c('est', 'SE', 'p.value')
