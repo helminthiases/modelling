@@ -17,7 +17,7 @@ source(file = 'R/models/single/nugget/CaseBLM.R')
 
 
 # Case
-option <- 2
+option <- 'A'
 
 
 # A data set
@@ -57,9 +57,12 @@ initial$settings
 
 
 # Labels, stings, etc
-notes <- list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)' , 'elevation.km'),
-              labels = c('(Intercept)', 'piped_sewer', 'log(p_density.k)' , 'elevation.km'),
-              parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$'))
+notes <- list(A = list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
+                       labels = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
+                       parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
+              B = list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
+                       labels = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
+                       parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')))
 
 
 # Modelling
@@ -88,8 +91,9 @@ bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = varia
 # ... mcml
 pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', names(cases)[[option]])
 .directory(pathstr = pathstr)
-CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
+CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes[[option]])
 
 pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', names(cases)[[option]])
 .directory(pathstr = pathstr)
-CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
+CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes[[option]])
+
