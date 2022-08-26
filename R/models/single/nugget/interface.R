@@ -91,9 +91,9 @@ bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = varia
 # ... mcml
 pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', names(cases)[[option]])
 .directory(pathstr = pathstr)
-CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes[[option]])
+CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
 pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', names(cases)[[option]])
 .directory(pathstr = pathstr)
-CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes[[option]])
+CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
