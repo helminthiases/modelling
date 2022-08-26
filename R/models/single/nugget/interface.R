@@ -17,7 +17,7 @@ source(file = 'R/models/single/nugget/CaseBLM.R')
 
 
 # Case
-option <- 'B'
+option <- 'A'
 
 
 # A data set
@@ -58,7 +58,7 @@ initial$settings
 
 # Labels, stings, etc
 features <- list(A = list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
-                       labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer^2)', 'elevation.km'),
+                       labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
                        parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
               B = list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
                        labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'log(p\\underline{\\hspace{0.125cm}}density.k)', 'elevation.km'),
