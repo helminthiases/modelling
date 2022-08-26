@@ -17,7 +17,7 @@ source(file = 'R/models/single/nugget/CaseBLM.R')
 
 
 # Case
-option <- 'A'
+option <- 'B'
 
 
 # A data set
@@ -89,11 +89,11 @@ bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = varia
 }
 
 # ... mcml
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', names(cases)[[option]])
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
 .directory(pathstr = pathstr)
 CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', names(cases)[[option]])
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
 .directory(pathstr = pathstr)
 CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
