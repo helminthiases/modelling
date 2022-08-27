@@ -52,13 +52,13 @@ AnalysisOfDeviance(model = earlier, indices = c(7, 8, 3, 6, 2))
 SpatialCorrelation(frame = frame,
                    variables = variables,
                    expressions = unlist(expressions_[[1]], use.names = FALSE),
-                   indices = c(7,3),
+                   indices = c(1,7,3),
                    group = 'baseline')
 
 SpatialCorrelation(frame = frame[frame$year == 2015, ],
                    variables = variables,
                    expressions = unlist(expressions_[[2]], use.names = FALSE),
-                   indices = c(7,3),
+                   indices = seq_len(length.out = length(later)),
                    group = 'later', reduce = TRUE, step = 2, part = 2)
 
 SpatialCorrelation(frame = frame[frame$year == 2009, ],
