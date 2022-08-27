@@ -95,5 +95,5 @@ CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, 
 
 pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
 .directory(pathstr = pathstr)
-CaseBLB(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
+CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
