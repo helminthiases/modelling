@@ -4,7 +4,7 @@
 # Created on: 31/07/2022
 
 
-CaseBLB <- function (mcml, training, testing, pathstr, notes) {
+CaseBLB <- function (bayes, training, testing, pathstr, notes) {
 
 
   source(file = 'R/models/EvaluationMetrics.R')
