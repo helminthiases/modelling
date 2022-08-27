@@ -65,7 +65,8 @@ CaseBLM <- function (mcml, training, testing, pathstr, notes) {
   # All
   estimations <- list(coefficients = coefficients,
                       special = special,
-                      discrepancies = discrepancies)
+                      discrepancies = discrepancies,
+                      model = mcml$model)
   saveRDS(object = estimations, file = file.path(pathstr, 'estimations.rds'))
 
 }
