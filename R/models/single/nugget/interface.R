@@ -16,11 +16,32 @@ source(file = 'R/models/single/nugget/CaseBLB.R')
 source(file = 'R/models/single/nugget/CaseBLM.R')
 
 
-# Case
-option <- 'A'
+# Setting-up
+options <- c('A', 'B')
+
+cases <- list(A = 'piped_sewer + I(piped_sewer^2) + elevation.km',
+              B = 'piped_sewer + log(p_density.k) + elevation.km')
+
+features <- list(A = list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
+                          labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
+                          parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
+                 B = list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
+                          labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'log(p\\underline{\\hspace{0.125cm}}density.k)', 'elevation.km'),
+                          parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')))
 
 
-# A data set
+# ... a function for preparing directories
+.directory <- function (pathstr) {
+  if (dir.exists(paths = pathstr)) {
+    base::unlink(pathstr, recursive = TRUE)
+  }
+  if (!dir.exists(paths = pathstr)) {
+    dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
+  }
+}
+
+
+# The data set
 ISO2 <- 'TG'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
@@ -47,53 +68,47 @@ rm(T)
 variables <- list(identifier = 'identifier', tests = 'examined', positives = 'positive')
 
 
-# Diagnostics
-cases <- list(A = 'piped_sewer + I(piped_sewer^2) + elevation.km',
-              B = 'piped_sewer + log(p_density.k) + elevation.km')
-terms <- cases[[option]]
-initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
-summary(initial$model)
-initial$settings
+# MCML
+for (option in options){
 
+  # Diagnostics
+  terms <- cases[[option]]
+  initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
+  summary(initial$model)
+  initial$settings
 
-# Labels, stings, etc
-features <- list(A = list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
-                       labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
-                       parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
-              B = list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
-                       labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'log(p\\underline{\\hspace{0.125cm}}density.k)', 'elevation.km'),
-                       parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')))
-notes <- features[[option]]
+  # Labels, stings, etc
+  notes <- features[[option]]
 
-# Modelling
+  # ... mcml
+  mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
 
-# ... mcml
-mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
+  # ... mcml
+  pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
+  .directory(pathstr = pathstr)
+  CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
-# ... bayes
-bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
-
-
-
-
-# Evaluating
-
-# ... setting-up
-.directory <- function (pathstr) {
-  if (dir.exists(paths = pathstr)) {
-    base::unlink(pathstr, recursive = TRUE)
-  }
-  if (!dir.exists(paths = pathstr)) {
-    dir.create(path = pathstr, showWarnings = TRUE, recursive = TRUE)
-  }
 }
 
-# ... mcml
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
-.directory(pathstr = pathstr)
-CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
-.directory(pathstr = pathstr)
-CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
+# Bayes
+for (option in options) {
 
+  # Diagnostics
+  terms <- cases[[option]]
+  initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
+  summary(initial$model)
+  initial$settings
+
+  # Labels, stings, etc
+  notes <- features[[option]]
+
+  # ... bayes
+  bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
+
+  # ... bayes
+  pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
+  .directory(pathstr = pathstr)
+  CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
+
+}
