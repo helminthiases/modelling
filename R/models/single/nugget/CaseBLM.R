@@ -59,11 +59,14 @@ CaseBLM <- function (mcml, training, testing, pathstr, notes) {
   discrepancies <- rbind(
     ErrorMetrics(observed = training$prevalence, estimated = valuations$prevalence$predictions, name = 'training'),
     ErrorMetrics(observed = testing$prevalence, estimated = predictions$prevalence$predictions, name = 'testing'))
+  discrepancies <- cbind(variable = row.names(discrepancies), discrepancies)
+  row.names(discrepancies) <- NULL
 
   # All
   estimations <- list(coefficients = coefficients,
                       special = special,
-                      discrepancies = discrepancies)
+                      discrepancies = discrepancies,
+                      model = mcml$model)
   saveRDS(object = estimations, file = file.path(pathstr, 'estimations.rds'))
 
 }

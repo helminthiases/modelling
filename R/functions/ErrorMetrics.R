@@ -15,7 +15,7 @@
 ErrorMetrics <- function (observed, estimated, name) {
 
   # differences/errors
-  differences <- observed - estimated
+  differences <- estimated - observed
 
   metrics <- data.frame(Bias = round(mean(differences), digits = 3),
                         RMSE = round(sqrt( sum(differences^2) / length(differences) ), digits = 3),

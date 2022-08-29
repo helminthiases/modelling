@@ -4,7 +4,7 @@
 # Created on: 31/07/2022
 
 
-CaseBLB <- function (mcml, training, testing, pathstr, notes) {
+CaseBLB <- function (bayes, training, testing, pathstr, notes) {
 
 
   source(file = 'R/models/EvaluationMetrics.R')
@@ -60,7 +60,8 @@ CaseBLB <- function (mcml, training, testing, pathstr, notes) {
   # All
   estimations <- list(coefficients = coefficients,
                       special = special,
-                      discrepancies = discrepancies)
+                      discrepancies = discrepancies,
+                      model = bayes$model)
   saveRDS(object = estimations, file = file.path(pathstr, 'estimations.rds'))
 
 }
