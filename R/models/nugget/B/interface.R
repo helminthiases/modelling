@@ -6,12 +6,12 @@
 
 
 # functions
-source(file = 'R/data/StudyData.R')
-source(file = 'R/functions/GeographicObject.R')
-source(file = 'R/functions/SpatialSplitting.R')
-source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = '../../nugget/B/BinomialLogisticBayes.R')
-source(file = '../../nugget/B/BinomialLogisticMCML.R')
+source(file = '../../../data/StudyData.R')
+source(file = '../../../functions/GeographicObject.R')
+source(file = '../../../functions/SpatialSplitting.R')
+source(file = '../../../diagnostics/InitialEstimates.R')
+source(file = 'BinomialLogisticBayes.R')
+source(file = 'BinomialLogisticMCML.R')
 
 
 
