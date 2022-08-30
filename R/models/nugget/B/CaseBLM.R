@@ -1,4 +1,4 @@
-# Title     : blm.R
+# Title     : CaseBLM.R
 # Objective : Binomial Logistic MCML
 # Created by: greyhypotheses
 # Created on: 02/08/2022
