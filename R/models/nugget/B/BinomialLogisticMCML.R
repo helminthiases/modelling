@@ -16,7 +16,7 @@
 BinomialLogisticMCML <- function (data, terms, variables) {
 
 
-  source(file = 'R/models/single/free/InitialParameterSettings.R')
+  source(file = 'InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings; nugget excluded
