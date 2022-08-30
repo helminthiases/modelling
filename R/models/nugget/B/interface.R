@@ -10,8 +10,8 @@ source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/models/single/free/BinomialLogisticBayes.R')
-source(file = 'R/models/single/free/BinomialLogisticMCML.R')
+source(file = '../../nugget/B/BinomialLogisticBayes.R')
+source(file = '../../nugget/B/BinomialLogisticMCML.R')
 
 
 
