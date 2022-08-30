@@ -1,4 +1,4 @@
-# Title     : blb.R
+# Title     : CaseBLB.R
 # Objective : Binomial Logistic Bayes
 # Created by: greyhypotheses
 # Created on: 02/08/2022
