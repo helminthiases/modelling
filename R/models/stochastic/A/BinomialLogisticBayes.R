@@ -12,11 +12,12 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-BinomialLogisticBayes <- function (data, terms, variables) {
+BinomialLogisticBayes <- function (data, terms, variables, kappa = 0.5) {
 
 
-  source(file = 'R/models/single/stochastic/InitialParameterSettings.R')
+  source(file = 'R/models/stochastic/InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings
@@ -65,7 +66,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
     data = data,
     control.prior = control.prior.settings,
     control.mcmc = control.mcmc.settings,
-    kappa = 0.5)
+    kappa = kappa)
 
   return(list(model = model, initial = initial))
 
