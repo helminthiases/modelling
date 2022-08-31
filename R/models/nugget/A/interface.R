@@ -10,10 +10,10 @@ source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/models/single/nugget/BinomialLogisticBayes.R')
-source(file = 'R/models/single/nugget/BinomialLogisticMCML.R')
-source(file = 'R/models/single/nugget/CaseBLB.R')
-source(file = 'R/models/single/nugget/CaseBLM.R')
+source(file = '../../nugget/A/BinomialLogisticBayes.R')
+source(file = '../../nugget/A/BinomialLogisticMCML.R')
+source(file = '../../nugget/A/CaseBLB.R')
+source(file = '../../nugget/A/CaseBLM.R')
 
 
 # Setting-up
