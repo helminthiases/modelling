@@ -12,11 +12,12 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-BinomialLogisticBayes <- function (data, terms, variables) {
+BinomialLogisticBayes <- function (data, terms, variables, kappa = 0.5) {
 
 
-  source(file = '../../single/nugget/InitialParameterSettings.R')
+  source(file = 'R/models/nugget/B/InitialParameterSettings.R')
 
 
   # Initial settings
@@ -41,7 +42,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
 
   # Control settings for the MCMC algorithm used for Bayesian inference
   # base::rep(x = 0, times = length(coefficients))
-  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 8000, burnin = 2000, thin = 8,
+  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 5000, burnin = 2000, thin = 8,
                                               epsilon.S.lim = c(0.01, 0.05), L.S.lim = c(4, 16),
                                               start.beta = coefficients,
                                               start.sigma2 = parameters['sigma^2'],
@@ -54,7 +55,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
   # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
   # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = positive ~ piped_sewer + I(piped_sewer^2) + elevation.km,
+    formula = positive ~ piped_sewer + log(p_density.k) + elevation.km,
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,
