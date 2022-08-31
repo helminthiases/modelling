@@ -8,7 +8,7 @@
 #' Graphs of features; excluding WASH variables.
 #'
 #' @param data: The data
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DisaggregatePopulation <- function (data, pathstr) {
 
@@ -110,7 +110,11 @@ AggregatePopulation <- function (data) {
 
 #' Population
 #'
-MapPopulation <- function (data, pathstr, year = 2015) {
+#' @param data: The data
+#' @param pathstr: Storage path
+#' @param year: The population density data of which year?
+#'
+MapPopulation <- function (data, pathstr, year) {
 
   source(file = 'R/functions/GeographicObject.R')
 
