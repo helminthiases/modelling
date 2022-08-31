@@ -12,14 +12,15 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-BinomialLogisticBayes <- function (data, terms, variables) {
+BinomialLogisticBayes <- function (data, terms, variables, kappa = 0.5) {
 
 
-  source(file = 'InitialParameterSettings.R')
+  source(file = 'R/models/nugget/B/InitialParameterSettings.R')
 
 
-  # Initial parameters, and priors, settings
+  # Initial settings
   initial <- InitialParameterSettings(data = data, terms = terms, variables = variables)
   parameters <- initial$parameters
   priors <- initial$priors
@@ -36,16 +37,17 @@ BinomialLogisticBayes <- function (data, terms, variables) {
                                           beta.covar = diag(base::rep(x = 1, times = length(coefficients))),
                                           log.normal.sigma2 = as.vector(priors['log(sigma^2)', ]),
                                           log.normal.phi = as.vector(priors['log(phi)', ]),
-                                          log.normal.nugget = NULL)
+                                          log.normal.nugget = as.vector(priors['log(tau^2)', ]))
 
 
   # Control settings for the MCMC algorithm used for Bayesian inference
-  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 8000, burnin = 2000, thin = 8,
+  # base::rep(x = 0, times = length(coefficients))
+  control.mcmc.settings <- control.mcmc.Bayes(n.sim = 5000, burnin = 2000, thin = 8,
                                               epsilon.S.lim = c(0.01, 0.05), L.S.lim = c(4, 16),
                                               start.beta = coefficients,
                                               start.sigma2 = parameters['sigma^2'],
                                               start.phi = parameters['phi'],
-                                              start.nugget = NULL,
+                                              start.nugget = parameters['tau^2'],
                                               start.S = S)
 
 
@@ -53,7 +55,7 @@ BinomialLogisticBayes <- function (data, terms, variables) {
   # Note, binomial.logistic.Bayes(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.Bayes(.)
   # step is upcoming, use an explicitly written formula.
   model <- binomial.logistic.Bayes(
-    formula = positive ~ piped_sewer + I(piped_sewer^2) + elevation.km,
+    formula = positive ~ piped_sewer + log(p_density.k) + elevation.km,
     units.m = ~examined,
     coords = ~I(x / 1000) + I(y / 1000),
     data = data,
