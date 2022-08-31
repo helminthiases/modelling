@@ -7,7 +7,7 @@
 #' Graphs of features; excluding WASH variables.
 #'
 #' @param data: The data
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DisaggregateElevation <- function (data, pathstr) {
 
@@ -115,8 +115,9 @@ AggregateElevation <- function (data) {
 #'
 #' @param country: A country's name, e.g., 'Togo'
 #' @param ISO3: The country's ISO 3166 Alpha 3 code - 'TGO'
+#' @param pathstr: Storage path
 #'
-MapElevation <- function (country, ISO3) {
+MapElevation <- function (country, ISO3, pathstr) {
 
   data(world)
   frame <- world[world$name_long == country, ]
