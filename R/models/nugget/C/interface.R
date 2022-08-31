@@ -18,6 +18,7 @@ source(file = 'R/models/nugget/C/CaseBLM.R')
 
 
 # Setting-up
+option <- 'C'
 terms <- 'poly(piped_sewer, 2) + elevation.km'
 notes <- list(strings = c('(Intercept)', 'poly(piped_sewer, 2)1', 'poly(piped_sewer, 2)2', 'elevation.km'),
               labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
@@ -72,7 +73,7 @@ initial$settings
 
 # ... mcml
 mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', 'B')
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
 .directory(pathstr = pathstr)
 CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
@@ -87,6 +88,6 @@ initial$settings
 
 # ... bayes
 bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
-pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', 'B')
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
 .directory(pathstr = pathstr)
 CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
