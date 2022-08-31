@@ -17,7 +17,7 @@
 BinomialLogisticBayes <- function (data, terms, variables, kappa = 0.5) {
 
 
-  source(file = 'R/models/single/nugget/InitialParameterSettings.R')
+  source(file = '../../single/nugget/InitialParameterSettings.R')
 
 
   # Initial settings
