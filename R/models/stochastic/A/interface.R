@@ -10,7 +10,7 @@ source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = 'R/models/single/stochastic/BinomialLogisticBayes.R')
+source(file = '../../stochastic/A/BinomialLogisticBayes.R')
 
 
 # a data set
