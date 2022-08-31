@@ -19,7 +19,9 @@ pathstr <- file.path(getwd(), 'warehouse', 'reference')
 
 
 # A data set: The project will focus on TG, and briefly explore MW.
+country <- 'Togo'
 ISO2 <- 'TG'
+ISO3 <- 'TGO'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 frame$EL <- {(frame$positive + 0.5) / (frame$examined - frame$positive + 0.5)} %>%
