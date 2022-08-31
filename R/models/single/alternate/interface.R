@@ -1,4 +1,4 @@
-# Title     : alternate.R
+# Title     : interface.R
 # Objective : Alternate
 # Created by: greyhypotheses
 # Created on: 05/08/2022
