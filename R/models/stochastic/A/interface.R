@@ -11,7 +11,7 @@ source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/stochastic/A/BinomialLogisticBayes.R')
-source(file = 'R/models/stochastic/A/CaseBLB.R')
+source(file = 'R/models/CaseBLB.R')
 
 
 
