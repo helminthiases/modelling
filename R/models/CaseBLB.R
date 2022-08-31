@@ -7,11 +7,11 @@
 
 CaseBLB <- function (bayes, training, testing, pathstr, notes) {
 
-  source(file = 'EvaluationMetrics.R')
-  source(file = 'EvaluationGraphs.R')
-  source(file = 'EvaluationVariogram.R')
-  source(file = 'CoefficientsEstimates.R')
-  source(file = '../functions/ErrorMetrics.R')
+  source(file = 'R/models/EvaluationMetrics.R')
+  source(file = 'R/models/EvaluationGraphs.R')
+  source(file = 'R/models/EvaluationVariogram.R')
+  source(file = 'R/models/CoefficientsEstimates.R')
+  source(file = 'R/functions/ErrorMetrics.R')
 
 
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
