@@ -8,7 +8,7 @@
 #' Prevalence Distributions: Density Graphs
 #'
 #' @param data: The modelling data set
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DensityDistributions <- function (data, pathstr) {
 
@@ -39,7 +39,7 @@ DensityDistributions <- function (data, pathstr) {
 #' Prevalence Distributions: Map
 #'
 #' @param data: The modelling data set
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 MapDistributions <- function (data, pathstr) {
 
