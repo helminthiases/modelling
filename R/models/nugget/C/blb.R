@@ -5,11 +5,11 @@
 
 
 
-source(file = 'R/models/EvaluationMetrics.R')
-source(file = 'R/models/EvaluationGraphs.R')
-source(file = 'R/models/EvaluationVariogram.R')
-source(file = 'R/models/CoefficientsEstimates.R')
-source(file = 'R/functions/ErrorMetrics.R')
+source(file = '../../EvaluationMetrics.R')
+source(file = '../../EvaluationGraphs.R')
+source(file = '../../EvaluationVariogram.R')
+source(file = '../../CoefficientsEstimates.R')
+source(file = '../../../functions/ErrorMetrics.R')
 
 
 
