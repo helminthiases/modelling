@@ -8,7 +8,7 @@
 #' Graphs of features; excluding WASH variables.
 #'
 #' @param data: The data
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DisaggregatePopulation <- function (data, pathstr) {
 
@@ -106,3 +106,42 @@ AggregatePopulation <- function (data) {
   print(graph)
 
 }
+
+
+#' Population
+#'
+#' @param data: The data
+#' @param pathstr: Storage path
+#' @param year: The population density data of which year?
+#'
+MapPopulation <- function (data, pathstr, year) {
+
+  source(file = 'R/functions/GeographicObject.R')
+
+  data <- data %>% dplyr::filter(year == year)
+  instances <- GeographicObject(data = data)
+
+  diagram <- tm_shape(instances) +
+    tm_layout(main.title = NULL, frame = FALSE, inner.margins = c(0.04, 0.02, 0.04, 0.02),
+              outer.margins = c(0.02, 0.02, 0.02, 0.02), main.title.size = 0.95,
+              main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
+              legend.outside = TRUE, legend.position = c('left', 'center'),
+              legend.title.color = 1.25, legend.width = -1, legend.height = 2, legend.text.size = 0.95) +
+    tm_bubbles(size = 'p_density.k',
+               alpha = 0.65,
+               col = 'p_density.k',
+               border.col = 'white',
+               border.alpha = 0,
+               breaks = c(0, 1, 2, 4, 6, 8, 10),
+               palette = paletteer::paletteer_c(palette = 'ggthemes::Green-Gold', n = 35),
+               legend.shape.show = FALSE, legend.size.show = FALSE,
+               title.col = 'Population Density, 2015\n(thousand per sq. km)')
+  print(diagram)
+
+  tmap::tmap_save(diagram, dpi = 95, width = 625, height = 650, units = 'px',
+                  filename = file.path(pathstr, 'mapPopulation.pdf'))
+
+}
+
+
+

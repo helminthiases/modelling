@@ -19,7 +19,7 @@ Activate <- function () {
     if (x == 'rmarkdown') {library(tinytex)}
   }
   lapply(packages[!(packages %in% c('tidyverse', 'healthcareai', 'equatiomatic', 'data.table',
-                                    'terra', 'raster', 'spData'))], .activate)
+                                    'terra', 'raster'))], .activate)
 
   # Special Case
   if ('tidyverse' %in% packages) {

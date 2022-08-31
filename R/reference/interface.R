@@ -19,7 +19,9 @@ pathstr <- file.path(getwd(), 'warehouse', 'reference')
 
 
 # A data set: The project will focus on TG, and briefly explore MW.
+country <- 'Togo'
 ISO2 <- 'TG'
+ISO3 <- 'TGO'
 infection <- 'hk'
 frame <- StudyData(ISO2 = ISO2, infection = infection)
 frame$EL <- {(frame$positive + 0.5) / (frame$examined - frame$positive + 0.5)} %>%
@@ -60,8 +62,10 @@ DisaggregateWater(data = frame)
 
 AggregateElevation(data = frame)
 DisaggregateElevation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+MapElevation(country = country, ISO3 = ISO3, pathstr = file.path(pathstr, 'extraneous'))
 
 AggregatePopulation(data = frame)
 DisaggregatePopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+MapPopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'), year = 2015)
 
 

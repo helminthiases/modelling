@@ -7,7 +7,7 @@
 #' Graphs of features; excluding WASH variables.
 #'
 #' @param data: The data
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DisaggregateElevation <- function (data, pathstr) {
 
@@ -107,5 +107,38 @@ AggregateElevation <- function (data) {
     xlab(label = '\nln(elevation <kilometres>)\n') +
     ylab(label = '\nempirical logit (prevalence)\n')
   print(graph)
+
+}
+
+
+#' Elevation
+#'
+#' @param country: A country's name, e.g., 'Togo'
+#' @param ISO3: The country's ISO 3166 Alpha 3 code - 'TGO'
+#' @param pathstr: Storage path
+#'
+MapElevation <- function (country, ISO3, pathstr) {
+
+  data(world)
+  frame <- world[world$name_long == country, ]
+  frame <- sf::st_union(frame)
+  rm(world)
+
+  # elevations
+  elevations <- geodata::elevation_30s(country = ISO3, path = tempdir())
+
+  # elevations within boundary
+  terrain <- terra::mask(elevations, terra::vect(frame))
+
+  diagram <- tm_shape(terrain) +
+    tm_layout(main.title = NULL, frame = FALSE, inner.margins = c(0.01, 0.01, 0.01, 0.01),
+              outer.margins = c(0.01, 0.01, 0.01, 0.01),
+              legend.outside = TRUE, legend.position = c('left', 'center'), legend.outside.size = 0.35,
+              legend.title.size = 1.25, legend.height = 4, legend.text.size = 0.95) +
+    tm_raster(title = 'Elevation (metres)', midpoint = NA, alpha = 0.60, palette = viridisLite::cividis(n = 11, direction = -1))
+  print(diagram)
+
+  tmap::tmap_save(diagram, dpi = 95, width = 625, height = 650, units = 'px',
+                  filename = file.path(pathstr, 'mapElevation.pdf'))
 
 }

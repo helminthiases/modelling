@@ -8,7 +8,7 @@
 #' The Graphs of the Sewer Access Categories
 #'
 #' @param data: The data
-#' @param pathstr:
+#' @param pathstr: Storage path
 #'
 DisaggregateSewer <- function (data, pathstr) {
 
