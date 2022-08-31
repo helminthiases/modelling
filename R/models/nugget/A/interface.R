@@ -10,28 +10,18 @@ source(file = 'R/data/StudyData.R')
 source(file = 'R/functions/GeographicObject.R')
 source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
-source(file = '../../nugget/A/BinomialLogisticBayes.R')
-source(file = '../../nugget/A/BinomialLogisticMCML.R')
-source(file = '../../nugget/A/CaseBLB.R')
-source(file = '../../nugget/A/CaseBLM.R')
+source(file = 'R/models/nugget/A/BinomialLogisticBayes.R')
+source(file = 'R/models/nugget/A/BinomialLogisticMCML.R')
+source(file = 'R/models/nugget/A/CaseBLB.R')
+source(file = 'R/models/nugget/A/CaseBLM.R')
 
 
 # Setting-up
-options <- c('A', 'B', 'C')
-
-cases <- list(A = 'piped_sewer + I(piped_sewer^2) + elevation.km',
-              B = 'piped_sewer + log(p_density.k) + elevation.km',
-              C = 'poly(piped_sewer, 2) + elevation.km')
-
-features <- list(A = list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
-                          labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
-                          parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
-                 B = list(strings = c('(Intercept)', 'piped_sewer', 'log(p_density.k)', 'elevation.km'),
-                          labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'log(p\\underline{\\hspace{0.125cm}}density.k)', 'elevation.km'),
-                          parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')),
-                 C = list(strings = c('(Intercept)', 'poly(piped_sewer, 2)1', 'poly(piped_sewer, 2)2', 'elevation.km'),
-                          labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
-                          parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$')))
+option <- 'A'
+terms <- 'piped_sewer + I(piped_sewer^2) + elevation.km'
+notes <- list(strings = c('(Intercept)', 'piped_sewer', 'I(piped_sewer^2)', 'elevation.km'),
+              labels = c('1', 'piped\\underline{\\hspace{0.125cm}}sewer', 'I(piped\\underline{\\hspace{0.125cm}}sewer$^{2}$)', 'elevation.km'),
+              parameters = c('$\\beta_{0}$', '$\\beta_{1}$', '$\\beta_{2}$', '$\\beta_{3}$'))
 
 
 # ... a function for preparing directories
@@ -73,46 +63,28 @@ variables <- list(identifier = 'identifier', tests = 'examined', positives = 'po
 
 
 # MCML
-for (option in options){
 
-  # Diagnostics
-  terms <- cases[[option]]
-  initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
-  summary(initial$model)
-  initial$settings
+# ... diagnostics
+initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
+summary(initial$model)
+initial$settings
 
-  # Labels, stings, etc
-  notes <- features[[option]]
-
-  # ... mcml
-  mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
-
-  # ... mcml
-  pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
-  .directory(pathstr = pathstr)
-  CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
-
-}
+# ... mcml
+mcml <- BinomialLogisticMCML(data = training, terms = terms, variables = variables, kappa = 0.5)
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blm', option)
+.directory(pathstr = pathstr)
+CaseBLM(mcml = mcml, training = training, testing = testing, pathstr = pathstr, notes = notes)
 
 
 # Bayes
-for (option in options) {
 
-  # Diagnostics
-  terms <- cases[[option]]
-  initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
-  summary(initial$model)
-  initial$settings
+# ... diagnostics
+initial <- InitialEstimates(data = training, terms = terms, variables = variables, kappa = 0.5)
+summary(initial$model)
+initial$settings
 
-  # Labels, stings, etc
-  notes <- features[[option]]
-
-  # ... bayes
-  bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
-
-  # ... bayes
-  pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
-  .directory(pathstr = pathstr)
-  CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
-
-}
+# ... bayes
+bayes <- BinomialLogisticBayes(data = training, terms = terms, variables = variables, kappa = 0.5)
+pathstr <- file.path(getwd(), 'warehouse', 'models', 'nugget', 'blb', option)
+.directory(pathstr = pathstr)
+CaseBLB(bayes = bayes, training = training, testing = testing, pathstr = pathstr, notes = notes)
