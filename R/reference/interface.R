@@ -62,8 +62,10 @@ DisaggregateWater(data = frame)
 
 AggregateElevation(data = frame)
 DisaggregateElevation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+MapElevation(country = country, ISO3 = ISO3, pathstr = file.path(pathstr, 'extraneous'))
 
 AggregatePopulation(data = frame)
 DisaggregatePopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'))
+MapPopulation(data = frame, pathstr = file.path(pathstr, 'extraneous'), year = 2015)
 
 
