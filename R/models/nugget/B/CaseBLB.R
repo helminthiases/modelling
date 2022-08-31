@@ -7,7 +7,6 @@
 
 CaseBLB <- function (bayes, training, testing, pathstr, notes) {
 
-
   source(file = 'R/models/EvaluationMetrics.R')
   source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/models/EvaluationVariogram.R')
