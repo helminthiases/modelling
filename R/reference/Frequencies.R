@@ -6,6 +6,7 @@
 
 #'
 #' @param data: The modelling data data frame, it must include the field <year>
+#' @param pathstr: Storage path
 #'
 TimeFrequencies <- function (data, pathstr) {
 
