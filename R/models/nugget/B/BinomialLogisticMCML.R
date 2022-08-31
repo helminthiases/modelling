@@ -12,11 +12,12 @@
 #' @param variables: A list that identifies the names of the fields
 #'                      list(identifier = ..., tests = ..., positives = ...)
 #'                   in <data>.
+#' @param kappa: The smoothness parameter of the Matérn function
 #'
-BinomialLogisticMCML <- function (data, terms, variables) {
+BinomialLogisticMCML <- function (data, terms, variables, kappa = 0.5) {
 
 
-  source(file = 'InitialParameterSettings.R')
+  source(file = 'R/models/nugget/B/InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings; nugget excluded
@@ -31,16 +32,16 @@ BinomialLogisticMCML <- function (data, terms, variables) {
   # Model
   # Note, binomial.logistic.MCML(.) does not evaluate as.formula(.).  Hence, if a spatial.pred.binomial.MCML(.)
   # step is upcoming, use an explicitly written formula.
-  for (i in seq(from = 1, to = 5)) {
-    model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + I(piped_sewer^2) + elevation.km,
+  for (i in seq(from = 1, to = 4)) {
+    model <- binomial.logistic.MCML(formula = positive ~ piped_sewer + log(p_density.k) + elevation.km,
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
                                     par0 = parameters,
                                     control.mcmc = settings,
-                                    kappa = 0.5,
-                                    start.cov.pars = parameters['phi'],
-                                    fixed.rel.nugget = 0,
+                                    kappa = kappa,
+                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
+                                    fixed.rel.nugget = NULL,
                                     method = 'nlminb')
     parameters <- coef(model)
   }
