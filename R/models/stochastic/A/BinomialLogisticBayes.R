@@ -16,7 +16,7 @@
 BinomialLogisticBayes <- function (data, terms, variables) {
 
 
-  source(file = 'R/models/single/stochastic/InitialParameterSettings.R')
+  source(file = '../../single/stochastic/InitialParameterSettings.R')
 
 
   # Initial parameters, and priors, settings
