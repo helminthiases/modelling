@@ -18,7 +18,7 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
 
 
   # Functions
-  source(file = '../../../diagnostics/InitialEstimates.R')
+  source(file = 'R/diagnostics/InitialEstimates.R')
 
 
   # Initial coefficient & variance/scale parameter values
@@ -36,7 +36,6 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
                                     units.m = ~examined,
                                     coords = ~I(x / 1000) + I(y / 1000),
                                     data = data,
-                                    times = ~year,
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = kappa,
@@ -54,4 +53,3 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
   return(list(parameters = parameters, priors = priors, model = model))
 
 }
-
