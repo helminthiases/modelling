@@ -54,4 +54,3 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
   return(list(parameters = parameters, priors = priors, model = model))
 
 }
-
