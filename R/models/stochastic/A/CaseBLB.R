@@ -7,7 +7,6 @@
 
 CaseBLB <- function (bayes, training, testing, pathstr, notes) {
 
-
   source(file = 'R/models/EvaluationMetrics.R')
   source(file = 'R/models/EvaluationGraphs.R')
   source(file = 'R/models/EvaluationVariogram.R')
@@ -15,11 +14,9 @@ CaseBLB <- function (bayes, training, testing, pathstr, notes) {
   source(file = 'R/functions/ErrorMetrics.R')
 
 
-
   # Valuations (vis-à-vis training points) & Predictions (vis-à-vis testing points)
   valuations <- EvaluationMetricsBLB(model = bayes$model, data = training, type = 'marginal')
   predictions <- EvaluationMetricsBLB(model = bayes$model, data = testing, type = 'marginal')
-
 
 
   # Illustrating Accuracy: Diagonals
