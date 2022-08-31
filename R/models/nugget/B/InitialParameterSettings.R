@@ -18,7 +18,7 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
 
 
   # Functions
-  source(file = '../../../diagnostics/InitialEstimates.R')
+  source(file = 'R/diagnostics/InitialEstimates.R')
 
 
   # Initial coefficient & variance/scale parameter values
@@ -30,7 +30,7 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
 
 
   # Much more plausible initial parameter values
-  parameters <- initial$settings[!(names(initial$settings) %in% 'tau^2')]
+  parameters <- initial$settings
   for (i in seq(from = 1, to = 2)) {
     model <- binomial.logistic.MCML(formula = as.formula(paste0('positive ~ ', terms)),
                                     units.m = ~examined,
@@ -39,8 +39,8 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
                                     par0 = parameters,
                                     control.mcmc = settings,
                                     kappa = kappa,
-                                    start.cov.pars = parameters['phi'],
-                                    fixed.rel.nugget = 0,
+                                    start.cov.pars = c(parameters['phi'], parameters['tau^2']/parameters['sigma^2']),
+                                    fixed.rel.nugget = NULL,
                                     method = 'nlminb')
     parameters <- coef(model)
   }
