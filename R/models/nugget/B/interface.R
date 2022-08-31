@@ -12,8 +12,8 @@ source(file = 'R/functions/SpatialSplitting.R')
 source(file = 'R/diagnostics/InitialEstimates.R')
 source(file = 'R/models/nugget/B/BinomialLogisticBayes.R')
 source(file = 'R/models/nugget/B/BinomialLogisticMCML.R')
-source(file = 'R/models/nugget/B/CaseBLB.R')
-source(file = 'R/models/nugget/B/CaseBLM.R')
+source(file = 'R/models/CaseBLB.R')
+source(file = 'R/models/CaseBLM.R')
 
 
 
