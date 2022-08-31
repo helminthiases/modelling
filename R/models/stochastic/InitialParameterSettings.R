@@ -18,7 +18,7 @@ InitialParameterSettings <- function (data, terms, variables, kappa = 0.5) {
 
 
   # Functions
-  source(file = 'R/diagnostics/InitialEstimates.R')
+  source(file = '../../diagnostics/InitialEstimates.R')
 
 
   # Initial coefficient & variance/scale parameter values
