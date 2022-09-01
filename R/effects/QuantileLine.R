@@ -6,7 +6,7 @@
 
 QuantileLine <- function (model) {
 
-  effects <- ranef(object = model)
+  effects <- lme4::ranef(object = model)
 
   intercepts <- data.frame(intercept = effects$identifier[, '(Intercept)'])
 
@@ -14,12 +14,11 @@ QuantileLine <- function (model) {
     stat_qq() +
     stat_qq_line() +
     theme_minimal() +
-    theme(plot.title = element_text(hjust = 0.5),
-          panel.spacing = unit(x = 3, units = 'line'),
-          panel.grid.minor = element_blank(),
-          panel.grid.major = element_line(size = 0.05)) +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size = 0.05),
+          axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11),
+          axis.text.x = element_text(size = 10), axis.text.y = element_text(size = 10)) +
     xlab(label = '\nTheoretical Quantiles\n') +
-    ylab(label = '\nSample Quantiles\n') +
-    ggtitle(label = 'Sites')
+    ylab(label = '\nSample Quantiles\n')
 
 }

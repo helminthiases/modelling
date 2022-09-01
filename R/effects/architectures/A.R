@@ -10,6 +10,7 @@ A <- function (data, variables, pathstr) {
   source(file = 'R/diagnostics/InitialDiagnostics.R')
   source(file = 'R/functions/SpatialExcerpt.R')
   source(file = 'R/functions/ConfidenceInterval.R')
+  source(file = 'R/effects/QuantileLine.R')
 
 
   # Data segment, and preventing ill-conditioning
@@ -85,6 +86,8 @@ A <- function (data, variables, pathstr) {
   model <- Estimates(data = data, expression = string, variables = variables)
   fixed_ <- .fixed(model = model)
   random_ <- .random(model = model)
+  randomgraph_ <- QuantileLine(model = model)
+  print(randomgraph_)
 
 
   # diagnostics
@@ -96,7 +99,8 @@ A <- function (data, variables, pathstr) {
 
 
   # save
-  estimations <- list(fixed = fixed_, random = random_, LSE = LSE)
+  estimations <- list(fixed = fixed_, random = random_, randomgraph_ = randomgraph_,
+                       LSE = LSE, model = model)
   saveRDS(object = estimations, file = file.path(pathstr, 'estimations.rds'))
   ggsave(filename = file.path(pathstr, 'variogram.pdf'),
          plot = graph, height = 310, width = 390, units = 'px', dpi = 95, scale = 1)
