@@ -126,14 +126,14 @@ MapPopulation <- function (data, pathstr, year) {
               outer.margins = c(0.02, 0.02, 0.02, 0.02), main.title.size = 0.95,
               main.title.color = 'black', main.title.fontface = 'bold', main.title.position = 'center',
               legend.outside = TRUE, legend.position = c('left', 'center'),
-              legend.title.color = 1.25, legend.width = -1, legend.height = 2, legend.text.size = 0.95) +
+              legend.title.color = 1.35, legend.height = 4, legend.text.size = 0.95) +
     tm_bubbles(size = 'p_density.k',
                alpha = 0.65,
                col = 'p_density.k',
                border.col = 'white',
                border.alpha = 0,
                breaks = c(0, 1, 2, 4, 6, 8, 10),
-               palette = paletteer::paletteer_c(palette = 'ggthemes::Green-Gold', n = 35),
+               palette = paletteer::paletteer_c(palette = 'ggthemes::Green-Gold', n = 35, direction = -1),
                legend.shape.show = FALSE, legend.size.show = FALSE,
                title.col = 'Population Density, 2015\n(thousand per sq. km)')
   print(diagram)
