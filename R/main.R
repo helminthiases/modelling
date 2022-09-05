@@ -28,6 +28,8 @@ files <- lapply(X = files, FUN = function (x) unlist(base::strsplit(x = x, split
   unlist()
 URL <- lapply(X = files, FUN = function (x) paste0('https://raw.githubusercontent.com/helminthiases/modelling/master', x)) %>%
   unlist()
+URL <- URL[!endsWith(URL, suffix = 'data.csv')]
+
 
 # ... saving the <url> list of modelling results
 utils::write.table(x = data.frame(path = URL), file = file.path(getwd(), 'warehouse', 'data.csv'),
