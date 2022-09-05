@@ -25,7 +25,7 @@ source(file = 'R/models/nugget/B/interface.R')
 
 
 # The <url> list of the modelling results
-list.files(path = file.path(getwd(), 'warehouse'), full.names = TRUE, recursive = TRUE, pattern = '*.*')
+files <- list.files(path = file.path(getwd(), 'warehouse'), full.names = TRUE, recursive = TRUE, pattern = '*.*')
 files <- lapply(X = files, FUN = function (x) unlist(base::strsplit(x = x, split = 'modelling'))[2]) %>%
   unlist()
 URL <- lapply(X = files, FUN = function (x) paste0('https://raw.githubusercontent.com/helminthiases/modelling/master/', x)) %>%
