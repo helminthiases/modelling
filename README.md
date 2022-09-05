@@ -1,10 +1,6 @@
 <br>
 
-The Prevalence of Geohelminths Infections
-
-<br>
-
-[comment]: <> (<img src="./warehouse/images/prevalence/map.png" style="text-align: center; margin-left: 150px;  width: 35%;">)
+Investigating risk factors of geohelminths infections prevalence.
 
 <br>
 <br>
