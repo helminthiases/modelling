@@ -4,7 +4,11 @@
 # Created on: 31/07/2022
 
 
-
+#' Empirical Variogram Graph
+#'
+#' @param points: Empirical variogram points
+#' @param limit: Empirical variogram distance limits
+#'
 SpatialEvaluationGraphs <- function (points, limit) {
 
   # Graph
@@ -30,6 +34,12 @@ SpatialEvaluationGraphs <- function (points, limit) {
 }
 
 
+#' Evaluation Diagonals: Training & Testing
+#'
+#' @description original prevalence vs. estimated prevalence
+#'
+#' @param training: The training data evaluation measures
+#' @param testing: The testing data evaluation measures
 DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
 
   estimates <- rbind(
@@ -58,6 +68,7 @@ DoubleDiagonalEvaluationGraphs <- function (training_, testing_) {
 }
 
 
+#' Evaluation Diagonal: Single data set
 #'
 #' @param data_: A list that has the set-up
 #'                  list(prevalence = , prediction = )

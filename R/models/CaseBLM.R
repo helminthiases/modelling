@@ -4,6 +4,20 @@
 # Created on: 16/08/2022
 
 
+
+#' Evaluating Binomial Logistic Bayes Models
+#'
+#' @param mcml: An object of class <PrevMap>
+#' @param training: The training data segment
+#' @param testing: The testing data segment
+#' @param pathstr: The storage path
+#' @param notes: list(strings = ..., labels = ..., parameters = ...) for the table of a model's
+#'               coefficient estimates
+#'
+#'               ... strings: The fixed terms of the <PrevMap> object, e.g. (Intercept)
+#'               ... labels: The concurrent text forms for <strings>, e.g., I(x^2) -> $x^{2}$
+#'               ... parameters: The concurrent coefficient estimate terms, i.e., '$\\beta_{0}$', etc.
+#'
 CaseBLM <- function (mcml, training, testing, pathstr, notes) {
 
 
