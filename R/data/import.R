@@ -10,7 +10,7 @@ storage <- file.path(getwd(), 'data')
 
 # directories
 if (dir.exists(paths = storage)) {
-  base::unlink(path, recursive = TRUE)
+  base::unlink(storage, recursive = TRUE)
 }
 dir.create(path = storage, showWarnings = TRUE, recursive = TRUE)
 
@@ -21,7 +21,7 @@ URL <- T$path
 names <- lapply(X = URL, FUN = function (x) basename(path = x)) %>% unlist()
 
 
-# Unload fuction
+# Unload function
 temporary <- function (url, name, storage) {
   httr::GET(url = url,
             httr::write_disk(path = file.path(storage, name), overwrite = TRUE),

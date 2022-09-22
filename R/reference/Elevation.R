@@ -122,7 +122,6 @@ MapElevation <- function (country, ISO3, pathstr) {
   data(world)
   frame <- world[world$name_long == country, ]
   frame <- sf::st_union(frame)
-  rm(world)
 
   # elevations
   elevations <- geodata::elevation_30s(country = ISO3, path = tempdir())
